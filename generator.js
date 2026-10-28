@@ -554,14 +554,16 @@ export function generateDungeon({ startX = 5200, startZ = 2600, seed = null, num
                                     } else if (r < 0.25) {
                                         ent_type = choice(['rock1', 'rock2', 'skull', 'QUARTZ', 'cdoorclosedchest', 'block01', 'block02']);
                                         let st = 0;
+                                        let item_rot = d_rot;
                                         if (ent_type === 'cdoorclosedchest') {
                                             st = level < 2 ? choice([0, 1]) : choice([0, 1, 2]);
+                                            item_rot = choice([0, 90, 180, 270]);
                                         }
                                         let adjust = 10.0;
                                         if (ent_type === 'block01' || ent_type === 'block02') {
                                             adjust = -11.0;
                                         }
-                                        entities.push({ 'type': ent_type, 'name': '0', 'x': wx_item, 'y': Oy + adjust, 'z': wz_item, 'rot': d_rot, 'id': entity_id_idx, 'state': st });
+                                        entities.push({ 'type': ent_type, 'name': '0', 'x': wx_item, 'y': Oy + adjust, 'z': wz_item, 'rot': item_rot, 'id': entity_id_idx, 'state': st });
                                     } else if (r < 0.28) {
                                         ent_type = 'armour';
                                         entities.push({ 'type': ent_type, 'name': '-1', 'x': wx_item, 'y': Oy + 60.0, 'z': wz_item, 'rot': d_rot, 'id': entity_id_idx, 'state': 0 });
