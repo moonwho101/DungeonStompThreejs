@@ -7,7 +7,7 @@ import {
     scene, camera, controls, hudEl, flashScreen, FLASH_RED, FLASH_GREEN, FLASH_PICKUP_XP,
     getSharedMaterial, applyNormalMap, registerLamp, clearLamps, disposeOwnedResources,
     emitParticle, createPickupFloatingText, createPickupParticleBurst, createTreasureDropEffect,
-    createBloodSplatter, clearBlood,
+    createBloodSplatter, clearBlood, ASSETS_DIR, getTextureCandidates,
     acquireDynamicLight, releaseDynamicLight, EXPLOSION_FLASH_INTENSITY,
     explosionFlashes, haloTexture
 } from './render.js';
@@ -25,6 +25,58 @@ export const modelListParser = new ModelListParser();
 const md2Loader = new MD2Loader();
 const tdsModelCache = new Map();
 const md2GeometryCache = new Map();
+
+// TDSLoader requests exactly the texture file name stored in the .3ds (often .bmp or .dds).
+// This subclass instead tries .jpg, then .png in Assets/.
+const MAT_MAPNAME = 0xA300;
+const MAT_MAP_USCALE = 0xA354;
+const MAT_MAP_VSCALE = 0xA356;
+const MAT_MAP_UOFFSET = 0xA358;
+const MAT_MAP_VOFFSET = 0xA35A;
+
+class FallbackTDSLoader extends TDSLoader {
+    readMap(chunk, path) {
+        let next = chunk.readChunk();
+        let texture = new THREE.Texture();
+        const imageLoader = new THREE.ImageLoader(this.manager);
+        imageLoader.setCrossOrigin(this.crossOrigin);
+        const base = this.resourcePath || path;
+
+        while (next) {
+            if (next.id === MAT_MAPNAME) {
+                texture = this.loadTextureWithFallback(imageLoader, base, next.readString());
+            } else if (next.id === MAT_MAP_UOFFSET) {
+                texture.offset.x = next.readFloat();
+            } else if (next.id === MAT_MAP_VOFFSET) {
+                texture.offset.y = next.readFloat();
+            } else if (next.id === MAT_MAP_USCALE) {
+                texture.repeat.x = next.readFloat();
+            } else if (next.id === MAT_MAP_VSCALE) {
+                texture.repeat.y = next.readFloat();
+            }
+            next = chunk.readChunk();
+        }
+        return texture;
+    }
+
+    loadTextureWithFallback(imageLoader, base, name) {
+        const urls = getTextureCandidates(name);
+
+        const texture = new THREE.Texture();
+        const tryLoad = (i) => {
+            if (i >= urls.length) {
+                console.warn(`3DS texture not found: ${name} (.jpg/.png in ${ASSETS_DIR})`);
+                return;
+            }
+            imageLoader.load(urls[i], (image) => {
+                texture.image = image;
+                texture.needsUpdate = true;
+            }, undefined, () => tryLoad(i + 1));
+        };
+        tryLoad(0);
+        return texture;
+    }
+}
 
 // Monster Animation Definitions
 export const MD2_ANIMATIONS = Object.freeze({
@@ -1891,43 +1943,18 @@ export async function dropTreasure(position, forceDrop = false) {
 // 3DS / MD2 Models Loading & Path Utilities
 export function generatePathVariations(filepath) {
     if (!filepath) return [];
-    let clean = filepath.replace(/\\/g, '/');
-    while (clean.startsWith('../') || clean.startsWith('./')) {
-        clean = clean.substring(clean.indexOf('/') + 1);
-    }
-    if (clean.toLowerCase().startsWith('models/')) {
-        clean = clean.substring(7);
-    }
-
-    const parts = clean.split('/');
-    if (parts.length < 3) {
-        return [
-            `Models/${clean}`,
-            `Models/${clean.toLowerCase()}`,
-            `Models/${clean.toUpperCase()}`
-        ];
-    }
-
-    const d1 = parts[0];
-    const d2 = parts[1];
-    const file = parts[2];
-
-    const d2Cap = d2.charAt(0).toUpperCase() + d2.slice(1).toLowerCase();
-
+    const file = filepath.replace(/\\/g, '/').split('/').pop();
     const dotIdx = file.lastIndexOf('.');
     const base = dotIdx !== -1 ? file.substring(0, dotIdx) : file;
     const ext = dotIdx !== -1 ? file.substring(dotIdx) : '';
 
+    // Assets/ is flat; try the name as written, then extension-case variants
     const paths = [
-        `Models/${clean}`,
-        `Models/Players/${d2Cap}/${base.toLowerCase()}${ext.toLowerCase()}`,
-        `Models/Players/${d2Cap}/${base.toLowerCase()}${ext.toUpperCase()}`,
-        `Models/Players/${d2.toLowerCase()}/${base.toLowerCase()}${ext.toLowerCase()}`,
-        `Models/Players/${d2.toLowerCase()}/${base.toLowerCase()}${ext.toUpperCase()}`,
-        `Models/Players/${d2.toLowerCase()}/${base}${ext}`,
-        `Models/3ds/${d2Cap}/${base.toLowerCase()}${ext.toLowerCase()}`,
-        `Models/3ds/${d2.toLowerCase()}/${base.toLowerCase()}${ext.toLowerCase()}`,
-        `Models/Players/MagicUser/WEAPONsorcerer.MD2`
+        `${ASSETS_DIR}${file}`,
+        `${ASSETS_DIR}${base}${ext.toLowerCase()}`,
+        `${ASSETS_DIR}${base}${ext.toUpperCase()}`,
+        `${ASSETS_DIR}${file.toLowerCase()}`,
+        `${ASSETS_DIR}${base.toLowerCase()}${ext.toUpperCase()}`
     ];
 
     return [...new Set(paths)];
@@ -1970,7 +1997,7 @@ export async function loadMD2Geometry(modelDef) {
     }
 
     const loadPromise = (async () => {
-        const uniquePaths = generatePathVariations(modelDef.filepath);
+        const uniquePaths = [...generatePathVariations(modelDef.filepath), `${ASSETS_DIR}WEAPONsorcerer.MD2`];
 
         for (const path of uniquePaths) {
             try {
@@ -2038,22 +2065,14 @@ export async function load3DSModel(modelDef) {
     }
 
     const loadPromise = (async () => {
-        const possiblePaths = [
-            modelDef.filepath,
-            modelDef.filepath.toLowerCase(),
-            modelDef.filepath.replace(/^models\//i, 'Models/').replace(/\.3ds$/i, '.3DS'),
-            modelDef.filepath.replace(/^textures\//i, 'Textures/').replace(/\.3ds$/i, '.3DS'),
-            modelDef.filepath.replace(/^models\//i, 'Models/').replace(/\.3ds$/i, '.3ds'),
-            modelDef.filepath.replace(/^textures\//i, 'Textures/').replace(/\.3ds$/i, '.3ds')
-        ];
-        const uniquePaths = [...new Set(possiblePaths)];
+        const uniquePaths = generatePathVariations(modelDef.filepath);
 
         for (const path of uniquePaths) {
             try {
                 const lastSlash = path.lastIndexOf('/');
                 const dir = lastSlash !== -1 ? path.substring(0, lastSlash + 1) : '';
 
-                const tdsLoader = new TDSLoader();
+                const tdsLoader = new FallbackTDSLoader();
                 tdsLoader.setResourcePath(dir);
 
                 const object3ds = await new Promise((resolve, reject) => {
