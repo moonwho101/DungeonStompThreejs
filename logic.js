@@ -797,7 +797,7 @@ export const playerStats = {
     maxHealth: 100,
     level: 1,
     xp: 0,
-    nextXp: 100,
+    nextXp: 500,
     kills: 0
 };
 
