@@ -4,9 +4,7 @@ Pass 1: every .dds gets a sibling .jpg (high quality) if one doesn't exist.
         Any .bmp without a .jpg or .png sibling is converted too, so that
         deleting it in pass 2 cannot lose the only copy of a texture.
 Pass 2: delete every .dds and .bmp whose conversion succeeded / is covered.
-        .jpg and .png files are never touched, and neither are .bmp files
-        inside any directory named "3ds" (at any depth); those are not
-        converted either.
+        .jpg and .png files are never touched.
 
 Usage:  python tools/convert_textures.py [--dry-run] [--quality 95]
 Requires: pip install pillow
@@ -21,22 +19,14 @@ ROOT = Path(__file__).resolve().parent.parent
 DIRS = ("Textures", "Models")
 
 
-def in_3ds_dir(path):
-    return any(part.lower() == "3ds" for part in path.relative_to(ROOT).parent.parts)
-
-
 def iter_files(*exts):
     for d in DIRS:
         base = ROOT / d
         if not base.is_dir():
             continue
         for p in base.rglob("*"):
-            if not p.is_file() or p.suffix.lower() not in exts:
-                continue
-            # .bmp files anywhere under a "3ds" directory are left untouched
-            if p.suffix.lower() == ".bmp" and in_3ds_dir(p):
-                continue
-            yield p
+            if p.is_file() and p.suffix.lower() in exts:
+                yield p
 
 
 def has_sibling(path, *exts):

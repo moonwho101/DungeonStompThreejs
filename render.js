@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { DDSLoader } from 'three/addons/loaders/DDSLoader.js';
 import { TextureManager } from './parsers.js';
 
 export let scene, camera, renderer, controls;
@@ -113,8 +112,16 @@ export function flashScreen(background, opacity, holdMs) {
 
 // Texture & Material Management
 export const textureManager = new TextureManager();
-const ddsLoader = new DDSLoader();
 const textureLoader = new THREE.TextureLoader();
+
+// Texture lookup order: .jpg, then .png
+const TEXTURE_EXTENSIONS = ['jpg', 'png'];
+
+// `pathOrStem` may include any extension (e.g. "wall.dds"), which is replaced by each candidate extension
+export function getTextureCandidates(pathOrStem, prefix = 'Textures/') {
+    const stem = pathOrStem.replace(/\.[^./]+$/, '');
+    return TEXTURE_EXTENSIONS.map((ext) => `${prefix}${stem}.${ext}`);
+}
 
 export const textureCache = new Map();
 export const normalMapCache = new Map();
@@ -160,18 +167,9 @@ export function getTexture(texAlias, onLoadCallback) {
     const texPath = textureManager.getTexturePath(texAlias);
     const possiblePaths = new Set();
     if (texPath) {
-        if (/\.dds$/i.test(texPath)) {
-            const stem = texPath.replace(/\.dds$/i, '');
-            possiblePaths.add(`Textures/${stem}.jpg`);
-            possiblePaths.add(`Textures/${stem}.png`);
-            possiblePaths.add(`Textures/${stem}.bmp`);
-        }
-        possiblePaths.add(`Textures/${texPath}`);
+        getTextureCandidates(texPath).forEach((p) => possiblePaths.add(p));
     }
-    possiblePaths.add(`Textures/${texAlias}.jpg`);
-    possiblePaths.add(`Textures/${texAlias}.png`);
-    possiblePaths.add(`Textures/${texAlias}.bmp`);
-    possiblePaths.add(`Textures/${texAlias}.dds`);
+    getTextureCandidates(texAlias).forEach((p) => possiblePaths.add(p));
 
     loadTextureFromPaths([...possiblePaths], (loadedTex) => {
         cacheEntry.loadedTex = loadedTex;
@@ -188,20 +186,12 @@ export function getTexture(texAlias, onLoadCallback) {
 
 export function loadTextureFromPaths(paths, onLoad, index = 0) {
     if (index >= paths.length) return;
-    const path = paths[index];
-    const isDds = path.toLowerCase().endsWith('.dds');
-    const loader = isDds ? ddsLoader : textureLoader;
-
-    loader.load(
-        path,
+    textureLoader.load(
+        paths[index],
         (loadedTex) => {
             loadedTex.wrapS = THREE.RepeatWrapping;
             loadedTex.wrapT = THREE.RepeatWrapping;
             loadedTex.anisotropy = maxAnisotropy;
-            if (isDds && !loadedTex.flipY) {
-                loadedTex.repeat.y = -1;
-                loadedTex.offset.y = 1;
-            }
             onLoad(loadedTex);
         },
         undefined,
@@ -225,10 +215,7 @@ export function getNormalMap(texAlias, onLoadCallback) {
     normalMapCache.set(nmAlias, cacheEntry);
 
     const texPath = textureManager.getTexturePath(nmAlias);
-    const base = `Textures/${texPath.replace(/\.[^./]+$/, '')}`;
-    const paths = [...new Set([`Textures/${texPath}`, `${base}.png`, `${base}.jpg`, `${base}.bmp`])];
-
-    loadTextureFromPaths(paths, (loadedTex) => {
+    loadTextureFromPaths(getTextureCandidates(texPath),  (loadedTex) => {
         loadedTex.colorSpace = THREE.NoColorSpace;
         cacheEntry.loadedTex = loadedTex;
         cacheEntry.isLoading = false;
