@@ -211,9 +211,23 @@ function sample(arr, k, rng) {
     return copy.slice(0, Math.min(k, copy.length));
 }
 
+const MIN_SPIRAL_START_DISTANCE = 500;
+const MAX_GENERATION_ATTEMPTS = 50;
+
+// Regenerates until the dungeon is "good": at least half the requested tiles
+// placed and the exit spiral not within 500 units of the start position.
 export function generateDungeon({ startX = 5200, startZ = 2600, seed = null, numObjectsToPlace = 350 } = {}) {
     const rng = createRng(seed);
 
+    for (let attempt = 1; attempt <= MAX_GENERATION_ATTEMPTS; attempt++) {
+        const isLast = attempt === MAX_GENERATION_ATTEMPTS;
+        const result = generateDungeonAttempt({ startX, startZ, numObjectsToPlace, rng, strict: !isLast });
+        if (result !== null) return result;
+        console.log(`Dungeon quality check failed (attempt ${attempt}/${MAX_GENERATION_ATTEMPTS}); regenerating...`);
+    }
+}
+
+function generateDungeonAttempt({ startX, startZ, numObjectsToPlace, rng, strict }) {
     const randint = (a, b) => Math.floor(rng() * (b - a + 1)) + a;
     const choice = (arr) => arr[Math.floor(rng() * arr.length)];
     const uniform = (a, b) => a + rng() * (b - a);
@@ -742,6 +756,18 @@ export function generateDungeon({ startX = 5200, startZ = 2600, seed = null, num
             'rot': 0, 'name': '-1', 'id': entity_id_idx, 'state': 2
         });
         entity_id_idx++;
+    }
+
+    if (strict) {
+        if (placed.length < numObjectsToPlace / 2) {
+            console.log(`  Rejected: only ${placed.length} tiles placed (expected at least ${numObjectsToPlace / 2}).`);
+            return null;
+        }
+        const spiral = entities.find(e => e.type === 'spiral');
+        if (spiral && Math.hypot(spiral.x - startX, spiral.z - startZ) < MIN_SPIRAL_START_DISTANCE) {
+            console.log(`  Rejected: spiral is within ${MIN_SPIRAL_START_DISTANCE} units of startpos.`);
+            return null;
+        }
     }
 
     const lines = [];
