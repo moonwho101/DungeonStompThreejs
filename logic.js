@@ -2204,9 +2204,19 @@ export async function loadGameWorld(textureManager, overrideMapText = null) {
 
     let mapText = overrideMapText;
     if (!mapText) {
+        // A saved map from a previous session may be stale, so starting over regenerates it.
+        let hasSavedMap = false;
         try {
-            mapText = localStorage.getItem('generatedLevel1Map');
+            hasSavedMap = !!localStorage.getItem('generatedLevel1Map');
         } catch (e) {}
+        if (hasSavedMap) {
+            mapText = generateDungeon();
+            try {
+                localStorage.setItem('generatedLevel1Map', mapText);
+            } catch (e) {
+                console.warn('Could not write to localStorage:', e);
+            }
+        }
     }
 
     const [, objectsMap] = await Promise.all([
