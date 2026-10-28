@@ -118,10 +118,29 @@ const textureLoader = new THREE.TextureLoader();
 export const ASSETS_DIR = 'Assets/';
 const TEXTURE_EXTENSIONS = ['jpg', 'png'];
 
+// Case-insensitive index of Assets/ (lowercase name -> real file name). Windows ignores filename
+// case but web servers such as GitHub Pages don't. Regenerate with tools/generate_asset_index.py.
+const assetIndex = new Map();
+try {
+    const resp = await fetch(`${ASSETS_DIR}index.json`);
+    if (resp.ok) {
+        for (const name of await resp.json()) assetIndex.set(name.toLowerCase(), name);
+    }
+} catch (e) {
+    console.warn('Assets/index.json not available; using file names as written.', e);
+}
+
+// Returns the Assets/ URL for `fileName` with its real casing, or null if the index says it doesn't exist
+export function resolveAssetPath(fileName) {
+    if (assetIndex.size === 0) return `${ASSETS_DIR}${fileName}`;
+    const real = assetIndex.get(fileName.toLowerCase());
+    return real ? `${ASSETS_DIR}${real}` : null;
+}
+
 // `pathOrStem` may include directories and any extension (e.g. "wall.dds"); only the file stem is used
 export function getTextureCandidates(pathOrStem) {
     const stem = pathOrStem.replace(/\\/g, '/').split('/').pop().replace(/\.[^.]+$/, '');
-    return TEXTURE_EXTENSIONS.map((ext) => `${ASSETS_DIR}${stem}.${ext}`);
+    return TEXTURE_EXTENSIONS.map((ext) => resolveAssetPath(`${stem}.${ext}`)).filter(Boolean);
 }
 
 export const textureCache = new Map();

@@ -7,7 +7,7 @@ import {
     scene, camera, controls, hudEl, flashScreen, FLASH_RED, FLASH_GREEN, FLASH_PICKUP_XP,
     getSharedMaterial, applyNormalMap, registerLamp, clearLamps, disposeOwnedResources,
     emitParticle, createPickupFloatingText, createPickupParticleBurst, createTreasureDropEffect,
-    createBloodSplatter, clearBlood, ASSETS_DIR, getTextureCandidates,
+    createBloodSplatter, clearBlood, ASSETS_DIR, getTextureCandidates, resolveAssetPath,
     acquireDynamicLight, releaseDynamicLight, EXPLOSION_FLASH_INTENSITY,
     explosionFlashes, haloTexture
 } from './render.js';
@@ -1948,7 +1948,10 @@ export function generatePathVariations(filepath) {
     const base = dotIdx !== -1 ? file.substring(0, dotIdx) : file;
     const ext = dotIdx !== -1 ? file.substring(dotIdx) : '';
 
-    // Assets/ is flat; try the name as written, then extension-case variants
+    const resolved = resolveAssetPath(file);
+    if (resolved) return [resolved];
+
+    // Index unavailable or file unknown: try the name as written, then case variants
     const paths = [
         `${ASSETS_DIR}${file}`,
         `${ASSETS_DIR}${base}${ext.toLowerCase()}`,
@@ -1997,7 +2000,7 @@ export async function loadMD2Geometry(modelDef) {
     }
 
     const loadPromise = (async () => {
-        const uniquePaths = [...generatePathVariations(modelDef.filepath), `${ASSETS_DIR}WEAPONsorcerer.MD2`];
+        const uniquePaths = [...new Set([...generatePathVariations(modelDef.filepath), ...generatePathVariations('WEAPONsorcerer.MD2')])];
 
         for (const path of uniquePaths) {
             try {
