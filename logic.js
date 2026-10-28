@@ -26,6 +26,65 @@ const md2Loader = new MD2Loader();
 const tdsModelCache = new Map();
 const md2GeometryCache = new Map();
 
+// TDSLoader requests exactly the texture file name stored in the .3ds (often .bmp or .dds).
+// This subclass instead tries .jpg, then .png (lower then upper-case extension) in the model's folder, then in Textures/.
+const MAT_MAPNAME = 0xA300;
+const MAT_MAP_USCALE = 0xA354;
+const MAT_MAP_VSCALE = 0xA356;
+const MAT_MAP_UOFFSET = 0xA358;
+const MAT_MAP_VOFFSET = 0xA35A;
+
+class FallbackTDSLoader extends TDSLoader {
+    readMap(chunk, path) {
+        let next = chunk.readChunk();
+        let texture = new THREE.Texture();
+        const imageLoader = new THREE.ImageLoader(this.manager);
+        imageLoader.setCrossOrigin(this.crossOrigin);
+        const base = this.resourcePath || path;
+
+        while (next) {
+            if (next.id === MAT_MAPNAME) {
+                texture = this.loadTextureWithFallback(imageLoader, base, next.readString());
+            } else if (next.id === MAT_MAP_UOFFSET) {
+                texture.offset.x = next.readFloat();
+            } else if (next.id === MAT_MAP_VOFFSET) {
+                texture.offset.y = next.readFloat();
+            } else if (next.id === MAT_MAP_USCALE) {
+                texture.repeat.x = next.readFloat();
+            } else if (next.id === MAT_MAP_VSCALE) {
+                texture.repeat.y = next.readFloat();
+            }
+            next = chunk.readChunk();
+        }
+        return texture;
+    }
+
+    loadTextureWithFallback(imageLoader, base, name) {
+        const stem = name.replace(/\.[^./\\]+$/, '');
+        const urls = [];
+        // Model folder first, then the shared Textures folder
+        for (const dir of [base, 'Textures/']) {
+            for (const ext of ['jpg', 'png']) {
+                urls.push(`${dir}${stem}.${ext}`, `${dir}${stem}.${ext.toUpperCase()}`);
+            }
+        }
+
+        const texture = new THREE.Texture();
+        const tryLoad = (i) => {
+            if (i >= urls.length) {
+                console.warn(`3DS texture not found: ${base}${stem} (.jpg/.png)`);
+                return;
+            }
+            imageLoader.load(urls[i], (image) => {
+                texture.image = image;
+                texture.needsUpdate = true;
+            }, undefined, () => tryLoad(i + 1));
+        };
+        tryLoad(0);
+        return texture;
+    }
+}
+
 // Monster Animation Definitions
 export const MD2_ANIMATIONS = Object.freeze({
     STAND:  { name: 'STAND',  start: 0,   end: 39,  fps: 9,  loop: true },
@@ -2053,7 +2112,7 @@ export async function load3DSModel(modelDef) {
                 const lastSlash = path.lastIndexOf('/');
                 const dir = lastSlash !== -1 ? path.substring(0, lastSlash + 1) : '';
 
-                const tdsLoader = new TDSLoader();
+                const tdsLoader = new FallbackTDSLoader();
                 tdsLoader.setResourcePath(dir);
 
                 const object3ds = await new Promise((resolve, reject) => {
