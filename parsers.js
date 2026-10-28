@@ -2,7 +2,7 @@
 
 export class TextureManager {
     constructor() {
-        this.aliases = new Map(); // alias_name -> relative path from Textures/
+        this.aliases = new Map(); // alias_name -> file name within Assets/
     }
 
     async loadTexturesDat(url) {
@@ -25,10 +25,10 @@ export class TextureManager {
                     currentTexPath = parts[1] || '';
                     // Clean path Windows separators and leading ..\
                     currentTexPath = currentTexPath.replace(/\\/g, '/');
-                    if (currentTexPath.toLowerCase().startsWith('../textures/')) {
-                        currentTexPath = currentTexPath.substring(12);
-                    } else if (currentTexPath.toLowerCase().startsWith('textures/')) {
-                        currentTexPath = currentTexPath.substring(9);
+                    if (currentTexPath.toLowerCase().startsWith('../assets/')) {
+                        currentTexPath = currentTexPath.substring(10);
+                    } else if (currentTexPath.toLowerCase().startsWith('assets/')) {
+                        currentTexPath = currentTexPath.substring(7);
                     }
                 } else if (parts[0] === 'Alias') {
                     // Alias <id> <alias_name> <blend> ...

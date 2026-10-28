@@ -1,1667 +1,1667 @@
-AddTexture  ..\textures\dice\die10r1.dds
+AddTexture  ..\textures\dice\die10r1.jpg
 Alias  1   die10r1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10r2.dds
+AddTexture  ..\textures\dice\die10r2.jpg
 Alias  2   die10r2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10r3.dds
+AddTexture  ..\textures\dice\die10r3.jpg
 Alias  3   die10r3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10r4.dds
+AddTexture  ..\textures\dice\die10r4.jpg
 Alias  4   die10r4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10r5.dds
+AddTexture  ..\textures\dice\die10r5.jpg
 Alias  5   die10r5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10s1.dds
+AddTexture  ..\textures\dice\die10s1.jpg
 Alias  6   die10s1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10s10.dds
+AddTexture  ..\textures\dice\die10s10.jpg
 Alias  7   die10s10           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10s2.dds
+AddTexture  ..\textures\dice\die10s2.jpg
 Alias  8   die10s2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10s3.dds
+AddTexture  ..\textures\dice\die10s3.jpg
 Alias  9   die10s3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10s4.dds
+AddTexture  ..\textures\dice\die10s4.jpg
 Alias  10   die10s4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10s5.dds
+AddTexture  ..\textures\dice\die10s5.jpg
 Alias  11   die10s5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10s6.dds
+AddTexture  ..\textures\dice\die10s6.jpg
 Alias  12   die10s6           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10s7.dds
+AddTexture  ..\textures\dice\die10s7.jpg
 Alias  13   die10s7           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10s8.dds
+AddTexture  ..\textures\dice\die10s8.jpg
 Alias  14   die10s8           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die10s9.dds
+AddTexture  ..\textures\dice\die10s9.jpg
 Alias  15   die10s9           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12r1.dds
+AddTexture  ..\textures\dice\die12r1.jpg
 Alias  16   die12r1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12r2.dds
+AddTexture  ..\textures\dice\die12r2.jpg
 Alias  17   die12r2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12r3.dds
+AddTexture  ..\textures\dice\die12r3.jpg
 Alias  18   die12r3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12r4.dds
+AddTexture  ..\textures\dice\die12r4.jpg
 Alias  19   die12r4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s1.dds
+AddTexture  ..\textures\dice\die12s1.jpg
 Alias  20   die12s1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s10.dds
+AddTexture  ..\textures\dice\die12s10.jpg
 Alias  21   die12s10           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s11.dds
+AddTexture  ..\textures\dice\die12s11.jpg
 Alias  22   die12s11           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s12.dds
+AddTexture  ..\textures\dice\die12s12.jpg
 Alias  23   die12s12           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s2.dds
+AddTexture  ..\textures\dice\die12s2.jpg
 Alias  24   die12s2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s3.dds
+AddTexture  ..\textures\dice\die12s3.jpg
 Alias  25   die12s3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s4.dds
+AddTexture  ..\textures\dice\die12s4.jpg
 Alias  26   die12s4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s5.dds
+AddTexture  ..\textures\dice\die12s5.jpg
 Alias  27   die12s5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s6.dds
+AddTexture  ..\textures\dice\die12s6.jpg
 Alias  28   die12s6           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s7.dds
+AddTexture  ..\textures\dice\die12s7.jpg
 Alias  29   die12s7           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s8.dds
+AddTexture  ..\textures\dice\die12s8.jpg
 Alias  30   die12s8           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die12s9.dds
+AddTexture  ..\textures\dice\die12s9.jpg
 Alias  31   die12s9           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20r1.dds
+AddTexture  ..\textures\dice\die20r1.jpg
 Alias  32   die20r1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20r2.dds
+AddTexture  ..\textures\dice\die20r2.jpg
 Alias  33   die20r2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20r3.dds
+AddTexture  ..\textures\dice\die20r3.jpg
 Alias  34   die20r3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20r4.dds
+AddTexture  ..\textures\dice\die20r4.jpg
 Alias  35   die20r4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20r5.dds
+AddTexture  ..\textures\dice\die20r5.jpg
 Alias  36   die20r5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s1.dds
+AddTexture  ..\textures\dice\die20s1.jpg
 Alias  37   die20s1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s10.dds
+AddTexture  ..\textures\dice\die20s10.jpg
 Alias  38   die20s10           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s11.dds
+AddTexture  ..\textures\dice\die20s11.jpg
 Alias  39   die20s11           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s12.dds
+AddTexture  ..\textures\dice\die20s12.jpg
 Alias  40   die20s12           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s13.dds
+AddTexture  ..\textures\dice\die20s13.jpg
 Alias  41   die20s13           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s14.dds
+AddTexture  ..\textures\dice\die20s14.jpg
 Alias  42   die20s14           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s15.dds
+AddTexture  ..\textures\dice\die20s15.jpg
 Alias  43   die20s15           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s16.dds
+AddTexture  ..\textures\dice\die20s16.jpg
 Alias  44   die20s16           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s17.dds
+AddTexture  ..\textures\dice\die20s17.jpg
 Alias  45   die20s17           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s18.dds
+AddTexture  ..\textures\dice\die20s18.jpg
 Alias  46   die20s18           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s19.dds
+AddTexture  ..\textures\dice\die20s19.jpg
 Alias  47   die20s19           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s2.dds
+AddTexture  ..\textures\dice\die20s2.jpg
 Alias  48   die20s2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s20.dds
+AddTexture  ..\textures\dice\die20s20.jpg
 Alias  49   die20s20           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s3.dds
+AddTexture  ..\textures\dice\die20s3.jpg
 Alias  50   die20s3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s4.dds
+AddTexture  ..\textures\dice\die20s4.jpg
 Alias  51   die20s4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s5.dds
+AddTexture  ..\textures\dice\die20s5.jpg
 Alias  52   die20s5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s6.dds
+AddTexture  ..\textures\dice\die20s6.jpg
 Alias  53   die20s6           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s7.dds
+AddTexture  ..\textures\dice\die20s7.jpg
 Alias  54   die20s7           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s8.dds
+AddTexture  ..\textures\dice\die20s8.jpg
 Alias  55   die20s8           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die20s9.dds
+AddTexture  ..\textures\dice\die20s9.jpg
 Alias  56   die20s9           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die4r1.dds
+AddTexture  ..\textures\dice\die4r1.jpg
 Alias  57   die4r1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die4r2.dds
+AddTexture  ..\textures\dice\die4r2.jpg
 Alias  58   die4r2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die4r3.dds
+AddTexture  ..\textures\dice\die4r3.jpg
 Alias  59   die4r3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die4s1.dds
+AddTexture  ..\textures\dice\die4s1.jpg
 Alias  60   die4s1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die4s2.dds
+AddTexture  ..\textures\dice\die4s2.jpg
 Alias  61   die4s2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die4s3.dds
+AddTexture  ..\textures\dice\die4s3.jpg
 Alias  62   die4s3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die4s4.dds
+AddTexture  ..\textures\dice\die4s4.jpg
 Alias  63   die4s4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die6r1.dds
+AddTexture  ..\textures\dice\die6r1.jpg
 Alias  64   die6r1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die6r2.dds
+AddTexture  ..\textures\dice\die6r2.jpg
 Alias  65   die6r2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die6r3.dds
+AddTexture  ..\textures\dice\die6r3.jpg
 Alias  66   die6r3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die6r4.dds
+AddTexture  ..\textures\dice\die6r4.jpg
 Alias  67   die6r4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die6s1.dds
+AddTexture  ..\textures\dice\die6s1.jpg
 Alias  68   die6s1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die6s2.dds
+AddTexture  ..\textures\dice\die6s2.jpg
 Alias  69   die6s2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die6s3.dds
+AddTexture  ..\textures\dice\die6s3.jpg
 Alias  70   die6s3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die6s4.dds
+AddTexture  ..\textures\dice\die6s4.jpg
 Alias  71   die6s4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die6s5.dds
+AddTexture  ..\textures\dice\die6s5.jpg
 Alias  72   die6s5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die6s6.dds
+AddTexture  ..\textures\dice\die6s6.jpg
 Alias  73   die6s6           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8r1.dds
+AddTexture  ..\textures\dice\die8r1.jpg
 Alias  74   die8r1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8r2.dds
+AddTexture  ..\textures\dice\die8r2.jpg
 Alias  75   die8r2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8r3.dds
+AddTexture  ..\textures\dice\die8r3.jpg
 Alias  76   die8r3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8r4.dds
+AddTexture  ..\textures\dice\die8r4.jpg
 Alias  77   die8r4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8r5.dds
+AddTexture  ..\textures\dice\die8r5.jpg
 Alias  78   die8r5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8s1.dds
+AddTexture  ..\textures\dice\die8s1.jpg
 Alias  79   die8s1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8s2.dds
+AddTexture  ..\textures\dice\die8s2.jpg
 Alias  80   die8s2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8s3.dds
+AddTexture  ..\textures\dice\die8s3.jpg
 Alias  81   die8s3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8s4.dds
+AddTexture  ..\textures\dice\die8s4.jpg
 Alias  82   die8s4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8s5.dds
+AddTexture  ..\textures\dice\die8s5.jpg
 Alias  83   die8s5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8s6.dds
+AddTexture  ..\textures\dice\die8s6.jpg
 Alias  84   die8s6           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8s7.dds
+AddTexture  ..\textures\dice\die8s7.jpg
 Alias  85   die8s7           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\die8s8.dds
+AddTexture  ..\textures\dice\die8s8.jpg
 Alias  86   die8s8           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\dieblank.dds
+AddTexture  ..\textures\dice\dieblank.jpg
 Alias  87   dieblank           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\dieFr1.dds
+AddTexture  ..\textures\dice\dieFr1.jpg
 Alias  88   dieFr1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\dieFr2.dds
+AddTexture  ..\textures\dice\dieFr2.jpg
 Alias  89   dieFr2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\dieFr3.dds
+AddTexture  ..\textures\dice\dieFr3.jpg
 Alias  90   dieFr3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\dieFr4.dds
+AddTexture  ..\textures\dice\dieFr4.jpg
 Alias  91   dieFr4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\dieFs-1.dds
+AddTexture  ..\textures\dice\dieFs-1.jpg
 Alias  92   dieFs-1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\dieFs0.dds
+AddTexture  ..\textures\dice\dieFs0.jpg
 Alias  93   dieFs0           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\dice\dieFs1.dds
+AddTexture  ..\textures\dice\dieFs1.jpg
 Alias  94   dieFs1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\flame1\flame@1.dds
+AddTexture  ..\textures\flame1\flame@1.jpg
 Alias  95   flame@1           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flame1\flame@2.dds
+AddTexture  ..\textures\flame1\flame@2.jpg
 Alias  96   flame@2           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flame1\flame@3.dds
+AddTexture  ..\textures\flame1\flame@3.jpg
 Alias  97   flame@3           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flame1\flame@4.dds
+AddTexture  ..\textures\flame1\flame@4.jpg
 Alias  98   flame@4           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flame1\flame@5.dds
+AddTexture  ..\textures\flame1\flame@5.jpg
 Alias  99   flame@5           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flame1\flame@6.dds
+AddTexture  ..\textures\flame1\flame@6.jpg
 Alias  100   flame@6           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flame1\flame@7.dds
+AddTexture  ..\textures\flame1\flame@7.jpg
 Alias  101   flame@7           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flame1\flame@8.dds
+AddTexture  ..\textures\flame1\flame@8.jpg
 Alias  102   flame@8           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\fonts\font.dds
+AddTexture  ..\textures\fonts\font.jpg
 Alias  103   font           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\fonts\fontA.dds
+AddTexture  ..\textures\fonts\fontA.jpg
 Alias  104   fontA           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\fonts\font_big.dds
+AddTexture  ..\textures\fonts\font_big.jpg
 Alias  105   font_big           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\fonts\font_med.dds
+AddTexture  ..\textures\fonts\font_med.jpg
 Alias  106   font_med           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\fonts\font_small.dds
+AddTexture  ..\textures\fonts\font_small.jpg
 Alias  107   font_small           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\monster\bauul.dds
+AddTexture  ..\textures\monster\bauul.jpg
 Alias  108   bauul           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\corpse.dds
+AddTexture  ..\textures\monster\corpse.jpg
 Alias  109   corpse           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\demoness.dds
+AddTexture  ..\textures\monster\demoness.jpg
 Alias  110   demoness           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\Faerie.dds
+AddTexture  ..\textures\monster\Faerie.jpg
 Alias  111   Faerie           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\goblin.dds
+AddTexture  ..\textures\monster\goblin.jpg
 Alias  112   goblin           OPAQUE  WHOLE  monsterflat
 
-AddTexture  ..\textures\monster\knight.dds
+AddTexture  ..\textures\monster\knight.jpg
 Alias  113   knight           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\ogre.dds
+AddTexture  ..\textures\monster\ogre.jpg
 Alias  114   ogre           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\ogro.dds
+AddTexture  ..\textures\monster\ogro.jpg
 Alias  115   ogro           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\phantom.dds
+AddTexture  ..\textures\monster\phantom.jpg
 Alias  116   phantom           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\phantomw.dds
+AddTexture  ..\textures\monster\phantomw.jpg
 Alias  117   phantomw           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\skeleton2.dds
+AddTexture  ..\textures\monster\skeleton2.jpg
 Alias  118   skeleton2           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\Sorcerer.dds
+AddTexture  ..\textures\monster\Sorcerer.jpg
 Alias  119   Sorcerer           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\tentacle.dds
+AddTexture  ..\textures\monster\tentacle.jpg
 Alias  120   tentacle           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\WEAPONwraith.dds
+AddTexture  ..\textures\monster\WEAPONwraith.jpg
 Alias  121   WEAPONwraith           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\textures\monster\wraith.dds
+AddTexture  ..\textures\monster\wraith.jpg
 Alias  122   wraith           AlphaTransparent  WHOLE  monster
 
-AddTexture  ..\textures\screen1\button1.dds
+AddTexture  ..\textures\screen1\button1.jpg
 Alias  123   button1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\button2.dds
+AddTexture  ..\textures\screen1\button2.jpg
 Alias  124   button2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\button3.dds
+AddTexture  ..\textures\screen1\button3.jpg
 Alias  125   button3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\dungeont.dds
+AddTexture  ..\textures\screen1\dungeont.jpg
 Alias  126   dungeont           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\treasure\coin.dds
+AddTexture  ..\textures\treasure\coin.jpg
 Alias  127   coin           OPAQUE  WHOLE  coin
 
-AddTexture  ..\textures\weapons\axe.dds
+AddTexture  ..\textures\weapons\axe.jpg
 Alias  128   axe           OPAQUE  WHOLE  playerweapon
 
-AddTexture  ..\textures\weapons\bastard_sword.dds
+AddTexture  ..\textures\weapons\bastard_sword.jpg
 Alias  129   bastard_sword           OPAQUE  WHOLE  playerweapon
 
-AddTexture  ..\textures\weapons\battleaxe.dds
+AddTexture  ..\textures\weapons\battleaxe.jpg
 Alias  130   battleaxe           OPAQUE  WHOLE  playerweapon
 
-AddTexture  ..\textures\weapons\flamesword.dds
+AddTexture  ..\textures\weapons\flamesword.jpg
 Alias  131   flamesword           OPAQUE  WHOLE  playerweapon
 
-AddTexture  ..\textures\weapons\icesword.dds
+AddTexture  ..\textures\weapons\icesword.jpg
 Alias  132   icesword           OPAQUE  WHOLE  playerweapon
 
-AddTexture  ..\textures\weapons\bluetile1.dds
+AddTexture  ..\textures\weapons\bluetile1.jpg
 Alias  133   bluetileback           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\weapons\lightning_sword.dds
+AddTexture  ..\textures\weapons\lightning_sword.jpg
 Alias  134   lightning_sword           OPAQUE  WHOLE  playerweapon
 
-AddTexture  ..\textures\weapons\morning_star.dds
+AddTexture  ..\textures\weapons\morning_star.jpg
 Alias  135   morning_star           OPAQUE  WHOLE  playerweapon
 
-AddTexture  ..\textures\weapons\spiked_flail.dds
+AddTexture  ..\textures\weapons\spiked_flail.jpg
 Alias  136   spiked_flail           OPAQUE  WHOLE  playerweapon
 
-AddTexture  ..\textures\weapons\split_sword.dds
+AddTexture  ..\textures\weapons\split_sword.jpg
 Alias  137   split_sword           OPAQUE  WHOLE  playerweapon
 
-AddTexture  ..\textures\weapons\super_flamesword.dds
+AddTexture  ..\textures\weapons\super_flamesword.jpg
 Alias  138   super_flamesword           OPAQUE  WHOLE  playerweapon
 
-AddTexture  ..\textures\weapons\weaponbauul.dds
+AddTexture  ..\textures\weapons\weaponbauul.jpg
 Alias  139   weaponbauul           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\textures\weapons\weapondemoness.dds
+AddTexture  ..\textures\weapons\weapondemoness.jpg
 Alias  140   weapondemoness           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\textures\weapons\weapongoblin.dds
+AddTexture  ..\textures\weapons\weapongoblin.jpg
 Alias  141   weapongoblin           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\textures\weapons\Weaponsorcerer.dds
+AddTexture  ..\textures\weapons\Weaponsorcerer.jpg
 Alias  142   Weaponsorcerer           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\textures\background.dds
+AddTexture  ..\textures\background.jpg
 Alias  143   background           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\bluetile1.dds
+AddTexture  ..\textures\bluetile1.jpg
 Alias  144   bluetile1           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\box.dds
+AddTexture  ..\textures\box.jpg
 Alias  145   box           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\brbrik3.dds
+AddTexture  ..\textures\brbrik3.jpg
 Alias  146   brbrik3           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\brelab.dds
+AddTexture  ..\textures\brelab.jpg
 Alias  147   brelab           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\brick.dds
+AddTexture  ..\textures\brick.jpg
 Alias  148   brick           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\brick4.dds
+AddTexture  ..\textures\brick4.jpg
 Alias  149   brick4           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\BRIKS.dds
+AddTexture  ..\textures\BRIKS.jpg
 Alias  150   BRIKS           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\building3.dds
+AddTexture  ..\textures\building3.jpg
 Alias  151   building3           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\ceiling.dds
+AddTexture  ..\textures\ceiling.jpg
 Alias  152   ceiling           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\chbrick4.dds
+AddTexture  ..\textures\chbrick4.jpg
 Alias  153   chbrick4           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\chbrick5.dds
+AddTexture  ..\textures\chbrick5.jpg
 Alias  154   chbrick5           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\checkfloor.dds
+AddTexture  ..\textures\checkfloor.jpg
 Alias  155   checkfloor           OPAQUE  WHOLE  crate
 
-AddTexture  ..\textures\chem1.dds
+AddTexture  ..\textures\chem1.jpg
 Alias  156   chem1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\cloud1.dds
+AddTexture  ..\textures\cloud1.jpg
 Alias  157   cloud1           AlphaTransparent  WHOLE  water
 
-AddTexture  ..\textures\coble10.dds
+AddTexture  ..\textures\coble10.jpg
 Alias  158   coble10           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\crdfloor1.dds
+AddTexture  ..\textures\crdfloor1.jpg
 Alias  159   crdfloor1           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\curb.dds
+AddTexture  ..\textures\curb.jpg
 Alias  160   curb           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\dimond.dds
+AddTexture  ..\textures\dimond.jpg
 Alias  161   dimond           OPAQUE  WHOLE  button
 
-AddTexture  ..\textures\door1.dds
+AddTexture  ..\textures\door1.jpg
 Alias  162   door1           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\dungeonp.dds
+AddTexture  ..\textures\dungeonp.jpg
 Alias  163   dungeonp           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\eye.dds
+AddTexture  ..\textures\eye.jpg
 Alias  164   eye           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\flrtile1.dds
+AddTexture  ..\textures\flrtile1.jpg
 Alias  165   flrtile1           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\Goldplai.dds
+AddTexture  ..\textures\Goldplai.jpg
 Alias  166   Goldplai           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\grass.dds
+AddTexture  ..\textures\grass.jpg
 Alias  167   grass           OPAQUE  WHOLE  grass
 
-AddTexture  ..\textures\grass1.dds
+AddTexture  ..\textures\grass1.jpg
 Alias  168   grass1           OPAQUE  WHOLE  grass
 
-AddTexture  ..\textures\grass2.dds
+AddTexture  ..\textures\grass2.jpg
 Alias  169   grass2           OPAQUE  WHOLE  grass
 
-AddTexture  ..\textures\hex2b.dds
+AddTexture  ..\textures\hex2b.jpg
 Alias  170   hex2b           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\ik_concr1.dds
+AddTexture  ..\textures\ik_concr1.jpg
 Alias  171   ik_concr1           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\magicbrick1.dds
+AddTexture  ..\textures\magicbrick1.jpg
 Alias  172   magicbrick1           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\magicceiling1.dds
+AddTexture  ..\textures\magicceiling1.jpg
 Alias  173   magicceiling1           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\magictile1.dds
+AddTexture  ..\textures\magictile1.jpg
 Alias  174   magictile1           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\mahog.dds
+AddTexture  ..\textures\mahog.jpg
 Alias  175   mahog           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\masphalt.dds
+AddTexture  ..\textures\masphalt.jpg
 Alias  176   masphalt           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\mossybri.dds
+AddTexture  ..\textures\mossybri.jpg
 Alias  177   mossybri           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\mtl10.dds
+AddTexture  ..\textures\mtl10.jpg
 Alias  178   mtl10           OPAQUE  WHOLE  torchholder
 
-AddTexture  ..\textures\pave1.dds
+AddTexture  ..\textures\pave1.jpg
 Alias  179   pave1           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\PECAN2.dds
+AddTexture  ..\textures\PECAN2.jpg
 Alias  180   PECAN2           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\planks1.dds
+AddTexture  ..\textures\planks1.jpg
 Alias  181   planks1           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\potion.dds
+AddTexture  ..\textures\potion.jpg
 Alias  182   potion           AlphaTransparent  WHOLE  glass
 
-AddTexture  ..\textures\redbrick.dds
+AddTexture  ..\textures\redbrick.jpg
 Alias  183   redbrick           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\redbrick1.dds
+AddTexture  ..\textures\redbrick1.jpg
 Alias  184   redbrick1           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\redtile1.dds
+AddTexture  ..\textures\redtile1.jpg
 Alias  185   redtile1           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\road1.dds
+AddTexture  ..\textures\road1.jpg
 Alias  186   road1           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\rock6a.dds
+AddTexture  ..\textures\rock6a.jpg
 Alias  187   rock6a           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\temple3.dds
+AddTexture  ..\textures\temple3.jpg
 Alias  188   temple3           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\tilez2.dds
+AddTexture  ..\textures\tilez2.jpg
 Alias  189   tilez2           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\wall1.dds
+AddTexture  ..\textures\wall1.jpg
 Alias  190   wall1           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\water15.dds
+AddTexture  ..\textures\water15.jpg
 Alias  191   water15           AlphaTransparent  WHOLE  water
 
-AddTexture  ..\textures\water9.dds
+AddTexture  ..\textures\water9.jpg
 Alias  192   water9           OPAQUE  WHOLE  water
 
-AddTexture  ..\textures\window.dds
+AddTexture  ..\textures\window.jpg
 Alias  193   window           OPAQUE  WHOLE  glass
 
-AddTexture  ..\textures\wood2.dds
+AddTexture  ..\textures\wood2.jpg
 Alias  194   wood2           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\woodfrnt.dds
+AddTexture  ..\textures\woodfrnt.jpg
 Alias  195   woodfrnt           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\woodlock.dds
+AddTexture  ..\textures\woodlock.jpg
 Alias  196   woodlock           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\woodside.dds
+AddTexture  ..\textures\woodside.jpg
 Alias  197   woodside           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\yellowbrick1.dds
+AddTexture  ..\textures\yellowbrick1.jpg
 Alias  198   yellowbrick1           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\yellowtile1.dds
+AddTexture  ..\textures\yellowtile1.jpg
 Alias  199   yellowtile1           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\zoo1.dds
+AddTexture  ..\textures\zoo1.jpg
 Alias  200   zoo1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\_lava1.dds
+AddTexture  ..\textures\_lava1.jpg
 Alias  201   _lava1           OPAQUE  WHOLE  glass
 
-AddTexture  ..\textures\monster\slave.dds
+AddTexture  ..\textures\monster\slave.jpg
 Alias  202   slave           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\wolf.dds
+AddTexture  ..\textures\monster\wolf.jpg
 Alias  203   wolf           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\screen1\button4.dds
+AddTexture  ..\textures\screen1\button4.jpg
 Alias  204   button4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\lightmap.dds
+AddTexture  ..\textures\lightmap.jpg
 Alias  205   lightmap@1           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare0.dds
+AddTexture  ..\textures\flare0.jpg
 Alias  206   flare@1           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare1.dds
+AddTexture  ..\textures\flare1.jpg
 Alias  207   flare@2           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare2.dds
+AddTexture  ..\textures\flare2.jpg
 Alias  208   flare@3           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare3.dds
+AddTexture  ..\textures\flare3.jpg
 Alias  209   flare@4           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare4.dds
+AddTexture  ..\textures\flare4.jpg
 Alias  210   flare@5           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\Models\3ds\logs\BarkDark.dds
+AddTexture  ..\Models\3ds\logs\BarkDark.jpg
 Alias  211   BarkDark           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\logs\Rings2.dds
+AddTexture  ..\Models\3ds\logs\Rings2.jpg
 Alias  212   Rings2           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\OrnateBox\metal20.dds
+AddTexture  ..\Models\3ds\OrnateBox\metal20.jpg
 Alias  213   metal20           OPAQUE  WHOLE  metal
 
-AddTexture  ..\Models\3ds\OrnateBox\chest2.dds
+AddTexture  ..\Models\3ds\OrnateBox\chest2.jpg
 Alias  214   chest2           OPAQUE  WHOLE  chestwood
 
-AddTexture  ..\Models\3ds\Goblet\goblet.dds
+AddTexture  ..\Models\3ds\Goblet\goblet.jpg
 Alias  215   GOBLET           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\Goblet\gobjwl.dds
+AddTexture  ..\Models\3ds\Goblet\gobjwl.jpg
 Alias  216   gobjwl           OPAQUE  WHOLE  metal
 
-AddTexture  ..\Models\3ds\bucket\bucket.dds
+AddTexture  ..\Models\3ds\bucket\bucket.jpg
 Alias  217   bucket           OPAQUE  WHOLE  glass
 
-AddTexture  ..\Models\3ds\bucket\oldmetal.dds
+AddTexture  ..\Models\3ds\bucket\oldmetal.jpg
 Alias  218   oldmetal           OPAQUE  WHOLE  metal
 
-AddTexture  ..\Models\3ds\blanket\blanket.dds
+AddTexture  ..\Models\3ds\blanket\blanket.jpg
 Alias  219   blanket           OPAQUE  WHOLE  default
 
-AddTexture  ..\Models\3ds\eat\ceramic1.dds
+AddTexture  ..\Models\3ds\eat\ceramic1.jpg
 Alias  220 ceramic1           OPAQUE  WHOLE  stone
 
-AddTexture  ..\Models\3ds\eat\woodbowl.dds
+AddTexture  ..\Models\3ds\eat\woodbowl.jpg
 Alias  221 woodbowl           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\eat\woodcup.dds
+AddTexture  ..\Models\3ds\eat\woodcup.jpg
 Alias  222 woodcup           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\trough\twood.dds
+AddTexture  ..\Models\3ds\trough\twood.jpg
 Alias  223 twood           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\broom\brmstrw.dds
+AddTexture  ..\Models\3ds\broom\brmstrw.jpg
 Alias  224 brmstrw           OPAQUE  WHOLE  default
 
-AddTexture  ..\Models\3ds\broom\brmh.dds
+AddTexture  ..\Models\3ds\broom\brmh.jpg
 Alias  225 brmh           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\crock\ceramic5.dds
+AddTexture  ..\Models\3ds\crock\ceramic5.jpg
 Alias  226 ceramic5           OPAQUE  WHOLE  ice
 
-AddTexture  ..\Models\3ds\crock\ceramic6.dds
+AddTexture  ..\Models\3ds\crock\ceramic6.jpg
 Alias  227 ceramic6           OPAQUE  WHOLE  bone
 
-AddTexture  ..\Models\3ds\bread\bread.dds
+AddTexture  ..\Models\3ds\bread\bread.jpg
 Alias  228 bread           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\bread\cheese.dds
+AddTexture  ..\Models\3ds\bread\cheese.jpg
 Alias  229 cheese           OPAQUE  WHOLE  ice
 
-AddTexture  ..\Models\3ds\basket1\weave4.dds
+AddTexture  ..\Models\3ds\basket1\weave4.jpg
 Alias  230 weave4           OPAQUE  WHOLE  default
 
-AddTexture  ..\Models\3ds\basket2\weave2.dds
+AddTexture  ..\Models\3ds\basket2\weave2.jpg
 Alias  231 weave2           OPAQUE  WHOLE  default
 
-AddTexture  ..\Models\3ds\metalbox\boxmetal.dds
+AddTexture  ..\Models\3ds\metalbox\boxmetal.jpg
 Alias  232 boxmetal           OPAQUE  WHOLE  chestmetal
 
-AddTexture  ..\Models\3ds\circle\ruins.dds
+AddTexture  ..\Models\3ds\circle\ruins.jpg
 Alias  233 ruins           OPAQUE  WHOLE  default
 
-AddTexture  ..\Models\3ds\circle\ruinstn.dds
+AddTexture  ..\Models\3ds\circle\ruinstn.jpg
 Alias  234 ruinstn           OPAQUE  WHOLE  stone
 
-AddTexture  ..\Models\3ds\banner\banner1.dds
+AddTexture  ..\Models\3ds\banner\banner1.jpg
 Alias  235 banner1           OPAQUE  WHOLE  default
 
-AddTexture  ..\Models\3ds\Stone\stones1.dds
+AddTexture  ..\Models\3ds\Stone\stones1.jpg
 Alias  236 stones1           OPAQUE  WHOLE  flat
 
-AddTexture  ..\Models\3ds\Stone\stones2.dds
+AddTexture  ..\Models\3ds\Stone\stones2.jpg
 Alias  237 stones2           OPAQUE  WHOLE  flat
 
-AddTexture  ..\Models\3ds\Stone\stones3.dds
+AddTexture  ..\Models\3ds\Stone\stones3.jpg
 Alias  238 stones3           OPAQUE  WHOLE  flat
 
-AddTexture  ..\textures\ruin1.dds
+AddTexture  ..\textures\ruin1.jpg
 Alias  239 ruin1           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\a.dds
+AddTexture  ..\textures\a.jpg
 Alias  240 ali           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\monster\insect.dds
+AddTexture  ..\textures\monster\insect.jpg
 Alias  241   insect           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\massm.dds
+AddTexture  ..\textures\monster\massm.jpg
 Alias  242   massm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\oluve.dds
+AddTexture  ..\textures\monster\oluve.jpg
 Alias  243   oluve           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\goblin2.dds
+AddTexture  ..\textures\monster\goblin2.jpg
 Alias  244   goblin2           OPAQUE  WHOLE  monsterflat
 
-AddTexture  ..\textures\monster\goblin3.dds
+AddTexture  ..\textures\monster\goblin3.jpg
 Alias  245   goblin3           OPAQUE  WHOLE  monsterflat
 
-AddTexture  ..\textures\monster\goblin4.dds
+AddTexture  ..\textures\monster\goblin4.jpg
 Alias  246   goblin4           OPAQUE  WHOLE  monsterflat
 
-AddTexture  ..\textures\monster\mummy.dds
+AddTexture  ..\textures\monster\mummy.jpg
 Alias  247   mummy           OPAQUE  WHOLE  monsterflat
 
-AddTexture  ..\textures\monster\weaponmummy.dds
+AddTexture  ..\textures\monster\weaponmummy.jpg
 Alias  248   weaponmummy           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\Models\3ds\bucket\bucketi.dds
+AddTexture  ..\Models\3ds\bucket\bucketi.jpg
 Alias  249   bucketi           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\screen1\buttoncopy.dds
+AddTexture  ..\textures\screen1\buttoncopy.jpg
 Alias  250   buttoncopy           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\monster\hydra.dds
+AddTexture  ..\textures\monster\hydra.jpg
 Alias  251   hydra           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\hydraweapon.dds
+AddTexture  ..\textures\monster\hydraweapon.jpg
 Alias  252   hydraweapon           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\textures\monster\imp.dds
+AddTexture  ..\textures\monster\imp.jpg
 Alias  253   imp           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\monster\necromancer.dds
+AddTexture  ..\textures\monster\necromancer.jpg
 Alias  254   necromancer           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\demon.dds
+AddTexture  ..\textures\monster\demon.jpg
 Alias  255   demon           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\cfloor.dds
+AddTexture  ..\textures\cfloor.jpg
 Alias  256   cfloor           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\monster\fulimo.dds
+AddTexture  ..\textures\monster\fulimo.jpg
 Alias  257   fulimo           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\doors\door2.dds
+AddTexture  ..\textures\doors\door2.jpg
 Alias  258   door2           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door3.dds
+AddTexture  ..\textures\doors\door3.jpg
 Alias  259   door3           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door4.dds
+AddTexture  ..\textures\doors\door4.jpg
 Alias  260   door4           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door5.dds
+AddTexture  ..\textures\doors\door5.jpg
 Alias  261   door5           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door6.dds
+AddTexture  ..\textures\doors\door6.jpg
 Alias  262   door6           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door7.dds
+AddTexture  ..\textures\doors\door7.jpg
 Alias  263   door7           OPAQUE  WHOLE  doormetal
 
-AddTexture  ..\textures\crate\crate1.dds
+AddTexture  ..\textures\crate\crate1.jpg
 Alias  264   crate1           OPAQUE  WHOLE  crate
 
-AddTexture  ..\textures\doors\door8.dds
+AddTexture  ..\textures\doors\door8.jpg
 Alias  265   door8           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door9.dds
+AddTexture  ..\textures\doors\door9.jpg
 Alias  266   door9           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door10.dds
+AddTexture  ..\textures\doors\door10.jpg
 Alias  267   door10           OPAQUE  WHOLE  doormetal
 
-AddTexture  ..\textures\doors\door11.dds
+AddTexture  ..\textures\doors\door11.jpg
 Alias  268   door11           OPAQUE  WHOLE  doormetal
 
-AddTexture  ..\textures\doors\door12.dds
+AddTexture  ..\textures\doors\door12.jpg
 Alias  269   door12           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door13.dds
+AddTexture  ..\textures\doors\door13.jpg
 Alias  270   door13           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door14.dds
+AddTexture  ..\textures\doors\door14.jpg
 Alias  271   door14           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door15.dds
+AddTexture  ..\textures\doors\door15.jpg
 Alias  272   door15           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door16.dds
+AddTexture  ..\textures\doors\door16.jpg
 Alias  273   door16           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door17.dds
+AddTexture  ..\textures\doors\door17.jpg
 Alias  274   door17           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door18.dds
+AddTexture  ..\textures\doors\door18.jpg
 Alias  275   door18           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door19.dds
+AddTexture  ..\textures\doors\door19.jpg
 Alias  276   door19           OPAQUE  WHOLE  doormetal
 
-AddTexture  ..\textures\doors\door20.dds
+AddTexture  ..\textures\doors\door20.jpg
 Alias  277   door20           OPAQUE  WHOLE  doorwood
 
-AddTexture  ..\textures\doors\door21.dds
+AddTexture  ..\textures\doors\door21.jpg
 Alias  278   door21           OPAQUE  WHOLE  doormetal
 
 
-AddTexture  ..\textures\flare\shine@1.dds
+AddTexture  ..\textures\flare\shine@1.jpg
 Alias  279   shine@1           AlphaTransparent  WHOLE  default
 
 
-AddTexture  ..\textures\flare\shine@2.dds
+AddTexture  ..\textures\flare\shine@2.jpg
 Alias  280   shine@2           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare\shine@3.dds
+AddTexture  ..\textures\flare\shine@3.jpg
 Alias  281   shine@3           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare\shine@4.dds
+AddTexture  ..\textures\flare\shine@4.jpg
 Alias  282   shine@4           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare\shine@5.dds
+AddTexture  ..\textures\flare\shine@5.jpg
 Alias  283   shine@5           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare\shine@6.dds
+AddTexture  ..\textures\flare\shine@6.jpg
 Alias  284   shine@6           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare\shine@7.dds
+AddTexture  ..\textures\flare\shine@7.jpg
 Alias  285   shine@7           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare\shine@8.dds
+AddTexture  ..\textures\flare\shine@8.jpg
 Alias  286   shine@8           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare\shine@9.dds
+AddTexture  ..\textures\flare\shine@9.jpg
 Alias  287  shine@9           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\flare\shine@10.dds
+AddTexture  ..\textures\flare\shine@10.jpg
 Alias  288   shine@10           AlphaTransparent  WHOLE  default
 
 
-AddTexture  ..\textures\explosion\explod@1.dds
+AddTexture  ..\textures\explosion\explod@1.jpg
 Alias  289   explod@1           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\explosion\explod@2.dds
+AddTexture  ..\textures\explosion\explod@2.jpg
 Alias  290   explod@2           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\explosion\explod@3.dds
+AddTexture  ..\textures\explosion\explod@3.jpg
 Alias  291   explod@3           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\explosion\explod@4.dds
+AddTexture  ..\textures\explosion\explod@4.jpg
 Alias  292   explod@4           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\explosion\explod@5.dds
+AddTexture  ..\textures\explosion\explod@5.jpg
 Alias  293   explod@5           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\explosion\explod@6.dds
+AddTexture  ..\textures\explosion\explod@6.jpg
 Alias  294   explod@6          AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\explosion\explod@7.dds
+AddTexture  ..\textures\explosion\explod@7.jpg
 Alias  295   explod@7           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\explosion\explod@8.dds
+AddTexture  ..\textures\explosion\explod@8.jpg
 Alias  296  explod@8           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\missle1.dds
+AddTexture  ..\textures\missle1.jpg
 Alias  297  missle1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\missle2.dds
+AddTexture  ..\textures\missle2.jpg
 Alias  298  missle2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\missle3.dds
+AddTexture  ..\textures\missle3.jpg
 Alias  299  missle3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\missle4.dds
+AddTexture  ..\textures\missle4.jpg
 Alias  300  missle4           OPAQUE  WHOLE  default
 
-AddTexture  ..\Models\3ds\scroll\scroll1.dds
+AddTexture  ..\Models\3ds\scroll\scroll1.jpg
 Alias  301   scroll1           OPAQUE  WHOLE  default
 
-AddTexture  ..\Models\3ds\scroll\scroll2.dds
+AddTexture  ..\Models\3ds\scroll\scroll2.jpg
 Alias  302   scroll2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\house1\housef.dds
+AddTexture  ..\textures\house1\housef.jpg
 Alias  303   housef           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\house1\houser.dds
+AddTexture  ..\textures\house1\houser.jpg
 Alias  304  houser           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\house1\houset.dds
+AddTexture  ..\textures\house1\houset.jpg
 Alias  305  houset           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\house1\housel.dds
+AddTexture  ..\textures\house1\housel.jpg
 Alias  306  housel           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\house2\h2back.dds
+AddTexture  ..\textures\house2\h2back.jpg
 Alias  307  h2back           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\house2\h2frt.dds
+AddTexture  ..\textures\house2\h2frt.jpg
 Alias  308  h2frt           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\house2\h2sidel.dds
+AddTexture  ..\textures\house2\h2sidel.jpg
 Alias  309  h2sidel           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\house2\h2sider.dds
+AddTexture  ..\textures\house2\h2sider.jpg
 Alias  310  h2sider           OPAQUE  WHOLE  wood
 
 
-AddTexture  ..\textures\background2.dds
+AddTexture  ..\textures\background2.jpg
 Alias  311   background2           OPAQUE  WHOLE  default
 
 
-AddTexture  ..\textures\crosshair.dds
+AddTexture  ..\textures\crosshair.jpg
 Alias  312   crosshair           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pb1.dds
+AddTexture  ..\textures\screen1\pb1.jpg
 Alias  313   pb1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pb2.dds
+AddTexture  ..\textures\screen1\pb2.jpg
 Alias  314   pb2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pb3.dds
+AddTexture  ..\textures\screen1\pb3.jpg
 Alias  315   pb3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pb4.dds
+AddTexture  ..\textures\screen1\pb4.jpg
 Alias  316   pb4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pb5.dds
+AddTexture  ..\textures\screen1\pb5.jpg
 Alias  317   pb5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pb6.dds
+AddTexture  ..\textures\screen1\pb6.jpg
 Alias  318   pb6           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pb7.dds
+AddTexture  ..\textures\screen1\pb7.jpg
 Alias  319   pb7           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pb8.dds
+AddTexture  ..\textures\screen1\pb8.jpg
 Alias  320   pb8           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pb0.dds
+AddTexture  ..\textures\screen1\pb0.jpg
 Alias  321   pb0           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\screen1\po1.dds
+AddTexture  ..\textures\screen1\po1.jpg
 Alias  322   po1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\po2.dds
+AddTexture  ..\textures\screen1\po2.jpg
 Alias  323   po2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\po3.dds
+AddTexture  ..\textures\screen1\po3.jpg
 Alias  324   po3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\po4.dds
+AddTexture  ..\textures\screen1\po4.jpg
 Alias  325   po4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\po5.dds
+AddTexture  ..\textures\screen1\po5.jpg
 Alias  326   po5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\po6.dds
+AddTexture  ..\textures\screen1\po6.jpg
 Alias  327   po6           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\po7.dds
+AddTexture  ..\textures\screen1\po7.jpg
 Alias  328   po7           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\barrel\woodf.dds
+AddTexture  ..\textures\barrel\woodf.jpg
 Alias  329   woodf           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\barrel\rust.dds
+AddTexture  ..\textures\barrel\rust.jpg
 Alias  330   rust           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\box1.dds
+AddTexture  ..\textures\box1.jpg
 Alias  331   box1           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\book\bookc.dds
+AddTexture  ..\textures\book\bookc.jpg
 Alias  332   bookc           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\screen1\pbm1.dds
+AddTexture  ..\textures\screen1\pbm1.jpg
 Alias  333   pbm1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbm2.dds
+AddTexture  ..\textures\screen1\pbm2.jpg
 Alias  334   pbm2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbm3.dds
+AddTexture  ..\textures\screen1\pbm3.jpg
 Alias  335   pbm3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbmo1.dds
+AddTexture  ..\textures\screen1\pbmo1.jpg
 Alias  336   pbmo1           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbmo2.dds
+AddTexture  ..\textures\screen1\pbmo2.jpg
 Alias  337   pbmo2           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbmo3.dds
+AddTexture  ..\textures\screen1\pbmo3.jpg
 Alias  338   pbmo3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbm0.dds
+AddTexture  ..\textures\screen1\pbm0.jpg
 Alias  339   pbm0           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbmo0.dds
+AddTexture  ..\textures\screen1\pbmo0.jpg
 Alias  340   pbmo0           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\monster\cobra2.dds
+AddTexture  ..\textures\monster\cobra2.jpg
 Alias  341   cobra           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\dragon.dds
+AddTexture  ..\textures\monster\dragon.jpg
 Alias  342   dragon           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\weapondragon.dds
+AddTexture  ..\textures\weapons\weapondragon.jpg
 Alias  343   weapondragon           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\textures\weapons\weaponcobra.dds
+AddTexture  ..\textures\weapons\weaponcobra.jpg
 Alias  344   weaponcobra           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\textures\monster\centaur.dds
+AddTexture  ..\textures\monster\centaur.jpg
 Alias  345   centaur           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\craz.dds
+AddTexture  ..\textures\monster\craz.jpg
 Alias  346   craz           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\weaponcraz.dds
+AddTexture  ..\textures\weapons\weaponcraz.jpg
 Alias  347   weaponcraz           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\textures\monster\rider.dds
+AddTexture  ..\textures\monster\rider.jpg
 Alias  348   rider           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\okta.dds
+AddTexture  ..\textures\monster\okta.jpg
 Alias  349   okta           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\weaponsorb.dds
+AddTexture  ..\textures\weapons\weaponsorb.jpg
 Alias  350   weaponsorb           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\textures\screen1\pbm4.dds
+AddTexture  ..\textures\screen1\pbm4.jpg
 Alias  351   pbm4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbmo4.dds
+AddTexture  ..\textures\screen1\pbmo4.jpg
 Alias  352   pbmo4           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbm5.dds
+AddTexture  ..\textures\screen1\pbm5.jpg
 Alias  353   pbm5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbmo5.dds
+AddTexture  ..\textures\screen1\pbmo5.jpg
 Alias  354   pbmo5           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\dungeonmaster.dds
+AddTexture  ..\textures\screen1\dungeonmaster.jpg
 Alias  355   dungeonmaster           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\box2.dds
+AddTexture  ..\textures\box2.jpg
 Alias  356   box2           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbm6.dds
+AddTexture  ..\textures\screen1\pbm6.jpg
 Alias  357   pbm6           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbmo6.dds
+AddTexture  ..\textures\screen1\pbmo6.jpg
 Alias  358   pbmo6           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbm7.dds
+AddTexture  ..\textures\screen1\pbm7.jpg
 Alias  359   pbm7           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\screen1\pbmo7.dds
+AddTexture  ..\textures\screen1\pbmo7.jpg
 Alias  360   pbmo7           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\background3.dds
+AddTexture  ..\textures\background3.jpg
 Alias  361   background3           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\egypt\ewall1.dds
+AddTexture  ..\textures\egypt\ewall1.jpg
 Alias  362   ewall1           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\egypt\ewall2.dds
+AddTexture  ..\textures\egypt\ewall2.jpg
 Alias  363   ewall2           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\egypt\ewall3.dds
+AddTexture  ..\textures\egypt\ewall3.jpg
 Alias  364   ewall3           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\egypt\eceiling1.dds
+AddTexture  ..\textures\egypt\eceiling1.jpg
 Alias  365   eceiling1           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\egypt\efloor.dds
+AddTexture  ..\textures\egypt\efloor.jpg
 Alias  366   efloor1           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\egypt\efloor2.dds
+AddTexture  ..\textures\egypt\efloor2.jpg
 Alias  367   efloor2           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\egypt\ewall4.dds
+AddTexture  ..\textures\egypt\ewall4.jpg
 Alias  368   ewall4           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\monster\sorb.dds
+AddTexture  ..\textures\monster\sorb.jpg
 Alias  369   sorb           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\blood\blood@1.dds
+AddTexture  ..\textures\blood\blood@1.jpg
 Alias  370   blood@1           AlphaTransparent  WHOLE  flat
 
-AddTexture  ..\textures\blood\blood@2.dds
+AddTexture  ..\textures\blood\blood@2.jpg
 Alias  371   blood@2           AlphaTransparent  WHOLE  flat
 
-AddTexture  ..\textures\blood\blood@3.dds
+AddTexture  ..\textures\blood\blood@3.jpg
 Alias  372   blood@3           AlphaTransparent  WHOLE  flat
 
-AddTexture  ..\textures\blood\blood@4.dds
+AddTexture  ..\textures\blood\blood@4.jpg
 Alias  373   blood@4           AlphaTransparent  WHOLE  flat
 
-AddTexture  ..\textures\blood\blood@5.dds
+AddTexture  ..\textures\blood\blood@5.jpg
 Alias  374   blood@5           AlphaTransparent  WHOLE  flat
 
-AddTexture  ..\textures\blood\blood@6.dds
+AddTexture  ..\textures\blood\blood@6.jpg
 Alias  375   blood@6           AlphaTransparent  WHOLE  flat
 
-AddTexture  ..\textures\blood\blood@7.dds
+AddTexture  ..\textures\blood\blood@7.jpg
 Alias  376   blood@7           AlphaTransparent  WHOLE  flat
 
-AddTexture  ..\textures\blood\blood@8.dds
+AddTexture  ..\textures\blood\blood@8.jpg
 Alias  377   blood@8           AlphaTransparent  WHOLE  flat
 
-AddTexture  ..\textures\blood\blood@9.dds
+AddTexture  ..\textures\blood\blood@9.jpg
 Alias  378   blood@9           AlphaTransparent  WHOLE  flat
 
-AddTexture  ..\textures\fonts\fontB.dds
+AddTexture  ..\textures\fonts\fontB.jpg
 Alias  379   fontB           AlphaTransparent  WHOLE  default
 
-AddTexture  ..\textures\normalmap\bricks.dds
+AddTexture  ..\textures\normalmap\bricks.jpg
 Alias  380   bricks           OPAQUE  WHOLE  pillar
 
-AddTexture  ..\textures\normalmap\bricks_nm.dds
+AddTexture  ..\textures\normalmap\bricks_nm.jpg
 Alias  381   bricks_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\normalmap\bricks2.dds
+AddTexture  ..\textures\normalmap\bricks2.jpg
 Alias  382   bricks2           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\normalmap\bricks2_nm.dds
+AddTexture  ..\textures\normalmap\bricks2_nm.jpg
 Alias  383   bricks2_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\normalmap\tile.dds
+AddTexture  ..\textures\normalmap\tile.jpg
 Alias  384   tile           OPAQUE  WHOLE  tilebrown
 
-AddTexture  ..\textures\normalmap\tile_nm.dds
+AddTexture  ..\textures\normalmap\tile_nm.jpg
 Alias  385   tile_nm           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\normalmap\floord.dds
+AddTexture  ..\textures\normalmap\floord.jpg
 Alias  386   floord           OPAQUE  WHOLE  ceilingmain
 
-AddTexture  ..\textures\normalmap\floord_nm.dds
+AddTexture  ..\textures\normalmap\floord_nm.jpg
 Alias  387   floord_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\doors\door10_nm.dds
+AddTexture  ..\textures\doors\door10_nm.jpg
 Alias  388   door10_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\door1_nm.dds
+AddTexture  ..\textures\door1_nm.jpg
 Alias  389   door1_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\normalmap\stones.dds
+AddTexture  ..\textures\normalmap\stones.jpg
 Alias  390   stones           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\normalmap\stones_nm.dds
+AddTexture  ..\textures\normalmap\stones_nm.jpg
 Alias  391   stones_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\normalmap\brick03.dds
+AddTexture  ..\textures\normalmap\brick03.jpg
 Alias  392   brick03           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\normalmap\brick03_nm.dds
+AddTexture  ..\textures\normalmap\brick03_nm.jpg
 Alias  393   brick03_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\road1_nm.dds
+AddTexture  ..\textures\road1_nm.jpg
 Alias  394   road1_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\hex2b_nm.dds
+AddTexture  ..\textures\hex2b_nm.jpg
 Alias  395   hex2b_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\mtl10_nm.dds
+AddTexture  ..\textures\mtl10_nm.jpg
 Alias  396   mtl10_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\normalmap\floor01.dds
+AddTexture  ..\textures\normalmap\floor01.jpg
 Alias  397   floor01           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\textures\normalmap\floor01_nm.dds
+AddTexture  ..\textures\normalmap\floor01_nm.jpg
 Alias  398   floor01_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\normalmap\ceiling01.dds
+AddTexture  ..\textures\normalmap\ceiling01.jpg
 Alias  399   ceiling01           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\normalmap\ceiling01_nm.dds
+AddTexture  ..\textures\normalmap\ceiling01_nm.jpg
 Alias  400   ceiling01_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\normalmap\tile02.dds
+AddTexture  ..\textures\normalmap\tile02.jpg
 Alias  401   tile02           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\normalmap\tile02_nm.dds
+AddTexture  ..\textures\normalmap\tile02_nm.jpg
 Alias  402   tile02_nm           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\bluetile1_nm.dds
+AddTexture  ..\textures\bluetile1_nm.jpg
 Alias  403   bluetile1_nm           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\magicbrick1_nm.dds
+AddTexture  ..\textures\magicbrick1_nm.jpg
 Alias  404   magicbrick1_nm           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\magicceiling1_nm.dds
+AddTexture  ..\textures\magicceiling1_nm.jpg
 Alias  405   magicceiling1_nm           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\magictile1_nm.dds
+AddTexture  ..\textures\magictile1_nm.jpg
 Alias  406   magictile1_nm          OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\building3_nm.dds
+AddTexture  ..\textures\building3_nm.jpg
 Alias  407   building3_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\doors\door2_nm.dds
+AddTexture  ..\textures\doors\door2_nm.jpg
 Alias  408   door2_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\doors\door3_nm.dds
+AddTexture  ..\textures\doors\door3_nm.jpg
 Alias  409   door3_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\doors\door4_nm.dds
+AddTexture  ..\textures\doors\door4_nm.jpg
 Alias  410   door4_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\doors\door5_nm.dds
+AddTexture  ..\textures\doors\door5_nm.jpg
 Alias  411   door5_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\doors\door6_nm.dds
+AddTexture  ..\textures\doors\door6_nm.jpg
 Alias  412   door6_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\doors\door7_nm.dds
+AddTexture  ..\textures\doors\door7_nm.jpg
 Alias  413   door7_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\doors\door8_nm.dds
+AddTexture  ..\textures\doors\door8_nm.jpg
 Alias  414   door8_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\doors\door9_nm.dds
+AddTexture  ..\textures\doors\door9_nm.jpg
 Alias  415   door9_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\doors\door10_nm.dds
+AddTexture  ..\textures\doors\door10_nm.jpg
 Alias  416   door10_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\doors\door11_nm.dds
+AddTexture  ..\textures\doors\door11_nm.jpg
 Alias  417   door11_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\doors\door12_nm.dds
+AddTexture  ..\textures\doors\door12_nm.jpg
 Alias  418   door12_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\doors\door13_nm.dds
+AddTexture  ..\textures\doors\door13_nm.jpg
 Alias  419   door13_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\doors\door14_nm.dds
+AddTexture  ..\textures\doors\door14_nm.jpg
 Alias  420   door14_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\doors\door15_nm.dds
+AddTexture  ..\textures\doors\door15_nm.jpg
 Alias  421   door15_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\doors\door16_nm.dds
+AddTexture  ..\textures\doors\door16_nm.jpg
 Alias  422   door16_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\doors\door17_nm.dds
+AddTexture  ..\textures\doors\door17_nm.jpg
 Alias  423   door17_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\doors\door18_nm.dds
+AddTexture  ..\textures\doors\door18_nm.jpg
 Alias  424   door18_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\doors\door19_nm.dds
+AddTexture  ..\textures\doors\door19_nm.jpg
 Alias  425   door19_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\doors\door20_nm.dds
+AddTexture  ..\textures\doors\door20_nm.jpg
 Alias  426   door20_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\doors\door21_nm.dds
+AddTexture  ..\textures\doors\door21_nm.jpg
 Alias  427   door21_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\wirefence.dds
+AddTexture  ..\textures\wirefence.jpg
 Alias  428   wirefence           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\chbrick4_nm.dds
+AddTexture  ..\textures\chbrick4_nm.jpg
 Alias  429   chbrick4_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\chbrick5_nm.dds
+AddTexture  ..\textures\chbrick5_nm.jpg
 Alias  430   chbrick5_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\egypt\eceiling1_nm.dds
+AddTexture  ..\textures\egypt\eceiling1_nm.jpg
 Alias  431   eceiling1_nm           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\egypt\efloor_nm.dds
+AddTexture  ..\textures\egypt\efloor_nm.jpg
 Alias  432   efloor1_nm           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\egypt\efloor2_nm.dds
+AddTexture  ..\textures\egypt\efloor2_nm.jpg
 Alias  433   efloor2_nm           OPAQUE  WHOLE  tile
 
-AddTexture  ..\textures\egypt\ewall1_nm.dds
+AddTexture  ..\textures\egypt\ewall1_nm.jpg
 Alias  434   ewall1_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\egypt\ewall2_nm.dds
+AddTexture  ..\textures\egypt\ewall2_nm.jpg
 Alias  435   ewall2_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\egypt\ewall3_nm.dds
+AddTexture  ..\textures\egypt\ewall3_nm.jpg
 Alias  436   ewall3_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\egypt\ewall4_nm.dds
+AddTexture  ..\textures\egypt\ewall4_nm.jpg
 Alias  437   ewall4_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Models\3ds\banner\banner1_nm.dds
+AddTexture  ..\Models\3ds\banner\banner1_nm.jpg
 Alias  438  banner1_nm           OPAQUE  WHOLE  default
 
-AddTexture  ..\Models\3ds\circle\ruins_nm.dds
+AddTexture  ..\Models\3ds\circle\ruins_nm.jpg
 Alias  439 ruins_nm           OPAQUE  WHOLE  default
 
-AddTexture  ..\Models\3ds\circle\ruinstn_nm.dds
+AddTexture  ..\Models\3ds\circle\ruinstn_nm.jpg
 Alias  440 ruinstn_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\Models\3ds\OrnateBox\chest2_nm.dds
+AddTexture  ..\Models\3ds\OrnateBox\chest2_nm.jpg
 Alias  441   chest2_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\eat\woodcup_nm.dds
+AddTexture  ..\Models\3ds\eat\woodcup_nm.jpg
 Alias  442 woodcup_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\trough\twood_nm.dds
+AddTexture  ..\Models\3ds\trough\twood_nm.jpg
 Alias  443 twood_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\monster\goblin_nm.dds
+AddTexture  ..\textures\monster\goblin_nm.jpg
 Alias  444   goblin_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\corpse_nm.dds
+AddTexture  ..\textures\monster\corpse_nm.jpg
 Alias  445   corpse_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\tentacle_nm.dds
+AddTexture  ..\textures\monster\tentacle_nm.jpg
 Alias  446   tentacle_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\cobra2_nm.dds
+AddTexture  ..\textures\monster\cobra2_nm.jpg
 Alias  447   cobra_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\knight_nm.dds
+AddTexture  ..\textures\monster\knight_nm.jpg
 Alias  448   knight_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\Sorcerer_nm.dds
+AddTexture  ..\textures\monster\Sorcerer_nm.jpg
 Alias  449   Sorcerer_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\slave_nm.dds
+AddTexture  ..\textures\monster\slave_nm.jpg
 Alias  450   slave_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\ogro_nm.dds
+AddTexture  ..\textures\monster\ogro_nm.jpg
 Alias  451   ogro_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\bauul_nm.dds
+AddTexture  ..\textures\monster\bauul_nm.jpg
 Alias  452   bauul_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\axe_nm.dds
+AddTexture  ..\textures\weapons\axe_nm.jpg
 Alias  453   axe_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\bastard_sword_nm.dds
+AddTexture  ..\textures\weapons\bastard_sword_nm.jpg
 Alias  454   bastard_sword_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\battleaxe_nm.dds
+AddTexture  ..\textures\weapons\battleaxe_nm.jpg
 Alias  455   battleaxe_nm       OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\flamesword_nm.dds
+AddTexture  ..\textures\weapons\flamesword_nm.jpg
 Alias  456   flamesword_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\icesword_nm.dds
+AddTexture  ..\textures\weapons\icesword_nm.jpg
 Alias  457   icesword_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\lightning_sword_nm.dds
+AddTexture  ..\textures\weapons\lightning_sword_nm.jpg
 Alias  458   lightning_sword_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\morning_star_nm.dds
+AddTexture  ..\textures\weapons\morning_star_nm.jpg
 Alias  459   morning_star_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\spiked_flail_nm.dds
+AddTexture  ..\textures\weapons\spiked_flail_nm.jpg
 Alias  460   spiked_flail_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\split_sword_nm.dds
+AddTexture  ..\textures\weapons\split_sword_nm.jpg
 Alias  461   split_sword_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\super_flamesword_nm.dds
+AddTexture  ..\textures\weapons\super_flamesword_nm.jpg
 Alias  461   super_flamesword_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\weaponbauul_nm.dds
+AddTexture  ..\textures\weapons\weaponbauul_nm.jpg
 Alias  462   weaponbauul_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\weaponcraz_nm.dds
+AddTexture  ..\textures\weapons\weaponcraz_nm.jpg
 Alias  463   weaponcraz_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\weapondemoness_nm.dds
+AddTexture  ..\textures\weapons\weapondemoness_nm.jpg
 Alias  464   weapondemoness_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\weapondragon_nm.dds
+AddTexture  ..\textures\weapons\weapondragon_nm.jpg
 Alias  465   weapondragon_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\weapongoblin_nm.dds
+AddTexture  ..\textures\weapons\weapongoblin_nm.jpg
 Alias  466   weapongoblin_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\weaponsorb_nm.dds
+AddTexture  ..\textures\weapons\weaponsorb_nm.jpg
 Alias  467   weaponsorb_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\weapons\Weaponsorcerer_nm.dds
+AddTexture  ..\textures\weapons\Weaponsorcerer_nm.jpg
 Alias  468   Weaponsorcerer_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\ogre_nm.dds
+AddTexture  ..\textures\monster\ogre_nm.jpg
 Alias  469   ogre_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\Goldplai_nm.dds
+AddTexture  ..\textures\Goldplai_nm.jpg
 Alias  470   Goldplai_nm           OPAQUE  WHOLE  metal
 
-AddTexture  ..\textures\missle1_nm.dds
+AddTexture  ..\textures\missle1_nm.jpg
 Alias  471  missle1_nm           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\missle2_nm.dds
+AddTexture  ..\textures\missle2_nm.jpg
 Alias  472  missle2_nm           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\missle3_nm.dds
+AddTexture  ..\textures\missle3_nm.jpg
 Alias  473  missle3_nm           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\missle4_nm.dds
+AddTexture  ..\textures\missle4_nm.jpg
 Alias  474  missle4_nm           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\yellowtile1_nm.dds
+AddTexture  ..\textures\yellowtile1_nm.jpg
 Alias  475   yellowtile1_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\ik_concr1_nm.dds
+AddTexture  ..\textures\ik_concr1_nm.jpg
 Alias  476   ik_concr1_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\temple3_nm.dds
+AddTexture  ..\textures\temple3_nm.jpg
 Alias  477   temple3_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\zoo1_nm.dds
+AddTexture  ..\textures\zoo1_nm.jpg
 Alias  478   zoo1_nm           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\brbrik3_nm.dds
+AddTexture  ..\textures\brbrik3_nm.jpg
 Alias  479   brbrik3_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\mossybri_nm.dds
+AddTexture  ..\textures\mossybri_nm.jpg
 Alias  480   mossybri_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\redbrick1_nm.dds
+AddTexture  ..\textures\redbrick1_nm.jpg
 Alias  481   redbrick1_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\redtile1_nm.dds
+AddTexture  ..\textures\redtile1_nm.jpg
 Alias  482   redtile1_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\eye_nm.dds
+AddTexture  ..\textures\eye_nm.jpg
 Alias  483   eye_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\grass2_nm.dds
+AddTexture  ..\textures\grass2_nm.jpg
 Alias  484   grass2_nm           OPAQUE  WHOLE  grass
 
-AddTexture  ..\textures\skymap\sunsetcube1024.dds
+AddTexture  ..\textures\skymap\sunsetcube1024.jpg
 Alias  485   sunsetcube1024           OPAQUE  WHOLE  flat
 
-AddTexture  ..\textures\normalmap\brick8.dds
+AddTexture  ..\textures\normalmap\brick8.jpg
 Alias  486   brick8           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\normalmap\brick8_nm.dds
+AddTexture  ..\textures\normalmap\brick8_nm.jpg
 Alias  487   brick8_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\normalmap\rock09.dds
+AddTexture  ..\textures\normalmap\rock09.jpg
 Alias  488   rock09           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\normalmap\rock09_nm.dds
+AddTexture  ..\textures\normalmap\rock09_nm.jpg
 Alias  489   rock09_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\barrel\rust_nm.dds
+AddTexture  ..\textures\barrel\rust_nm.jpg
 Alias  490   rust_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\textures\barrel\woodf_nm.dds
+AddTexture  ..\textures\barrel\woodf_nm.jpg
 Alias  491   woodf_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\ruin1_nm.dds
+AddTexture  ..\textures\ruin1_nm.jpg
 Alias  492 ruin1_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\normalmap\cobblestone4.dds
+AddTexture  ..\textures\normalmap\cobblestone4.jpg
 Alias  493   cobblestone4           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\normalmap\cobblestone4_nm.dds
+AddTexture  ..\textures\normalmap\cobblestone4_nm.jpg
 Alias  494   cobblestone4_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\Models\3ds\scroll\scroll1_nm.dds
+AddTexture  ..\Models\3ds\scroll\scroll1_nm.jpg
 Alias  495   scroll1_nm           OPAQUE  WHOLE  bone
 
-AddTexture  ..\Models\3ds\scroll\scroll2_nm.dds
+AddTexture  ..\Models\3ds\scroll\scroll2_nm.jpg
 Alias  496   scroll2_nm           OPAQUE  WHOLE  bone
 
-AddTexture  ..\textures\monster\goblin2_nm.dds
+AddTexture  ..\textures\monster\goblin2_nm.jpg
 Alias  497   goblin2_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\goblin3_nm.dds
+AddTexture  ..\textures\monster\goblin3_nm.jpg
 Alias  498   goblin3_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\goblin4_nm.dds
+AddTexture  ..\textures\monster\goblin4_nm.jpg
 Alias  499   goblin4_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\book\bookc_nm.dds
+AddTexture  ..\textures\book\bookc_nm.jpg
 Alias  500   bookc_nm           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\monster\centaur_nm.dds
+AddTexture  ..\textures\monster\centaur_nm.jpg
 Alias  501   centaur_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\craz_nm.dds
+AddTexture  ..\textures\monster\craz_nm.jpg
 Alias  502   craz_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\Faerie_nm.dds
+AddTexture  ..\textures\monster\Faerie_nm.jpg
 Alias  503   Faerie_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\demoness_nm.dds
+AddTexture  ..\textures\monster\demoness_nm.jpg
 Alias  504   demoness_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\mummy_nm.dds
+AddTexture  ..\textures\monster\mummy_nm.jpg
 Alias  505   mummy_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\weaponmummy_nm.dds
+AddTexture  ..\textures\monster\weaponmummy_nm.jpg
 Alias  506   weaponmummy_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\necromancer_nm.dds
+AddTexture  ..\textures\monster\necromancer_nm.jpg
 Alias  507   necromancer_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\WEAPONwraith_nm.dds
+AddTexture  ..\textures\monster\WEAPONwraith_nm.jpg
 Alias  509   WEAPONwraith_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\phantom_nm.dds
+AddTexture  ..\textures\monster\phantom_nm.jpg
 Alias  510   phantom_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\phantomw_nm.dds
+AddTexture  ..\textures\monster\phantomw_nm.jpg
 Alias  511   phantomw_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\sorb_nm.dds
+AddTexture  ..\textures\monster\sorb_nm.jpg
 Alias  512   sorb_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\skeleton2_nm.dds
+AddTexture  ..\textures\monster\skeleton2_nm.jpg
 Alias  513   skeleton2_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\imp_nm.dds
+AddTexture  ..\textures\monster\imp_nm.jpg
 Alias  514   imp_nm           OPAQUE  WHOLE  default
 
-AddTexture  ..\textures\monster\dragon_nm.dds
+AddTexture  ..\textures\monster\dragon_nm.jpg
 Alias  515   dragon_nm           OPAQUE  WHOLE  monster
 
-AddTexture  ..\textures\monster\rider_nm.dds
+AddTexture  ..\textures\monster\rider_nm.jpg
 Alias  516   rider_nm           OPAQUE  WHOLE  monster
 
 
-AddTexture  ..\textures\house2\h2back_nm.dds
+AddTexture  ..\textures\house2\h2back_nm.jpg
 Alias  517  h2back_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\house2\h2frt_nm.dds
+AddTexture  ..\textures\house2\h2frt_nm.jpg
 Alias  518  h2frt_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\house2\h2sidel_nm.dds
+AddTexture  ..\textures\house2\h2sidel_nm.jpg
 Alias  519  h2sidel_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\house2\h2sider_nm.dds
+AddTexture  ..\textures\house2\h2sider_nm.jpg
 Alias  520  h2sider_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\logs\BarkDark_nm.dds
+AddTexture  ..\Models\3ds\logs\BarkDark_nm.jpg
 Alias  521   BarkDark_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\logs\Rings2_nm.dds
+AddTexture  ..\Models\3ds\logs\Rings2_nm.jpg
 Alias  522   Rings2_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Models\3ds\Stone\stones1_nm.dds
+AddTexture  ..\Models\3ds\Stone\stones1_nm.jpg
 Alias  523 stones1_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\Models\3ds\Stone\stones2_nm.dds
+AddTexture  ..\Models\3ds\Stone\stones2_nm.jpg
 Alias  524 stones2_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\Models\3ds\Stone\stones3_nm.dds
+AddTexture  ..\Models\3ds\Stone\stones3_nm.jpg
 Alias  525 stones3_nm           OPAQUE  WHOLE  stone
 
-AddTexture  ..\textures\house1\houser_nm.dds
+AddTexture  ..\textures\house1\houser_nm.jpg
 Alias  526  houser_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\house1\houset_nm.dds
+AddTexture  ..\textures\house1\houset_nm.jpg
 Alias  527  houset_nm           OPAQUE  WHOLE  wood
 
-AddTexture  ..\textures\BRIKS_nm.dds
+AddTexture  ..\textures\BRIKS_nm.jpg
 Alias  530   BRIKS_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\corridor01.dds
+AddTexture  ..\Textures\Dungeon02\corridor01.jpg
 Alias  531   corridor01           OPAQUE  WHOLE  tile
 
-AddTexture  ..\Textures\Dungeon02\corridor02.dds
+AddTexture  ..\Textures\Dungeon02\corridor02.jpg
 Alias  532   corridor02           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\corridor03.dds
+AddTexture  ..\Textures\Dungeon02\corridor03.jpg
 Alias  533   corridor03           OPAQUE  WHOLE  stonemain
 
 
-AddTexture  ..\Textures\Dungeon02\corridor04.dds
+AddTexture  ..\Textures\Dungeon02\corridor04.jpg
 Alias  534   corridor04           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\corridor05.dds
+AddTexture  ..\Textures\Dungeon02\corridor05.jpg
 Alias  535   corridor05           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\corridor06.dds
+AddTexture  ..\Textures\Dungeon02\corridor06.jpg
 Alias  536   corridor06           OPAQUE  WHOLE  stonemain
 
 
-AddTexture  ..\Textures\Dungeon02\corridor07.dds
+AddTexture  ..\Textures\Dungeon02\corridor07.jpg
 Alias  537   corridor07           OPAQUE  WHOLE  stonemain
 
 
-AddTexture  ..\Textures\Dungeon02\corridor08.dds
+AddTexture  ..\Textures\Dungeon02\corridor08.jpg
 Alias  538   corridor08           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\corridor09.dds
+AddTexture  ..\Textures\Dungeon02\corridor09.jpg
 Alias  539   corridor09           OPAQUE  WHOLE  stonemain
 
 
-AddTexture  ..\Textures\Dungeon02\concrete.dds
+AddTexture  ..\Textures\Dungeon02\concrete.jpg
 Alias  540   concrete           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\entrance_uni1.dds
+AddTexture  ..\Textures\Dungeon02\entrance_uni1.jpg
 Alias  541  entrance_uni1           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\entrance_uni2.dds
+AddTexture  ..\Textures\Dungeon02\entrance_uni2.jpg
 Alias  542  entrance_uni2           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\entrance01.dds
+AddTexture  ..\Textures\Dungeon02\entrance01.jpg
 Alias  543  entrance01           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\entrance02.dds
+AddTexture  ..\Textures\Dungeon02\entrance02.jpg
 Alias  544  entrance02           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\entrance03.dds
+AddTexture  ..\Textures\Dungeon02\entrance03.jpg
 Alias  545  entrance03           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\entrance04.dds
+AddTexture  ..\Textures\Dungeon02\entrance04.jpg
 Alias  546  entrance04           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\entrance05.dds
+AddTexture  ..\Textures\Dungeon02\entrance05.jpg
 Alias  547  entrance05           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\entrance06.dds
+AddTexture  ..\Textures\Dungeon02\entrance06.jpg
 Alias  548  entrance06           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\entrance07.dds
+AddTexture  ..\Textures\Dungeon02\entrance07.jpg
 Alias  549  entrance07           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\entrance08.dds
+AddTexture  ..\Textures\Dungeon02\entrance08.jpg
 Alias  550  entrance08           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\entrance09.dds
+AddTexture  ..\Textures\Dungeon02\entrance09.jpg
 Alias  551  entrance09           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\grid.dds
+AddTexture  ..\Textures\Dungeon02\grid.jpg
 Alias  552  grid           OPAQUE  WHOLE  metal
 
-AddTexture  ..\Textures\Dungeon02\walls.dds
+AddTexture  ..\Textures\Dungeon02\walls.jpg
 Alias  553  walls           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\corridor10.dds
+AddTexture  ..\Textures\Dungeon02\corridor10.jpg
 Alias  554   corridor10           OPAQUE  WHOLE  stonemain
 
 
@@ -1673,157 +1673,157 @@ Alias  554   corridor10           OPAQUE  WHOLE  stonemain
 
 
 
-AddTexture  ..\Textures\Dungeon02\corridor01_nm.dds
+AddTexture  ..\Textures\Dungeon02\corridor01_nm.jpg
 Alias  555   corridor01_nm           OPAQUE  WHOLE  brick
 
 
 
-AddTexture  ..\Textures\Dungeon02\corridor02_nm.dds
+AddTexture  ..\Textures\Dungeon02\corridor02_nm.jpg
 Alias  556   corridor02_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\corridor03_nm.dds
+AddTexture  ..\Textures\Dungeon02\corridor03_nm.jpg
 Alias  557   corridor03_nm           OPAQUE  WHOLE  brick
 
 
-AddTexture  ..\Textures\Dungeon02\corridor04_nm.dds
+AddTexture  ..\Textures\Dungeon02\corridor04_nm.jpg
 Alias  558   corridor04_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\corridor05_nm.dds
+AddTexture  ..\Textures\Dungeon02\corridor05_nm.jpg
 Alias  559   corridor05_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\corridor06_nm.dds
+AddTexture  ..\Textures\Dungeon02\corridor06_nm.jpg
 Alias  560   corridor06_nm           OPAQUE  WHOLE  brick
 
 
-AddTexture  ..\Textures\Dungeon02\corridor07_nm.dds
+AddTexture  ..\Textures\Dungeon02\corridor07_nm.jpg
 Alias  561   corridor07_nm           OPAQUE  WHOLE  brick
 
 
-AddTexture  ..\Textures\Dungeon02\corridor08_nm.dds
+AddTexture  ..\Textures\Dungeon02\corridor08_nm.jpg
 Alias  562   corridor08_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\corridor09_nm.dds
+AddTexture  ..\Textures\Dungeon02\corridor09_nm.jpg
 Alias  563   corridor09_nm           OPAQUE  WHOLE  brick
 
 
-AddTexture  ..\Textures\Dungeon02\concrete_nm.dds
+AddTexture  ..\Textures\Dungeon02\concrete_nm.jpg
 Alias  564   concrete_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\entrance_uni1_nm.dds
+AddTexture  ..\Textures\Dungeon02\entrance_uni1_nm.jpg
 Alias  565  entrance_uni1_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\entrance_uni2_nm.dds
+AddTexture  ..\Textures\Dungeon02\entrance_uni2_nm.jpg
 Alias  566  entrance_uni2_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\entrance01_nm.dds
+AddTexture  ..\Textures\Dungeon02\entrance01_nm.jpg
 Alias  567  entrance01_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\entrance02_nm.dds
+AddTexture  ..\Textures\Dungeon02\entrance02_nm.jpg
 Alias  568  entrance02_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\entrance03_nm.dds
+AddTexture  ..\Textures\Dungeon02\entrance03_nm.jpg
 Alias  569  entrance03_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\entrance04_nm.dds
+AddTexture  ..\Textures\Dungeon02\entrance04_nm.jpg
 Alias  570  entrance04_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\entrance05_nm.dds
+AddTexture  ..\Textures\Dungeon02\entrance05_nm.jpg
 Alias  571  entrance05_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\entrance06_nm.dds
+AddTexture  ..\Textures\Dungeon02\entrance06_nm.jpg
 Alias  572  entrance06_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\entrance07_nm.dds
+AddTexture  ..\Textures\Dungeon02\entrance07_nm.jpg
 Alias  573  entrance07_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\entrance08_nm.dds
+AddTexture  ..\Textures\Dungeon02\entrance08_nm.jpg
 Alias  574  entrance08_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\entrance09_nm.dds
+AddTexture  ..\Textures\Dungeon02\entrance09_nm.jpg
 Alias  575  entrance09_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\grid_nm.dds
+AddTexture  ..\Textures\Dungeon02\grid_nm.jpg
 Alias  576  grid_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\walls_nm.dds
+AddTexture  ..\Textures\Dungeon02\walls_nm.jpg
 Alias  577  walls_nm           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\corridor10_nm.dds
+AddTexture  ..\Textures\Dungeon02\corridor10_nm.jpg
 Alias  578   corridor10_nm           OPAQUE  WHOLE  stonemain
 
-AddTexture  ..\Textures\Dungeon02\3ds\torch1.dds
+AddTexture  ..\Textures\Dungeon02\3ds\torch1.jpg
 Alias  579   torch1           OPAQUE  WHOLE  metal
 
-AddTexture  ..\Textures\Dungeon02\3ds\torch2.dds
+AddTexture  ..\Textures\Dungeon02\3ds\torch2.jpg
 Alias  580   torch2           OPAQUE  WHOLE  metal
 
-AddTexture  ..\Textures\Dungeon02\3ds\link.dds
+AddTexture  ..\Textures\Dungeon02\3ds\link.jpg
 Alias  581   link           OPAQUE  WHOLE  metal
 
-AddTexture  ..\Textures\Dungeon02\3ds\chest.dds
+AddTexture  ..\Textures\Dungeon02\3ds\chest.jpg
 Alias  582   chest           OPAQUE  WHOLE  metal
 
-AddTexture  ..\Textures\Dungeon02\3ds\flower1.dds
+AddTexture  ..\Textures\Dungeon02\3ds\flower1.jpg
 Alias  583   flower1           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Textures\Dungeon02\3ds\mushroom.dds
+AddTexture  ..\Textures\Dungeon02\3ds\mushroom.jpg
 Alias  584   mushroom           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Textures\Dungeon02\3ds\pancarte1.dds
+AddTexture  ..\Textures\Dungeon02\3ds\pancarte1.jpg
 Alias  585   pancarte1           OPAQUE  WHOLE  default
 
-AddTexture  ..\Textures\Dungeon02\3ds\pancarte2.dds
+AddTexture  ..\Textures\Dungeon02\3ds\pancarte2.jpg
 Alias  586   pancarte2           OPAQUE  WHOLE  default
 
-AddTexture  ..\Textures\Dungeon02\3ds\pot1.dds
+AddTexture  ..\Textures\Dungeon02\3ds\pot1.jpg
 Alias  587   pot1           OPAQUE  WHOLE  glass
 
-AddTexture  ..\Textures\Dungeon02\3ds\pot2.dds
+AddTexture  ..\Textures\Dungeon02\3ds\pot2.jpg
 Alias  588   pot2           OPAQUE  WHOLE  glass
 
-AddTexture  ..\Textures\Dungeon02\3ds\pot3.dds
+AddTexture  ..\Textures\Dungeon02\3ds\pot3.jpg
 Alias  589   pot3           OPAQUE  WHOLE  glass
 
-AddTexture  ..\Textures\Dungeon02\3ds\quartz.dds
+AddTexture  ..\Textures\Dungeon02\3ds\quartz.jpg
 Alias  590   quartz           OPAQUE  WHOLE  ice
 
-AddTexture  ..\Textures\Dungeon02\3ds\rocks.dds
+AddTexture  ..\Textures\Dungeon02\3ds\rocks.jpg
 Alias  591   rocks           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\3ds\roots.dds
+AddTexture  ..\Textures\Dungeon02\3ds\roots.jpg
 Alias  592   roots           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\3ds\skull.dds
+AddTexture  ..\Textures\Dungeon02\3ds\skull.jpg
 Alias  593   skull           OPAQUE  WHOLE  brick
 
-AddTexture  ..\Textures\Dungeon02\3ds\tree1.dds
+AddTexture  ..\Textures\Dungeon02\3ds\tree1.jpg
 Alias  594   tree1           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Textures\Dungeon02\3ds\tree2.dds
+AddTexture  ..\Textures\Dungeon02\3ds\tree2.jpg
 Alias  595   tree2           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Textures\Dungeon02\3ds\tree3.dds
+AddTexture  ..\Textures\Dungeon02\3ds\tree3.jpg
 Alias  596   tree3           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Textures\Dungeon02\3ds\tree3.dds
+AddTexture  ..\Textures\Dungeon02\3ds\tree3.jpg
 Alias  597   tree3           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Textures\Dungeon02\3ds\windmill.dds
+AddTexture  ..\Textures\Dungeon02\3ds\windmill.jpg
 Alias  598   windmill           OPAQUE  WHOLE  wood
 
-AddTexture  ..\Textures\Dungeon02\3ds\tree_foliage.dds
+AddTexture  ..\Textures\Dungeon02\3ds\tree_foliage.jpg
 Alias  599   tree_foliage           OPAQUE  WHOLE  default
 
-AddTexture  ..\Models\Players\faerie\weaponfaerie.dds
+AddTexture  ..\Models\Players\faerie\weaponfaerie.jpg
 Alias  600   weaponfaerie           OPAQUE  WHOLE  monsterweapon
 
-AddTexture  ..\Textures\Dungeon02\3ds\e1.dds
+AddTexture  ..\Textures\Dungeon02\3ds\e1.jpg
 Alias  601   e1           OPAQUE  WHOLE  default
 
-AddTexture  ..\Textures\Dungeon02\3ds\e2.dds
+AddTexture  ..\Textures\Dungeon02\3ds\e2.jpg
 Alias  602   e2           OPAQUE  WHOLE  default
 
-AddTexture  ..\Textures\Dungeon02\3ds\c07.dds
+AddTexture  ..\Textures\Dungeon02\3ds\c07.jpg
 Alias  603   c07           OPAQUE  WHOLE  default
 
 
