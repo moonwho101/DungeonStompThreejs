@@ -170,14 +170,32 @@ def _prefer_exit_index(open_exits, placed, prefer_loop_chance=0.20):
             best_idx = i
     return best_idx
 
+MIN_SPIRAL_START_DISTANCE = 500
+MAX_GENERATION_ATTEMPTS = 50
+
+
 def generate(start_x=5200, start_z=2600, seed=None, num_objects_to_place=350):
     """
-    Enhanced generator that uses only the original OBJECTS and BOUNDING_BOXES.
-    - seed: optional RNG seed for reproducible results
-    - num_objects_to_place: how many pieces to attempt to place
+    Regenerates until the dungeon is "good": at least half of num_objects_to_place
+    tiles placed and the exit spiral not within 500 units of startpos.
     """
     if seed is not None:
         random.seed(seed)
+
+    for attempt in range(1, MAX_GENERATION_ATTEMPTS + 1):
+        is_last = attempt == MAX_GENERATION_ATTEMPTS
+        result = _generate_attempt(start_x, start_z, num_objects_to_place, strict=not is_last)
+        if result is not None:
+            return result
+        print(f"Dungeon quality check failed (attempt {attempt}/{MAX_GENERATION_ATTEMPTS}); regenerating...")
+
+
+def _generate_attempt(start_x, start_z, num_objects_to_place, strict=True):
+    """
+    Enhanced generator that uses only the original OBJECTS and BOUNDING_BOXES.
+    - num_objects_to_place: how many pieces to attempt to place
+    - strict: return None (without writing the map) if the dungeon fails quality checks
+    """
 
     print("Starting dungeon generation...")
     placed = []
@@ -812,6 +830,15 @@ def generate(start_x=5200, start_z=2600, seed=None, num_objects_to_place=350):
 
         print(f"  -> Teleport exit added at deepest dungeon location ({tx:.1f}, {ty:.1f}, {tz:.1f})")
 
+
+    if strict:
+        if len(placed) < num_objects_to_place / 2:
+            print(f"  Rejected: only {len(placed)} tiles placed (expected at least {num_objects_to_place / 2:g}).")
+            return None
+        spiral = next((e for e in entities if e['type'] == 'spiral'), None)
+        if spiral and math.hypot(spiral['x'] - start_x, spiral['z'] - start_z) < MIN_SPIRAL_START_DISTANCE:
+            print(f"  Rejected: spiral is within {MIN_SPIRAL_START_DISTANCE} units of startpos.")
+            return None
 
     out_file = os.path.join(os.path.dirname(__file__), '..', 'bin', 'level1.map')
     with open(out_file, 'w') as f:
