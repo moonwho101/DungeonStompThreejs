@@ -14,6 +14,8 @@
 
 <img src="verification/screenshots/generated_level.png" alt="Dungeon Stomp Three.js gameplay: first-person view down a glowing teal dungeon corridor with a minimap and HUD" width="860">
 
+## 🎮 [**Play it live in your browser →**](https://moonwho101.github.io/DungeonStompThreejs/)
+
 </div>
 
 ---
@@ -24,12 +26,13 @@
 
 Swing a flaming sword, hurl fireballs, cast lightning, and stomp through endless **procedurally generated dungeons** crawling with monsters, treasure and traps. Just open it in a browser and play.
 
+### 👉 [**Play it live: moonwho101.github.io/DungeonStompThreejs**](https://moonwho101.github.io/DungeonStompThreejs/)
+
 > If you grew up on Doom, Quake, Hexen, Eye of the Beholder or Diablo, this one is for you.
 
 ## ✨ Features
 
 - 🏰 **Infinite procedural dungeons.** Press `G` any time to generate a brand-new level. Find the glowing exit portal to descend. Every depth is tougher than the last.
-- 🗺️ **Classic campaign levels.** Original `.map` levels from the first Dungeon Stomp are loaded straight from `bin/`.
 - 🧟 **30 monster families.** Ogres, hydras, dragons, necromancers, demonesses, faeries, mummies, wraiths, goblins, skeletons, wolves, tentacle horrors and more. Each has its own AI, aggro range, pain and death sounds, and attack style.
 - 🔮 **Spellcasters that fight back.** Many enemies cast **Magic Missile**, **Fireball** and **Lightning** at you with line-of-sight checks and cooldowns.
 - ⚔️ **A full arsenal.** Axe, Flamesword, Bastard Sword, Battle Axe, Ice Sword, Lightning Sword, Morning Star, Spiked Flail, Split Sword and Super Flamesword, plus the spells **Magic Missile**, **Fireball**, **Lightning** and **Healing**.
@@ -59,6 +62,12 @@ Swing a flaming sword, hurl fireballs, cast lightning, and stomp through endless
 | `K` | Cheat: unlock all weapons and spells |
 | `I` | Cheat: toggle god mode |
 | `Esc` | Pause / release the mouse |
+
+## 🌐 Play it live
+
+**[▶ Play Dungeon Stomp Three.js now](https://moonwho101.github.io/DungeonStompThreejs/)**
+
+No install needed. Open the link in a modern desktop browser (Chrome, Edge, Firefox or Safari) and click to start.
 
 ## 🚀 Play it locally
 
