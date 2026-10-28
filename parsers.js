@@ -1,3 +1,7 @@
+/*
+ * Copyright 2026 Mark Longo
+ */
+
 // Parser for textures.dat, Objects.dat, and level1.map for Dungeon Stomp Three.js
 
 export class TextureManager {

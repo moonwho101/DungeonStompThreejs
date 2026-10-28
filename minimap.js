@@ -1,3 +1,7 @@
+/*
+ * Copyright 2026 Mark Longo
+ */
+
 import { levelTriangles, levelRevision } from './collision.js';
 import { monsters, doors, MonsterState } from './gameState.js';
 import { activePickups, activeTeleporters, chests } from './logic.js';

@@ -1,3 +1,7 @@
+/*
+ * Copyright 2026 Mark Longo
+ */
+
 // generator.js - Procedural Dungeon Level Generator converted from tools/generate_dungeonNewObjects.py
 
 export const DIR_N = [0, 1];

@@ -1,3 +1,7 @@
+/*
+ * Copyright 2026 Mark Longo
+ */
+
 import * as THREE from 'three';
 import { TextureManager } from './parsers.js';
 

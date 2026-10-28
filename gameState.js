@@ -1,3 +1,7 @@
+/*
+ * Copyright 2026 Mark Longo
+ */
+
 // Dependency-free shared world state. Both the collision code and the game
 // logic need these, so they live in a leaf module to avoid import cycles.
 

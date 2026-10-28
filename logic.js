@@ -1,3 +1,7 @@
+/*
+ * Copyright 2026 Mark Longo
+ */
+
 import * as THREE from 'three';
 import { TDSLoader } from 'three/addons/loaders/TDSLoader.js';
 import { MD2Loader } from 'three/addons/loaders/MD2Loader.js';
@@ -163,16 +167,11 @@ export function getMonsterConfig(name) {
 
 // Dungeon depth: every exit portal taken makes the next dungeon's monsters tougher.
 const DEPTH_POWER_STEP = 0.15;
+// Depth lives only in memory (like health and XP), so every fresh page load starts at level 1.
 export let dungeonDepth = 1;
-try {
-    dungeonDepth = Math.max(1, parseInt(localStorage.getItem('dungeonDepth'), 10) || 1);
-} catch (e) {}
 
 export function setDungeonDepth(depth) {
     dungeonDepth = Math.max(1, depth | 0);
-    try {
-        localStorage.setItem('dungeonDepth', String(dungeonDepth));
-    } catch (e) {}
     const el = hudEl('depth-display');
     if (el) el.textContent = String(dungeonDepth);
 }

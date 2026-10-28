@@ -1,3 +1,7 @@
+/*
+ * Copyright 2026 Mark Longo
+ */
+
 import * as THREE from 'three';
 import {
     scene, controls, disposeOwnedResources, textureManager,
@@ -165,7 +169,10 @@ export function updatePickups(delta, playerPos) {
 
                 // Check spell scrolls / spellbook first
                 let spellScrollName = null;
-                if (nameClean.includes('SPELLBOOK')) {
+                // Weapon names such as LIGHTNINGSWORD contain spell names, so they must never match as scrolls.
+                const isWeaponName = PLAYER_GUNS.some(g => spellCounts[g] === undefined && g.toUpperCase() === nameClean);
+                const scrollName = isWeaponName ? '' : nameClean;
+                if (scrollName.includes('SPELLBOOK')) {
                     spellCounts['MAGIC MISSILE'] += 5;
                     spellCounts['FIREBALL'] += 5;
                     spellCounts['LIGHTNING'] += 5;
@@ -174,19 +181,19 @@ export function updatePickups(delta, playerPos) {
                     colorHex = 0xa855f7;
                     colorCss = '#c084fc';
                     updatePlayerHud();
-                } else if (nameClean.includes('SCROLL-MAGICMISSLE') || nameClean.includes('MAGICMISSLE') || nameClean === 'MAGIC MISSILE') {
+                } else if (scrollName.includes('SCROLL-MAGICMISSLE') || scrollName.includes('MAGICMISSLE') || scrollName === 'MAGIC MISSILE') {
                     spellScrollName = 'MAGIC MISSILE';
                     colorHex = 0x38bdf8;
                     colorCss = '#38bdf8';
-                } else if (nameClean.includes('SCROLL-FIREBALL') || nameClean.includes('FIREBALL')) {
+                } else if (scrollName.includes('SCROLL-FIREBALL') || scrollName.includes('FIREBALL')) {
                     spellScrollName = 'FIREBALL';
                     colorHex = 0xff5500;
                     colorCss = '#ff7700';
-                } else if (nameClean.includes('SCROLL-LIGHTNING') || nameClean.includes('LIGHTNING')) {
+                } else if (scrollName.includes('SCROLL-LIGHTNING') || scrollName.includes('LIGHTNING')) {
                     spellScrollName = 'LIGHTNING';
                     colorHex = 0x00ffff;
                     colorCss = '#00ffff';
-                } else if (nameClean.includes('SCROLL-HEALING') || nameClean.includes('HEALING')) {
+                } else if (scrollName.includes('SCROLL-HEALING') || scrollName.includes('HEALING')) {
                     spellScrollName = 'HEALING';
                     colorHex = 0x22c55e;
                     colorCss = '#4ade80';
