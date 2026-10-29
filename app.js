@@ -255,7 +255,7 @@ async function init() {
         setDungeonGenerationOptions(savedGenOpts);
     }
     if (genSizeInput) {
-        genSizeInput.value = String(dungeonGenerationOptions.numObjectsToPlace || 350);
+        genSizeInput.value = String(dungeonGenerationOptions.numObjectsToPlace || 225);
         if (genSizeVal) genSizeVal.textContent = genSizeInput.value;
         genSizeInput.addEventListener('input', () => {
             if (genSizeVal) genSizeVal.textContent = genSizeInput.value;
@@ -351,7 +351,7 @@ async function init() {
             playSound('buttonselect111.wav', 0.5);
             showMenuView('generator');
             if (genSizeInput) {
-                genSizeInput.value = String(dungeonGenerationOptions.numObjectsToPlace || 350);
+                genSizeInput.value = String(dungeonGenerationOptions.numObjectsToPlace || 225);
                 if (genSizeVal) genSizeVal.textContent = genSizeInput.value;
             }
             if (genSeedInput) {
@@ -372,7 +372,7 @@ async function init() {
         menuBtnGenerateAction.addEventListener('click', async (e) => {
             e.stopPropagation();
             playSound('buttonselect111.wav', 0.5);
-            const size = parseInt(genSizeInput?.value, 10) || 350;
+            const size = parseInt(genSizeInput?.value, 10) || 225;
             const seed = genSeedInput?.value.trim() || null;
             const options = { numObjectsToPlace: size, seed };
 

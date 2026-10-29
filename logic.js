@@ -177,7 +177,7 @@ export function setDungeonDepth(depth) {
 }
 
 export const dungeonGenerationOptions = {
-    numObjectsToPlace: 350,
+    numObjectsToPlace: 225,
     seed: null
 };
 

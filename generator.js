@@ -225,7 +225,7 @@ const MAX_GENERATION_ATTEMPTS = 50;
 
 // Regenerates until the dungeon is "good": at least half the requested tiles
 // placed and the exit spiral not within 500 units of the start position.
-export function generateDungeon({ startX = 5200, startZ = 2600, seed = null, numObjectsToPlace = 350 } = {}) {
+export function generateDungeon({ startX = 5200, startZ = 2600, seed = null, numObjectsToPlace = 225 } = {}) {
     const rng = createRng(seed);
 
     for (let attempt = 1; attempt <= MAX_GENERATION_ATTEMPTS; attempt++) {
