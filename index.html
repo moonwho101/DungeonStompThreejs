@@ -204,19 +204,166 @@
             transform: translate(-50%, -50%);
             color: #fff;
             text-align: center;
-            background: rgba(10, 12, 18, 0.94);
-            padding: 24px 36px;
-            border-radius: 12px;
-            cursor: pointer;
-            border: 1px solid rgba(255, 170, 0, 0.3);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
+            background: linear-gradient(180deg, rgba(16, 20, 30, 0.96) 0%, rgba(8, 10, 16, 0.98) 100%);
+            padding: 24px 32px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 170, 0, 0.35);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.08);
             z-index: 30;
+            width: min(440px, 92vw);
+            box-sizing: border-box;
+            user-select: none;
         }
         #instructions h2 {
-            margin-top: 0;
+            margin: 0 0 10px;
             color: #f59e0b;
-            font-size: 22px;
+            font-size: 24px;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
+            text-transform: uppercase;
+        }
+        #instructions h3 {
+            margin: 0 0 14px;
+            color: #fbbf24;
+            font-size: 18px;
             letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .menu-prompt {
+            color: #94a3b8;
+            font-size: 13px;
+            margin: 0 0 14px;
+            min-height: 18px;
+        }
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .menu-btn {
+            background: rgba(30, 41, 59, 0.7);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 170, 0, 0.25);
+            border-radius: 8px;
+            padding: 11px 16px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.15s ease-out;
+            text-transform: uppercase;
+        }
+        .menu-btn:hover:not(:disabled) {
+            background: rgba(245, 158, 11, 0.22);
+            border-color: #f59e0b;
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+        }
+        .menu-btn.primary {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #0f172a;
+            border-color: #fbbf24;
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+        }
+        .menu-btn.primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, #fbbf24 0%, #b45309 100%);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+        }
+        .menu-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .menu-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+            margin-bottom: 14px;
+        }
+        .menu-field label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+        }
+        .menu-field label span {
+            color: #f59e0b;
+            font-weight: 700;
+        }
+        .menu-field input[type="range"] {
+            width: 100%;
+            accent-color: #f59e0b;
+            cursor: pointer;
+        }
+        .menu-field input[type="text"] {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            padding: 9px 12px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 14px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .menu-field input[type="text"]:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+        }
+        .menu-options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            text-align: left;
+            padding: 4px 0 10px;
+        }
+        .menu-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #e2e8f0;
+        }
+        .menu-checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #f59e0b;
+            cursor: pointer;
+        }
+        .menu-status {
+            font-size: 13px;
+            color: #38bdf8;
+            margin: 4px 0 8px;
+            min-height: 18px;
+        }
+        .menu-help {
+            margin: 4px 0;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        .menu-help small {
+            font-size: 11px;
+        }
+        #loading-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(5, 7, 12, 0.92);
+            color: #f59e0b;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            z-index: 35;
         }
         /* Top-Right Minimap Container */
         #minimap-container {
@@ -303,11 +450,88 @@
         </div>
     </div>
 
+    <div id="loading-overlay">Loading dungeon...</div>
+
     <div id="instructions">
-        <h2>Dungeon Stomp JS</h2>
-        <p id="instructions-prompt">Loading dungeon...</p>
-        <p><small>WASD = Move | Space = Jump | F = Fly | E = Open Door | G = Generate Dungeon | N = Normal Maps | P = Music | Shift = Sprint | Q/Z = Weapon</small></p>
-        <p><small>Find the glowing exit portal to descend &mdash; every level is tougher. Esc pauses.</small></p>
+        <h2>⚔️ Dungeon Stomp ⚔️</h2>
+
+        <!-- Main Menu Panel -->
+        <div id="menu-view-main">
+            <p id="instructions-prompt" class="menu-prompt">Loading dungeon...</p>
+            <div class="menu-buttons">
+                <button id="menu-btn-new-game" class="menu-btn primary">New Game</button>
+                <button id="menu-btn-resume" class="menu-btn" disabled>Resume</button>
+                <button id="menu-btn-generator" class="menu-btn">Dungeon Generator</button>
+                <button id="menu-btn-options" class="menu-btn">Options</button>
+            </div>
+            <script>
+                // Runs before app.js has finished loading (it imports three.js from a CDN). Resume must work
+                // immediately: pointer lock has to be requested inside the click itself, so it is requested
+                // here and app.js adopts the lock as soon as it is up.
+                try {
+                    const saveRaw = localStorage.getItem('dungeonRunState');
+                    const parsed = saveRaw ? JSON.parse(saveRaw) : null;
+                    if (parsed && parsed.version === 1) {
+                        const btn = document.getElementById('menu-btn-resume');
+                        const prompt = document.getElementById('instructions-prompt');
+                        const menu = document.getElementById('instructions');
+                        const overlay = document.getElementById('loading-overlay');
+                        btn.removeAttribute('disabled');
+                        prompt.textContent = 'Saved run found at Depth ' + (parsed.depth || 1) + '. Click Resume to continue:';
+                        btn.addEventListener('click', () => {
+                            if (window.__menuReady) return;
+                            window.__earlyResume = true;
+                            document.body.requestPointerLock();
+                        });
+                        document.addEventListener('pointerlockchange', () => {
+                            if (window.__menuReady || !window.__earlyResume) return;
+                            const locked = document.pointerLockElement === document.body;
+                            menu.style.display = locked ? 'none' : 'block';
+                            overlay.style.display = locked ? 'flex' : 'none';
+                            if (!locked) window.__earlyResume = false;
+                        });
+                    }
+                } catch (e) {}
+            </script>
+            <div id="menu-status" class="menu-status"></div>
+            <p class="menu-help"><small>WASD = Move | Space = Jump | E = Open Door | G = Regen Dungeon | Q/Z = Weapon | Esc = Menu</small></p>
+            <p class="menu-help"><small>Find the glowing exit portal to descend &mdash; every level is tougher.</small></p>
+        </div>
+
+        <!-- Dungeon Generator Sub-Panel -->
+        <div id="menu-view-generator" style="display: none;">
+            <h3>Dungeon Generator</h3>
+            <div class="menu-field">
+                <label for="gen-size">Rooms / Objects: <span id="gen-size-val">350</span></label>
+                <input type="range" id="gen-size" min="150" max="600" step="25" value="350">
+            </div>
+            <div class="menu-field">
+                <label for="gen-seed">Seed (optional):</label>
+                <input type="text" id="gen-seed" placeholder="Leave empty for random" maxlength="32">
+            </div>
+            <div class="menu-buttons">
+                <button id="menu-btn-generate-action" class="menu-btn primary">Generate Dungeon</button>
+                <button id="menu-btn-generator-back" class="menu-btn">Back</button>
+            </div>
+        </div>
+
+        <!-- Options Sub-Panel -->
+        <div id="menu-view-options" style="display: none;">
+            <h3>Options</h3>
+            <div class="menu-options-list">
+                <label class="menu-checkbox-label">
+                    <input type="checkbox" id="opt-normal-maps" checked>
+                    <span>Normal Maps (N)</span>
+                </label>
+                <label class="menu-checkbox-label">
+                    <input type="checkbox" id="opt-music" checked>
+                    <span>Music (P / M)</span>
+                </label>
+            </div>
+            <div class="menu-buttons" style="margin-top: 14px;">
+                <button id="menu-btn-options-back" class="menu-btn">Back</button>
+            </div>
+        </div>
     </div>
 
     <script type="module" src="app.js"></script>

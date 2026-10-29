@@ -34,7 +34,10 @@ import {
     playSound, getRandomSound, preloadSounds, resumeAudio, getAudioContext,
     loadGameWorld, levelObjects, activePickups,
     playerWeaponCurrentAnim, generateAndLoadNewLevel,
-    toggleMusic, isMusicOn, startNextMusicTrack, updateMusic
+    toggleMusic, isMusicOn, startNextMusicTrack, updateMusic,
+    dungeonDepth, setDungeonDepth, dungeonGenerationOptions, setDungeonGenerationOptions,
+    currentMapText, setRunSaveHandler, setPlayerDead,
+    isLevelLoading, captureWorldState, restoreWorldState, isWorldStateValid
 } from './logic.js';
 import { updateMinimap } from './minimap.js';
 
@@ -68,6 +71,62 @@ const alwaysRun = new URLSearchParams(window.location.search).has('run');
 const PAUSED_RENDER_INTERVAL_MS = 250;
 let gameStarted = false;
 let lastPausedRender = 0;
+let lastAutosaveTime = 0;
+
+const SAVE_KEY = 'dungeonRunState';
+const GEN_OPTS_KEY = 'dungeonGenerationOptions';
+const GAME_OPTS_KEY = 'dungeonGameOptions';
+
+function getStoredJson(key) {
+    try {
+        const val = localStorage.getItem(key);
+        return val ? JSON.parse(val) : null;
+    } catch (e) {
+        return null;
+    }
+}
+
+function setStoredJson(key, obj) {
+    try {
+        localStorage.setItem(key, JSON.stringify(obj));
+    } catch (e) {}
+}
+
+let worldReady = false;
+
+function saveCurrentRun() {
+    // Never save before the saved world has been restored or while a level is being built:
+    // that would overwrite the run with a half-loaded state.
+    if (!worldReady || isLevelLoading()) return;
+    if (!controls || !controls.getObject()) return;
+    const pos = controls.getObject().position;
+    if (!Number.isFinite(pos.x) || !Number.isFinite(pos.y) || !Number.isFinite(pos.z)) return;
+    const state = {
+        version: 1,
+        mapSource: currentMapText ? 'generated' : 'bundled',
+        position: { x: pos.x, y: pos.y, z: pos.z },
+        yaw: controls.getObject().rotation.y,
+        pitch: camera ? camera.rotation.x : 0,
+        depth: dungeonDepth,
+        playerStats: {
+            health: Math.max(1, playerStats.health),
+            maxHealth: playerStats.maxHealth || 100,
+            level: playerStats.level || 1,
+            xp: playerStats.xp || 0,
+            nextXp: playerStats.nextXp || 500,
+            kills: playerStats.kills || 0
+        },
+        unlockedWeapons: Array.from(unlockedWeapons),
+        spellCounts: { ...spellCounts },
+        currentGunIndex: getCurrentGunIndex(),
+        dungeonGenerationOptions: { ...dungeonGenerationOptions },
+        normalMaps: normalMapsEnabled,
+        music: isMusicOn(),
+        world: captureWorldState(),
+        timestamp: Date.now()
+    };
+    setStoredJson(SAVE_KEY, state);
+}
 
 async function init() {
     const container = document.getElementById('canvas-container');
@@ -77,18 +136,71 @@ async function init() {
     const newControls = new PointerLockControls(camera, document.body);
     setControls(newControls);
 
+    const loadingOverlay = document.getElementById('loading-overlay');
     const instructions = document.getElementById('instructions');
-    instructions.addEventListener('click', () => {
+    const menuViewMain = document.getElementById('menu-view-main');
+    const menuViewGenerator = document.getElementById('menu-view-generator');
+    const menuViewOptions = document.getElementById('menu-view-options');
+
+    const menuPrompt = document.getElementById('instructions-prompt');
+    const menuStatus = document.getElementById('menu-status');
+
+    const menuBtnNewGame = document.getElementById('menu-btn-new-game');
+    const menuBtnResume = document.getElementById('menu-btn-resume');
+    const menuBtnGenerator = document.getElementById('menu-btn-generator');
+    const menuBtnOptions = document.getElementById('menu-btn-options');
+
+    const menuBtnGenerateAction = document.getElementById('menu-btn-generate-action');
+    const menuBtnGeneratorBack = document.getElementById('menu-btn-generator-back');
+    const genSizeInput = document.getElementById('gen-size');
+    const genSizeVal = document.getElementById('gen-size-val');
+    const genSeedInput = document.getElementById('gen-seed');
+
+    const menuBtnOptionsBack = document.getElementById('menu-btn-options-back');
+    const optNormalMaps = document.getElementById('opt-normal-maps');
+    const optMusic = document.getElementById('opt-music');
+
+    // Check saved state immediately so Resume is never falsely greyed out on page boot
+    const initialSavedRun = getStoredJson(SAVE_KEY);
+    if (initialSavedRun && initialSavedRun.version === 1) {
+        if (menuBtnResume) menuBtnResume.disabled = false;
+        if (menuPrompt) menuPrompt.textContent = `Saved run at Depth ${initialSavedRun.depth || 1} (Hero LVL ${initialSavedRun.playerStats?.level || 1}). Loading...`;
+        if (Number.isFinite(initialSavedRun.depth)) {
+            setDungeonDepth(initialSavedRun.depth);
+        }
+        if (initialSavedRun.dungeonGenerationOptions) {
+            setDungeonGenerationOptions(initialSavedRun.dungeonGenerationOptions);
+        }
+    } else {
+        if (menuBtnResume) menuBtnResume.disabled = true;
+        if (menuPrompt) menuPrompt.textContent = 'Loading dungeon...';
+    }
+
+    function showMenuView(view) {
+        if (menuViewMain) menuViewMain.style.display = (view === 'main') ? 'block' : 'none';
+        if (menuViewGenerator) menuViewGenerator.style.display = (view === 'generator') ? 'block' : 'none';
+        if (menuViewOptions) menuViewOptions.style.display = (view === 'options') ? 'block' : 'none';
+        if (menuStatus) menuStatus.textContent = '';
+    }
+
+    // Pointer lock must be requested straight from the click handler, so it comes before anything
+    // else (audio, sounds) that could throw or delay it.
+    const startGameSession = () => {
+        try {
+            newControls.lock();
+        } catch (e) {
+            console.warn('Pointer lock request failed:', e);
+        }
         resumeAudio();
         if (!gameStarted && isMusicOn()) {
             startNextMusicTrack();
         }
-        newControls.lock();
-    });
+    };
 
     newControls.addEventListener('lock', () => {
         gameStarted = true;
         instructions.style.display = 'none';
+        if (loadingOverlay) loadingOverlay.style.display = worldReady ? 'none' : 'flex';
         resumeAudio();
     });
 
@@ -99,17 +211,243 @@ async function init() {
 
     newControls.addEventListener('unlock', () => {
         instructions.style.display = 'block';
-        hudEl('instructions-prompt').textContent = 'Paused - click anywhere to resume';
+        if (loadingOverlay) loadingOverlay.style.display = 'none';
+        showMenuView('main');
+        if (menuPrompt) menuPrompt.textContent = 'Paused - Resume or choose an option:';
+        if (menuBtnResume) menuBtnResume.disabled = false;
+        saveCurrentRun();
         releaseInputs();
         const audio = getAudioContext();
         if (audio && audio.state === 'running') audio.suspend().catch(() => {});
     });
     window.addEventListener('blur', releaseInputs);
 
+    // Save reliably across all page exit / hide events
+    window.addEventListener('beforeunload', () => {
+        if (gameStarted) saveCurrentRun();
+    });
+    window.addEventListener('pagehide', () => {
+        if (gameStarted) saveCurrentRun();
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden && gameStarted) saveCurrentRun();
+    });
+
+    // Periodic autosave interval every 5 seconds
+    setInterval(() => {
+        if (gameStarted && !playerDead) {
+            saveCurrentRun();
+        }
+    }, 5000);
+
+    setRunSaveHandler(saveCurrentRun);
+
+    // A Resume click that happened before this script loaded already requested pointer lock; adopt it.
+    window.__menuReady = true;
+    if (window.__earlyResume && document.pointerLockElement === document.body) {
+        newControls.isLocked = true;
+        newControls.dispatchEvent({ type: 'lock' });
+    }
+
+    // Load saved dungeon generator options
+    const savedGenOpts = getStoredJson(GEN_OPTS_KEY);
+    if (savedGenOpts) {
+        setDungeonGenerationOptions(savedGenOpts);
+    }
+    if (genSizeInput) {
+        genSizeInput.value = String(dungeonGenerationOptions.numObjectsToPlace || 350);
+        if (genSizeVal) genSizeVal.textContent = genSizeInput.value;
+        genSizeInput.addEventListener('input', () => {
+            if (genSizeVal) genSizeVal.textContent = genSizeInput.value;
+        });
+    }
+    if (genSeedInput) {
+        genSeedInput.value = dungeonGenerationOptions.seed || '';
+    }
+
+    // Load saved game settings
+    const savedGameOpts = getStoredJson(GAME_OPTS_KEY);
+    if (savedGameOpts) {
+        if (typeof savedGameOpts.normalMaps === 'boolean') {
+            setNormalMapsEnabled(savedGameOpts.normalMaps);
+        }
+        if (typeof savedGameOpts.music === 'boolean' && savedGameOpts.music !== isMusicOn()) {
+            toggleMusic();
+        }
+    }
+    if (optNormalMaps) optNormalMaps.checked = normalMapsEnabled;
+    if (optMusic) optMusic.checked = isMusicOn();
+    const musicDisplay = hudEl('music-display');
+    if (musicDisplay) {
+        musicDisplay.textContent = isMusicOn() ? 'ON' : 'OFF';
+        musicDisplay.style.color = isMusicOn() ? '#00ff88' : '#ef4444';
+    }
+
+    // Menu button event listeners
+    if (menuBtnResume) {
+        menuBtnResume.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (menuBtnResume.disabled) return;
+            startGameSession();
+            playSound('buttonselect111.wav', 0.5);
+        });
+    }
+
+    instructions.addEventListener('click', (e) => {
+        if (e.target.closest('button, input, select, textarea')) return;
+        if (worldReady || (menuBtnResume && !menuBtnResume.disabled)) {
+            startGameSession();
+        }
+    });
+
+    if (menuBtnNewGame) {
+        menuBtnNewGame.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            playSound('buttonselect111.wav', 0.5);
+            menuBtnNewGame.disabled = true;
+            if (menuStatus) menuStatus.textContent = 'Forging new dungeon...';
+            try {
+                // Reset player
+                playerStats.health = 100;
+                playerStats.maxHealth = 100;
+                playerStats.level = 1;
+                playerStats.xp = 0;
+                playerStats.nextXp = 500;
+                playerStats.kills = 0;
+                unlockedWeapons.clear();
+                ['AXE', 'MAGIC MISSILE', 'FIREBALL', 'LIGHTNING', 'HEALING'].forEach(w => unlockedWeapons.add(w));
+                for (const s in spellCounts) spellCounts[s] = 5;
+                setCurrentGunIndex(0);
+                setDungeonDepth(1);
+                setIsInvincible(false);
+                setPlayerDead(false);
+                toggleFlyMode(false);
+
+                await generateAndLoadNewLevel(textureManager, false);
+
+                updatePlayerHud();
+                await updateWeaponMesh();
+
+                gameStarted = true;
+                saveCurrentRun();
+                if (menuBtnResume) menuBtnResume.disabled = false;
+                if (menuStatus) menuStatus.textContent = '';
+                startGameSession();
+                if (!newControls.isLocked) {
+                    if (menuPrompt) menuPrompt.textContent = 'Dungeon ready! Click Resume or anywhere to enter.';
+                }
+            } catch (err) {
+                console.error('Failed to create new game:', err);
+                if (menuStatus) menuStatus.textContent = 'Failed to generate dungeon.';
+            } finally {
+                menuBtnNewGame.disabled = false;
+            }
+        });
+    }
+
+    if (menuBtnGenerator) {
+        menuBtnGenerator.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playSound('buttonselect111.wav', 0.5);
+            showMenuView('generator');
+            if (genSizeInput) {
+                genSizeInput.value = String(dungeonGenerationOptions.numObjectsToPlace || 350);
+                if (genSizeVal) genSizeVal.textContent = genSizeInput.value;
+            }
+            if (genSeedInput) {
+                genSeedInput.value = dungeonGenerationOptions.seed || '';
+            }
+        });
+    }
+
+    if (menuBtnGeneratorBack) {
+        menuBtnGeneratorBack.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playSound('buttonselect111.wav', 0.5);
+            showMenuView('main');
+        });
+    }
+
+    if (menuBtnGenerateAction) {
+        menuBtnGenerateAction.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            playSound('buttonselect111.wav', 0.5);
+            const size = parseInt(genSizeInput?.value, 10) || 350;
+            const seed = genSeedInput?.value.trim() || null;
+            const options = { numObjectsToPlace: size, seed };
+
+            setDungeonGenerationOptions(options);
+            setStoredJson(GEN_OPTS_KEY, options);
+
+            menuBtnGenerateAction.disabled = true;
+            if (menuStatus) menuStatus.textContent = `Generating dungeon (Depth ${dungeonDepth})...`;
+            try {
+                await generateAndLoadNewLevel(textureManager, false, options);
+                gameStarted = true;
+                saveCurrentRun();
+                if (menuBtnResume) menuBtnResume.disabled = false;
+                if (menuStatus) menuStatus.textContent = '';
+                showMenuView('main');
+                startGameSession();
+                if (!newControls.isLocked) {
+                    if (menuPrompt) menuPrompt.textContent = 'Dungeon ready! Click Resume or anywhere to enter.';
+                }
+            } catch (err) {
+                console.error('Failed to generate dungeon:', err);
+                if (menuStatus) menuStatus.textContent = 'Failed to generate dungeon.';
+            } finally {
+                menuBtnGenerateAction.disabled = false;
+            }
+        });
+    }
+
+    if (menuBtnOptions) {
+        menuBtnOptions.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playSound('buttonselect111.wav', 0.5);
+            showMenuView('options');
+            if (optNormalMaps) optNormalMaps.checked = normalMapsEnabled;
+            if (optMusic) optMusic.checked = isMusicOn();
+        });
+    }
+
+    if (menuBtnOptionsBack) {
+        menuBtnOptionsBack.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playSound('buttonselect111.wav', 0.5);
+            showMenuView('main');
+        });
+    }
+
+    if (optNormalMaps) {
+        optNormalMaps.addEventListener('change', () => {
+            setNormalMapsEnabled(optNormalMaps.checked);
+            setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, music: isMusicOn() });
+        });
+    }
+
+    if (optMusic) {
+        optMusic.addEventListener('change', () => {
+            if (isMusicOn() !== optMusic.checked) {
+                const enabled = toggleMusic();
+                const musicEl = hudEl('music-display');
+                if (musicEl) {
+                    musicEl.textContent = enabled ? 'ON' : 'OFF';
+                    musicEl.style.color = enabled ? '#00ff88' : '#ef4444';
+                }
+                if (enabled) {
+                    resumeAudio();
+                    startNextMusicTrack();
+                }
+            }
+            setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, music: isMusicOn() });
+        });
+    }
+
     scene.add(newControls.getObject());
 
     const onKeyDown = function (event) {
-        if (event.repeat || playerDead) return;
+        if (event.repeat || playerDead || !worldReady) return;
         switch (event.code) {
             case 'ArrowUp':
             case 'KeyW':
@@ -160,6 +498,8 @@ async function init() {
                 break;
             case 'KeyN':
                 setNormalMapsEnabled(!normalMapsEnabled);
+                if (optNormalMaps) optNormalMaps.checked = normalMapsEnabled;
+                setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, music: isMusicOn() });
                 break;
             case 'KeyK':
                 PLAYER_GUNS.forEach(g => unlockedWeapons.add(g));
@@ -187,6 +527,8 @@ async function init() {
             case 'KeyP':
             case 'KeyM': {
                 const enabled = toggleMusic();
+                if (optMusic) optMusic.checked = enabled;
+                setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, music: enabled });
                 const musicEl = hudEl('music-display');
                 if (musicEl) {
                     musicEl.textContent = enabled ? 'ON' : 'OFF';
@@ -250,15 +592,77 @@ async function init() {
 
     window.addEventListener('resize', onWindowResize);
 
+    const savedRun = getStoredJson(SAVE_KEY);
+    if (savedRun && savedRun.version === 1) {
+        if (Number.isFinite(savedRun.depth)) {
+            setDungeonDepth(savedRun.depth);
+        }
+        if (savedRun.dungeonGenerationOptions) {
+            setDungeonGenerationOptions(savedRun.dungeonGenerationOptions);
+        }
+    }
+
     try {
         await loadGameWorld(textureManager);
     } catch (e) {
         console.error('Failed to load the dungeon:', e);
-        hudEl('instructions-prompt').textContent = 'Failed to load the dungeon. Check the console for details.';
+        if (loadingOverlay) loadingOverlay.style.display = 'none';
+        if (menuPrompt) menuPrompt.textContent = 'Failed to load the dungeon. Check the console for details.';
         return;
     }
 
+    if (savedRun && savedRun.version === 1) {
+        try {
+            if (savedRun.playerStats) {
+                for (const k in savedRun.playerStats) {
+                    if (Number.isFinite(savedRun.playerStats[k])) playerStats[k] = savedRun.playerStats[k];
+                }
+            }
+            if (Array.isArray(savedRun.unlockedWeapons)) {
+                unlockedWeapons.clear();
+                savedRun.unlockedWeapons.filter(w => PLAYER_GUNS.includes(w)).forEach(w => unlockedWeapons.add(w));
+            }
+            if (savedRun.spellCounts) {
+                for (const s in spellCounts) {
+                    if (Number.isFinite(savedRun.spellCounts[s])) spellCounts[s] = Math.max(0, savedRun.spellCounts[s]);
+                }
+            }
+            if (Number.isInteger(savedRun.currentGunIndex)) {
+                setCurrentGunIndex(Math.max(0, Math.min(PLAYER_GUNS.length - 1, savedRun.currentGunIndex)));
+            }
+
+            // Position and world state belong to one specific map; if it is not the one that was
+            // saved, the player starts at the entrance of what actually loaded.
+            if (isWorldStateValid(savedRun.world)) {
+                await restoreWorldState(savedRun.world);
+                const p = savedRun.position;
+                if (p && Number.isFinite(p.x) && Number.isFinite(p.y) && Number.isFinite(p.z)) {
+                    newControls.getObject().position.set(p.x, p.y, p.z);
+                }
+                if (Number.isFinite(savedRun.yaw)) newControls.getObject().rotation.y = savedRun.yaw;
+                if (Number.isFinite(savedRun.pitch)) camera.rotation.x = savedRun.pitch;
+            } else {
+                console.warn('Saved world does not match the loaded dungeon; starting at its entrance.');
+            }
+
+            playerStats.health = Math.max(0, Math.min(playerStats.maxHealth, playerStats.health));
+            setPlayerDead(false);
+            if (playerStats.health <= 0) respawnPlayer();
+            else updatePlayerHud();
+        } catch (error) {
+            console.warn('Could not fully restore the saved run:', error);
+        }
+
+        if (menuBtnResume) menuBtnResume.disabled = false;
+        if (menuPrompt) menuPrompt.textContent = `Ready! Saved run at Depth ${dungeonDepth} (Hero LVL ${playerStats.level}).`;
+    } else {
+        if (menuBtnResume) menuBtnResume.disabled = true;
+        if (menuPrompt) menuPrompt.textContent = 'Welcome! Choose New Game to enter the dungeon:';
+    }
+
     await updateWeaponMesh();
+    worldReady = true;
+    if (loadingOverlay) loadingOverlay.style.display = 'none';
 
     const monsterSounds = new Set();
     monsters.forEach(m => {
@@ -298,7 +702,14 @@ async function init() {
     window.spellCounts = spellCounts;
     window.updatePickups = updatePickups;
     window.setCurrentGunIndex = setCurrentGunIndex;
-    window.generateAndLoadNewLevel = () => generateAndLoadNewLevel(textureManager);
+    window.setDungeonDepth = setDungeonDepth;
+    window.textureManager = textureManager;
+    window.saveCurrentRun = saveCurrentRun;
+    window.generateAndLoadNewLevel = (descend, options) => generateAndLoadNewLevel(textureManager, descend, options);
+    Object.defineProperty(window, 'dungeonDepth', {
+        get: () => dungeonDepth,
+        set: (v) => setDungeonDepth(v)
+    });
     Object.defineProperty(window, 'currentGunIndex', {
         get: () => getCurrentGunIndex(),
         set: (v) => setCurrentGunIndex(v)
@@ -308,7 +719,7 @@ async function init() {
     });
 
     prevTime = performance.now();
-    hudEl('instructions-prompt').textContent = 'Click anywhere to Start & Lock Pointer';
+    lastAutosaveTime = performance.now();
     animate();
 }
 
@@ -449,6 +860,13 @@ function animate() {
     if (time - lastPosDisplayTime >= 100) {
         lastPosDisplayTime = time;
         hudEl('pos-display').textContent = `${Math.round(pos.x)}, ${Math.round(pos.y)}, ${Math.round(pos.z)}`;
+    }
+
+    if (time - lastAutosaveTime >= 5000) {
+        lastAutosaveTime = time;
+        if (gameStarted && !playerDead) {
+            saveCurrentRun();
+        }
     }
 
     if (playerDead) {

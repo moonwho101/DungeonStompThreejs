@@ -176,6 +176,44 @@ export function setDungeonDepth(depth) {
     if (el) el.textContent = String(dungeonDepth);
 }
 
+export const dungeonGenerationOptions = {
+    numObjectsToPlace: 350,
+    seed: null
+};
+
+export function setDungeonGenerationOptions(opts) {
+    if (!opts) return;
+    if (Number.isFinite(opts.numObjectsToPlace)) {
+        dungeonGenerationOptions.numObjectsToPlace = Math.min(600, Math.max(100, opts.numObjectsToPlace | 0));
+    }
+    if (opts.seed !== undefined) {
+        dungeonGenerationOptions.seed = (opts.seed === '' || opts.seed === null) ? null : opts.seed;
+    }
+}
+
+// null means the bundled bin/level1.map is loaded.
+export let currentMapText = null;
+// Identifies the loaded map so a saved world snapshot is only applied to the map it came from.
+export let currentMapKey = 'bundled';
+let onSaveCallback = null;
+let levelLoading = false;
+
+function hashString(text) {
+    let hash = 2166136261;
+    for (let i = 0; i < text.length; i++) {
+        hash = Math.imul(hash ^ text.charCodeAt(i), 16777619);
+    }
+    return (hash >>> 0).toString(36) + ':' + text.length;
+}
+
+export function isLevelLoading() {
+    return levelLoading || levelLoadInFlight;
+}
+
+export function setRunSaveHandler(handler) {
+    onSaveCallback = handler;
+}
+
 // Health bars are drawn once per (name, hp, max) combination and shared between
 // all monsters, instead of every monster owning its own canvas, texture and material.
 const healthBarMaterials = new Map();
@@ -699,6 +737,41 @@ export class Monster {
         this.updateBoundingBox();
     }
 
+    restoreSnapshot(state) {
+        this.position.set(state.x, state.y, state.z);
+        this.rotationY = state.r;
+        this.mesh.position.copy(this.position);
+        this.mesh.rotation.y = this.rotationY - Math.PI / 2;
+        if (this.weaponMesh) {
+            this.weaponMesh.position.copy(this.position);
+            this.weaponMesh.rotation.y = this.rotationY - Math.PI / 2;
+        }
+
+        this.health = Math.max(0, Math.min(this.config.maxHealth, state.hp));
+        if (!state.d && this.health > 0) {
+            this.updateHealthBar();
+            return;
+        }
+
+        // Dead monsters stay on the floor in their final death pose.
+        this.health = 0;
+        this.state = MonsterState.DEATH;
+        const anims = this.config.animations;
+        this.setAnimation(anims.DEATH1 || anims.DEATH2 || anims.DEATH3, true);
+        this.animTimer = 1e6;
+        if (this.weaponMesh) {
+            scene.remove(this.weaponMesh);
+            const idx = levelObjects.findIndex(o => o.mesh === this.weaponMesh);
+            if (idx !== -1) levelObjects.splice(idx, 1);
+            this.weaponMesh = null;
+        }
+        this.updateMorphTargets(0);
+        this.updateBoundingBox();
+        this.boundingBox.makeEmpty();
+        this.updateHealthBar();
+        if (this.hpSprite) this.hpSprite.visible = false;
+    }
+
     setState(newState) {
         if (this.state === newState || this.state === MonsterState.DEATH) return;
         const oldState = this.state;
@@ -964,8 +1037,109 @@ export function addPickup(mesh, position, name, def) {
         def,
         state: 'ACTIVE',
         floatTimer: 0,
-        baseScale: mesh.scale.x
+        baseScale: mesh.scale.x,
+        // Pickups placed by the level get a stable index; drops from monsters and chests get -1.
+        levelIndex: levelLoading ? levelPickupCount++ : -1
     });
+}
+
+let levelPickupCount = 0;
+
+function roundCoord(value) {
+    return Math.round(value * 10) / 10;
+}
+
+// Snapshot of everything in the level that the player can change, so a resumed run
+// continues with the same dead monsters, collected items, open doors and opened chests.
+export function captureWorldState() {
+    return {
+        v: 1,
+        k: currentMapKey,
+        mc: monsters.length,
+        dc: doors.length,
+        cc: chests.length,
+        pc: levelPickupCount,
+        m: monsters.map(m => ({
+            x: roundCoord(m.position.x),
+            y: roundCoord(m.position.y),
+            z: roundCoord(m.position.z),
+            r: Math.round(m.rotationY * 1000) / 1000,
+            hp: m.health,
+            d: m.state === MonsterState.DEATH ? 1 : 0
+        })),
+        p: activePickups.filter(p => p.levelIndex >= 0 && p.state === 'ACTIVE').map(p => p.levelIndex),
+        dr: activePickups.filter(p => p.levelIndex < 0 && p.state === 'ACTIVE').map(p => ({
+            n: p.name,
+            x: roundCoord(p.position.x),
+            y: roundCoord(p.position.y),
+            z: roundCoord(p.position.z)
+        })),
+        d: doors.map(d => (d.isOpen || d.isOpening ? 1 : 0)),
+        c: chests.map(c => (c.isOpen ? 1 : 0))
+    };
+}
+
+export function isWorldStateValid(snapshot) {
+    return !!snapshot && snapshot.v === 1 && snapshot.k === currentMapKey &&
+        snapshot.mc === monsters.length && snapshot.dc === doors.length &&
+        snapshot.cc === chests.length && snapshot.pc === levelPickupCount;
+}
+
+function openDoorInstantly(door) {
+    const dy = door.maxUp - door.currentUp;
+    door.currentUp = door.maxUp;
+    door.isOpening = false;
+    door.isOpen = true;
+    if (dy <= 0) return;
+
+    door.mesh.position.y += dy;
+    if (door.levelObj) door.levelObj.position.y += dy;
+    if (door.triangles) {
+        for (const tri of door.triangles) {
+            tri.a.y += dy;
+            tri.b.y += dy;
+            tri.c.y += dy;
+            tri.minY += dy;
+            tri.maxY += dy;
+        }
+        door.bounds.minY += dy;
+        door.bounds.maxY += dy;
+    }
+}
+
+function removePickupSilently(index) {
+    const pickup = activePickups[index];
+    scene.remove(pickup.mesh);
+    disposeOwnedResources(pickup.mesh);
+    const objIdx = levelObjects.findIndex(o => o.mesh === pickup.mesh);
+    if (objIdx !== -1) levelObjects.splice(objIdx, 1);
+    activePickups.splice(index, 1);
+}
+
+export async function restoreWorldState(snapshot) {
+    if (!isWorldStateValid(snapshot)) return false;
+
+    snapshot.m.forEach((state, i) => monsters[i].restoreSnapshot(state));
+
+    const remaining = new Set(snapshot.p);
+    for (let i = activePickups.length - 1; i >= 0; i--) {
+        if (activePickups[i].levelIndex >= 0 && !remaining.has(activePickups[i].levelIndex)) {
+            removePickupSilently(i);
+        }
+    }
+
+    snapshot.d.forEach((open, i) => {
+        if (open) openDoorInstantly(doors[i]);
+    });
+
+    for (let i = 0; i < snapshot.c.length; i++) {
+        if (snapshot.c[i]) await openChest(chests[i], true);
+    }
+
+    for (const drop of snapshot.dr) {
+        await dropTreasure(new THREE.Vector3(drop.x, drop.y, drop.z), true, drop.n, true);
+    }
+    return true;
 }
 
 // Player Guns list & Damage Table
@@ -1802,7 +1976,7 @@ export function addLevelObject(mesh, position, radius = 0) {
 
 export const chests = [];
 
-export async function openChest(chest) {
+export async function openChest(chest, restoring = false) {
     if (!chest || chest.isOpen) return;
     chest.isOpen = true;
 
@@ -1839,6 +2013,8 @@ export async function openChest(chest) {
             }
         }
     }
+
+    if (restoring) return;
 
     playSound('topen.wav', 0.8);
 
@@ -1885,10 +2061,11 @@ export function openNearbyDoor() {
     }
 }
 
-export async function dropTreasure(position, forceDrop = false) {
+// treasureName and silent are used when restoring a saved drop: same item, no random roll or effects.
+export async function dropTreasure(position, forceDrop = false, treasureName = null, silent = false) {
     if (!position) return;
     if (!forceDrop && Math.random() >= 0.8) return;
-    const randomTreasure = TREASURE_DROPS[Math.floor(Math.random() * TREASURE_DROPS.length)];
+    const randomTreasure = treasureName || TREASURE_DROPS[Math.floor(Math.random() * TREASURE_DROPS.length)];
     const modelDef = modelListParser.getModelByName(randomTreasure);
     if (!modelDef) return;
 
@@ -1925,6 +2102,8 @@ export async function dropTreasure(position, forceDrop = false) {
     if (pickupDef) {
         addPickup(model, dropPos, modelDef.name || randomTreasure, pickupDef);
     }
+
+    if (silent) return;
 
     const playerPos = window.controls ? window.controls.getObject().position : null;
     if (playerPos) {
@@ -2200,17 +2379,37 @@ export function clearCurrentWorld() {
 }
 
 export async function loadGameWorld(textureManager, overrideMapText = null) {
+    levelLoading = true;
+    levelPickupCount = 0;
+    try {
+        await buildGameWorld(textureManager, overrideMapText);
+    } finally {
+        levelLoading = false;
+    }
+}
+
+async function buildGameWorld(textureManager, overrideMapText) {
     clearCurrentWorld();
 
     let mapText = overrideMapText;
     if (!mapText) {
-        // A saved map from a previous session may be stale, so starting over regenerates it.
-        let hasSavedMap = false;
+        // The bundled bin/level1.map is used when there is no saved run (or the run was played on it).
+        // A saved run resumes on the dungeon it was saved in; a run whose map is missing gets a fresh dungeon.
+        let savedRun = null;
+        let savedMap = null;
         try {
-            hasSavedMap = !!localStorage.getItem('generatedLevel1Map');
-        } catch (e) {}
-        if (hasSavedMap) {
-            mapText = generateDungeon();
+            savedRun = JSON.parse(localStorage.getItem('dungeonRunState') || 'null');
+            savedMap = localStorage.getItem('generatedLevel1Map');
+        } catch (e) {
+            console.warn('Could not read the saved dungeon:', e);
+        }
+
+        if (savedRun && savedRun.mapSource === 'bundled') {
+            mapText = null;
+        } else if (savedMap) {
+            mapText = savedMap;
+        } else if (savedRun) {
+            mapText = generateDungeon(dungeonGenerationOptions);
             try {
                 localStorage.setItem('generatedLevel1Map', mapText);
             } catch (e) {
@@ -2218,6 +2417,9 @@ export async function loadGameWorld(textureManager, overrideMapText = null) {
             }
         }
     }
+
+    currentMapText = mapText || null;
+    currentMapKey = mapText ? hashString(mapText) : 'bundled';
 
     const [, objectsMap] = await Promise.all([
         textureManager.loadTexturesDat('bin/textures.dat'),
@@ -2580,14 +2782,15 @@ export async function loadGameWorld(textureManager, overrideMapText = null) {
 let levelLoadInFlight = false;
 
 // descend: true when the player took the exit portal (deeper, tougher dungeon); false for a plain regenerate.
-export async function generateAndLoadNewLevel(textureManager, descend = false) {
+export async function generateAndLoadNewLevel(textureManager, descend = false, overrideOptions = {}) {
     if (levelLoadInFlight) return;
     levelLoadInFlight = true;
     try {
         if (descend) setDungeonDepth(dungeonDepth + 1);
 
         console.log("Generating new dungeon level...");
-        const newMapText = generateDungeon();
+        const genOpts = { ...dungeonGenerationOptions, ...overrideOptions };
+        const newMapText = generateDungeon(genOpts);
         try {
             localStorage.setItem('generatedLevel1Map', newMapText);
         } catch (e) {
@@ -2620,4 +2823,7 @@ export async function generateAndLoadNewLevel(textureManager, descend = false) {
     } finally {
         levelLoadInFlight = false;
     }
+
+    // Saved after the in-flight flag clears, so the new level (and portal depth) is what gets persisted.
+    if (onSaveCallback) onSaveCallback();
 }
