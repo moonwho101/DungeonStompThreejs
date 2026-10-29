@@ -351,6 +351,17 @@
         .menu-help small {
             font-size: 11px;
         }
+        .menu-controls small {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px 8px;
+        }
+        .menu-controls span {
+            white-space: nowrap;
+        }
+        .menu-help {
+            text-wrap: balance;
+        }
         #loading-overlay {
             position: fixed;
             inset: 0;
@@ -494,7 +505,7 @@
                 } catch (e) {}
             </script>
             <div id="menu-status" class="menu-status"></div>
-            <p class="menu-help"><small>WASD = Move | Space = Jump | E = Open Door | G = Regen Dungeon | Q/Z = Weapon | Esc = Menu</small></p>
+            <p class="menu-help menu-controls"><small><span>WASD = Move</span><span>Space = Jump</span><span>E = Open Door</span><span>G = Regen Dungeon</span><span>Q/Z = Weapon</span><span>Esc = Menu</span></small></p>
             <p class="menu-help"><small>Find the glowing exit portal to descend &mdash; every level is tougher.</small></p>
         </div>
 
