@@ -351,6 +351,20 @@
         .menu-help small {
             font-size: 11px;
         }
+        #loading-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(5, 7, 12, 0.92);
+            color: #f59e0b;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            z-index: 35;
+        }
         /* Top-Right Minimap Container */
         #minimap-container {
             position: absolute;
@@ -436,6 +450,8 @@
         </div>
     </div>
 
+    <div id="loading-overlay">Loading dungeon...</div>
+
     <div id="instructions">
         <h2>⚔️ Dungeon Stomp ⚔️</h2>
 
@@ -449,16 +465,31 @@
                 <button id="menu-btn-options" class="menu-btn">Options</button>
             </div>
             <script>
+                // Runs before app.js has finished loading (it imports three.js from a CDN). Resume must work
+                // immediately: pointer lock has to be requested inside the click itself, so it is requested
+                // here and app.js adopts the lock as soon as it is up.
                 try {
                     const saveRaw = localStorage.getItem('dungeonRunState');
-                    if (saveRaw) {
-                        const parsed = JSON.parse(saveRaw);
-                        if (parsed && parsed.version === 1) {
-                            const btn = document.getElementById('menu-btn-resume');
-                            if (btn) btn.removeAttribute('disabled');
-                            const prompt = document.getElementById('instructions-prompt');
-                            if (prompt) prompt.textContent = 'Saved run found at Depth ' + (parsed.depth || 1) + '. Click Resume to continue:';
-                        }
+                    const parsed = saveRaw ? JSON.parse(saveRaw) : null;
+                    if (parsed && parsed.version === 1) {
+                        const btn = document.getElementById('menu-btn-resume');
+                        const prompt = document.getElementById('instructions-prompt');
+                        const menu = document.getElementById('instructions');
+                        const overlay = document.getElementById('loading-overlay');
+                        btn.removeAttribute('disabled');
+                        prompt.textContent = 'Saved run found at Depth ' + (parsed.depth || 1) + '. Click Resume to continue:';
+                        btn.addEventListener('click', () => {
+                            if (window.__menuReady) return;
+                            window.__earlyResume = true;
+                            document.body.requestPointerLock();
+                        });
+                        document.addEventListener('pointerlockchange', () => {
+                            if (window.__menuReady || !window.__earlyResume) return;
+                            const locked = document.pointerLockElement === document.body;
+                            menu.style.display = locked ? 'none' : 'block';
+                            overlay.style.display = locked ? 'flex' : 'none';
+                            if (!locked) window.__earlyResume = false;
+                        });
                     }
                 } catch (e) {}
             </script>

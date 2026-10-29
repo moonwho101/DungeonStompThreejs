@@ -36,7 +36,8 @@ import {
     playerWeaponCurrentAnim, generateAndLoadNewLevel,
     toggleMusic, isMusicOn, startNextMusicTrack, updateMusic,
     dungeonDepth, setDungeonDepth, dungeonGenerationOptions, setDungeonGenerationOptions,
-    currentMapText, setRunSaveHandler, saveGameState, setPlayerDead
+    currentMapText, setRunSaveHandler, setPlayerDead,
+    isLevelLoading, captureWorldState, restoreWorldState, isWorldStateValid
 } from './logic.js';
 import { updateMinimap } from './minimap.js';
 
@@ -91,12 +92,18 @@ function setStoredJson(key, obj) {
     } catch (e) {}
 }
 
+let worldReady = false;
+
 function saveCurrentRun() {
+    // Never save before the saved world has been restored or while a level is being built:
+    // that would overwrite the run with a half-loaded state.
+    if (!worldReady || isLevelLoading()) return;
     if (!controls || !controls.getObject()) return;
     const pos = controls.getObject().position;
     if (!Number.isFinite(pos.x) || !Number.isFinite(pos.y) || !Number.isFinite(pos.z)) return;
     const state = {
         version: 1,
+        mapSource: currentMapText ? 'generated' : 'bundled',
         position: { x: pos.x, y: pos.y, z: pos.z },
         yaw: controls.getObject().rotation.y,
         pitch: camera ? camera.rotation.x : 0,
@@ -115,14 +122,10 @@ function saveCurrentRun() {
         dungeonGenerationOptions: { ...dungeonGenerationOptions },
         normalMaps: normalMapsEnabled,
         music: isMusicOn(),
+        world: captureWorldState(),
         timestamp: Date.now()
     };
     setStoredJson(SAVE_KEY, state);
-    if (currentMapText) {
-        try {
-            localStorage.setItem('generatedLevel1Map', currentMapText);
-        } catch (e) {}
-    }
 }
 
 async function init() {
@@ -133,9 +136,7 @@ async function init() {
     const newControls = new PointerLockControls(camera, document.body);
     setControls(newControls);
 
-    let isWorldReady = false;
-    let resumePending = false;
-
+    const loadingOverlay = document.getElementById('loading-overlay');
     const instructions = document.getElementById('instructions');
     const menuViewMain = document.getElementById('menu-view-main');
     const menuViewGenerator = document.getElementById('menu-view-generator');
@@ -182,21 +183,24 @@ async function init() {
         if (menuStatus) menuStatus.textContent = '';
     }
 
+    // Pointer lock must be requested straight from the click handler, so it comes before anything
+    // else (audio, sounds) that could throw or delay it.
     const startGameSession = () => {
-        resumeAudio();
-        if (!gameStarted && isMusicOn()) {
-            startNextMusicTrack();
-        }
         try {
             newControls.lock();
         } catch (e) {
             console.warn('Pointer lock request failed:', e);
+        }
+        resumeAudio();
+        if (!gameStarted && isMusicOn()) {
+            startNextMusicTrack();
         }
     };
 
     newControls.addEventListener('lock', () => {
         gameStarted = true;
         instructions.style.display = 'none';
+        if (loadingOverlay) loadingOverlay.style.display = worldReady ? 'none' : 'flex';
         resumeAudio();
     });
 
@@ -207,6 +211,7 @@ async function init() {
 
     newControls.addEventListener('unlock', () => {
         instructions.style.display = 'block';
+        if (loadingOverlay) loadingOverlay.style.display = 'none';
         showMenuView('main');
         if (menuPrompt) menuPrompt.textContent = 'Paused - Resume or choose an option:';
         if (menuBtnResume) menuBtnResume.disabled = false;
@@ -236,6 +241,13 @@ async function init() {
     }, 5000);
 
     setRunSaveHandler(saveCurrentRun);
+
+    // A Resume click that happened before this script loaded already requested pointer lock; adopt it.
+    window.__menuReady = true;
+    if (window.__earlyResume && document.pointerLockElement === document.body) {
+        newControls.isLocked = true;
+        newControls.dispatchEvent({ type: 'lock' });
+    }
 
     // Load saved dungeon generator options
     const savedGenOpts = getStoredJson(GEN_OPTS_KEY);
@@ -275,20 +287,15 @@ async function init() {
     if (menuBtnResume) {
         menuBtnResume.addEventListener('click', (e) => {
             e.stopPropagation();
-            playSound('buttonselect111.wav', 0.5);
             if (menuBtnResume.disabled) return;
-            if (!isWorldReady) {
-                resumePending = true;
-                if (menuStatus) menuStatus.textContent = 'Dungeon loading, entering shortly...';
-                return;
-            }
             startGameSession();
+            playSound('buttonselect111.wav', 0.5);
         });
     }
 
     instructions.addEventListener('click', (e) => {
         if (e.target.closest('button, input, select, textarea')) return;
-        if (isWorldReady) {
+        if (worldReady || (menuBtnResume && !menuBtnResume.disabled)) {
             startGameSession();
         }
     });
@@ -440,7 +447,7 @@ async function init() {
     scene.add(newControls.getObject());
 
     const onKeyDown = function (event) {
-        if (event.repeat || playerDead) return;
+        if (event.repeat || playerDead || !worldReady) return;
         switch (event.code) {
             case 'ArrowUp':
             case 'KeyW':
@@ -599,55 +606,63 @@ async function init() {
         await loadGameWorld(textureManager);
     } catch (e) {
         console.error('Failed to load the dungeon:', e);
+        if (loadingOverlay) loadingOverlay.style.display = 'none';
         if (menuPrompt) menuPrompt.textContent = 'Failed to load the dungeon. Check the console for details.';
         return;
     }
 
     if (savedRun && savedRun.version === 1) {
-        if (savedRun.position && Number.isFinite(savedRun.position.x)) {
-            newControls.getObject().position.set(savedRun.position.x, savedRun.position.y, savedRun.position.z);
-        }
-        if (Number.isFinite(savedRun.yaw)) {
-            newControls.getObject().rotation.y = savedRun.yaw;
-        }
-        if (Number.isFinite(savedRun.pitch)) {
-            camera.rotation.x = savedRun.pitch;
-        }
-        if (savedRun.playerStats) {
-            for (const k in savedRun.playerStats) {
-                if (Number.isFinite(savedRun.playerStats[k])) playerStats[k] = savedRun.playerStats[k];
+        try {
+            if (savedRun.playerStats) {
+                for (const k in savedRun.playerStats) {
+                    if (Number.isFinite(savedRun.playerStats[k])) playerStats[k] = savedRun.playerStats[k];
+                }
             }
-        }
-        if (Array.isArray(savedRun.unlockedWeapons)) {
-            unlockedWeapons.clear();
-            savedRun.unlockedWeapons.filter(w => PLAYER_GUNS.includes(w)).forEach(w => unlockedWeapons.add(w));
-        }
-        if (savedRun.spellCounts) {
-            for (const s in spellCounts) {
-                if (Number.isFinite(savedRun.spellCounts[s])) spellCounts[s] = Math.max(0, savedRun.spellCounts[s]);
+            if (Array.isArray(savedRun.unlockedWeapons)) {
+                unlockedWeapons.clear();
+                savedRun.unlockedWeapons.filter(w => PLAYER_GUNS.includes(w)).forEach(w => unlockedWeapons.add(w));
             }
+            if (savedRun.spellCounts) {
+                for (const s in spellCounts) {
+                    if (Number.isFinite(savedRun.spellCounts[s])) spellCounts[s] = Math.max(0, savedRun.spellCounts[s]);
+                }
+            }
+            if (Number.isInteger(savedRun.currentGunIndex)) {
+                setCurrentGunIndex(Math.max(0, Math.min(PLAYER_GUNS.length - 1, savedRun.currentGunIndex)));
+            }
+
+            // Position and world state belong to one specific map; if it is not the one that was
+            // saved, the player starts at the entrance of what actually loaded.
+            if (isWorldStateValid(savedRun.world)) {
+                await restoreWorldState(savedRun.world);
+                const p = savedRun.position;
+                if (p && Number.isFinite(p.x) && Number.isFinite(p.y) && Number.isFinite(p.z)) {
+                    newControls.getObject().position.set(p.x, p.y, p.z);
+                }
+                if (Number.isFinite(savedRun.yaw)) newControls.getObject().rotation.y = savedRun.yaw;
+                if (Number.isFinite(savedRun.pitch)) camera.rotation.x = savedRun.pitch;
+            } else {
+                console.warn('Saved world does not match the loaded dungeon; starting at its entrance.');
+            }
+
+            playerStats.health = Math.max(0, Math.min(playerStats.maxHealth, playerStats.health));
+            setPlayerDead(false);
+            if (playerStats.health <= 0) respawnPlayer();
+            else updatePlayerHud();
+        } catch (error) {
+            console.warn('Could not fully restore the saved run:', error);
         }
-        if (Number.isInteger(savedRun.currentGunIndex)) {
-            setCurrentGunIndex(Math.max(0, Math.min(PLAYER_GUNS.length - 1, savedRun.currentGunIndex)));
-        }
-        playerStats.health = Math.max(0, Math.min(playerStats.maxHealth, playerStats.health));
-        setPlayerDead(false);
-        if (playerStats.health <= 0) respawnPlayer();
-        else updatePlayerHud();
 
         if (menuBtnResume) menuBtnResume.disabled = false;
         if (menuPrompt) menuPrompt.textContent = `Ready! Saved run at Depth ${dungeonDepth} (Hero LVL ${playerStats.level}).`;
-        if (resumePending) {
-            resumePending = false;
-            startGameSession();
-        }
     } else {
         if (menuBtnResume) menuBtnResume.disabled = true;
         if (menuPrompt) menuPrompt.textContent = 'Welcome! Choose New Game to enter the dungeon:';
     }
 
     await updateWeaponMesh();
-    isWorldReady = true;
+    worldReady = true;
+    if (loadingOverlay) loadingOverlay.style.display = 'none';
 
     const monsterSounds = new Set();
     monsters.forEach(m => {
