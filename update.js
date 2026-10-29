@@ -18,7 +18,7 @@ import {
     levelObjects, activePickups, activeProjectiles, activeTeleporters,
     PROJECTILE_TYPES, PLAYER_GUNS, unlockedWeapons, spellCounts,
     setCurrentGunIndex, getCurrentGunMesh, generateAndLoadNewLevel,
-    MD2_ANIMATIONS, healPlayer, addPlayerXp,
+    MD2_ANIMATIONS, healPlayer, addPlayerXp, saveGameState,
     updatePlayerHud, playPickupSound, playSound,
     triggerSpellExplosion, triggerMonsterSpellExplosion, checkPlayerAttackHit,
     updateWeaponMesh, playerWeaponCurrentAnim, playerWeaponAnimTimer,
@@ -140,6 +140,7 @@ export function updateTeleporters(delta, playerPos) {
             flashScreen(FLASH_PICKUP_XP, 0.8, 350);
             createPickupFloatingText('LEVEL COMPLETE! TELEPORTING...', playerPos, '#38bdf8');
 
+            saveGameState();
             generateAndLoadNewLevel(textureManager, true);
         }
     }

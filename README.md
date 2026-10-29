@@ -32,7 +32,9 @@ Swing a flaming sword, hurl fireballs, cast lightning, and stomp through endless
 
 ## ✨ Features
 
-- 🏰 **Infinite procedural dungeons.** Press `G` any time to generate a brand-new level. Find the glowing exit portal to descend. Every depth is tougher than the last.
+- 🏰 **Infinite procedural dungeons.** Configure rooms and seed in the Dungeon Generator, or press `G` any time to regenerate a new level. Find the glowing exit portal to descend &mdash; every depth is tougher than the last.
+- 💾 **Persistent adventures.** State saves periodically and upon entering teleporters. Resume right where you left off or start a fresh New Game.
+- 📜 **In-game menu system.** Simple and clean opening and pause menu with New Game, Resume, Dungeon Generator settings, and visual/audio Options.
 - 🧟 **30 monster families.** Ogres, hydras, dragons, necromancers, demonesses, faeries, mummies, wraiths, goblins, skeletons, wolves, tentacle horrors and more. Each has its own AI, aggro range, pain and death sounds, and attack style.
 - 🔮 **Spellcasters that fight back.** Many enemies cast **Magic Missile**, **Fireball** and **Lightning** at you with line-of-sight checks and cooldowns.
 - ⚔️ **A full arsenal.** Axe, Flamesword, Bastard Sword, Battle Axe, Ice Sword, Lightning Sword, Morning Star, Spiked Flail, Split Sword and Super Flamesword, plus the spells **Magic Missile**, **Fireball**, **Lightning** and **Healing**.

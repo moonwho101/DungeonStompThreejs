@@ -142,10 +142,19 @@ export function get_world_bounds_full(name, ox, oz, rot) {
 }
 
 function createRng(seed) {
-    if (seed === undefined || seed === null) {
+    if (seed === undefined || seed === null || seed === '') {
         return Math.random;
     }
-    let s = (seed ^ 0xDEADBEEF) >>> 0;
+    let s;
+    if (typeof seed === 'string') {
+        let hash = 2166136261;
+        for (let i = 0; i < seed.length; i++) {
+            hash = Math.imul(hash ^ seed.charCodeAt(i), 16777619);
+        }
+        s = (hash ^ 0xDEADBEEF) >>> 0;
+    } else {
+        s = (seed ^ 0xDEADBEEF) >>> 0;
+    }
     return function() {
         s = (s + 0x6D2B79F5) | 0;
         let t = Math.imul(s ^ (s >>> 15), 1 | s);

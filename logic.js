@@ -176,6 +176,32 @@ export function setDungeonDepth(depth) {
     if (el) el.textContent = String(dungeonDepth);
 }
 
+export const dungeonGenerationOptions = {
+    numObjectsToPlace: 350,
+    seed: null
+};
+
+export function setDungeonGenerationOptions(opts) {
+    if (!opts) return;
+    if (Number.isFinite(opts.numObjectsToPlace)) {
+        dungeonGenerationOptions.numObjectsToPlace = Math.min(600, Math.max(100, opts.numObjectsToPlace | 0));
+    }
+    if (opts.seed !== undefined) {
+        dungeonGenerationOptions.seed = (opts.seed === '' || opts.seed === null) ? null : opts.seed;
+    }
+}
+
+export let currentMapText = null;
+let onSaveCallback = null;
+
+export function setRunSaveHandler(handler) {
+    onSaveCallback = handler;
+}
+
+export function saveGameState() {
+    if (onSaveCallback) onSaveCallback();
+}
+
 // Health bars are drawn once per (name, hp, max) combination and shared between
 // all monsters, instead of every monster owning its own canvas, texture and material.
 const healthBarMaterials = new Map();
@@ -2204,20 +2230,33 @@ export async function loadGameWorld(textureManager, overrideMapText = null) {
 
     let mapText = overrideMapText;
     if (!mapText) {
-        // A saved map from a previous session may be stale, so starting over regenerates it.
-        let hasSavedMap = false;
+        // level1.map that comes with the game should be used on startup or if there is no localstorage present,
+        // otherwise it will gen a dungeon
+        let hasSavedData = false;
         try {
-            hasSavedMap = !!localStorage.getItem('generatedLevel1Map');
+            hasSavedData = !!localStorage.getItem('generatedLevel1Map') || !!localStorage.getItem('dungeonRunState');
         } catch (e) {}
-        if (hasSavedMap) {
-            mapText = generateDungeon();
+
+        if (hasSavedData) {
+            let savedMap = null;
             try {
-                localStorage.setItem('generatedLevel1Map', mapText);
-            } catch (e) {
-                console.warn('Could not write to localStorage:', e);
+                savedMap = localStorage.getItem('generatedLevel1Map');
+            } catch (e) {}
+
+            if (savedMap) {
+                mapText = savedMap;
+            } else {
+                mapText = generateDungeon(dungeonGenerationOptions);
+                try {
+                    localStorage.setItem('generatedLevel1Map', mapText);
+                } catch (e) {
+                    console.warn('Could not write to localStorage:', e);
+                }
             }
         }
     }
+
+    currentMapText = mapText;
 
     const [, objectsMap] = await Promise.all([
         textureManager.loadTexturesDat('bin/textures.dat'),
@@ -2580,14 +2619,16 @@ export async function loadGameWorld(textureManager, overrideMapText = null) {
 let levelLoadInFlight = false;
 
 // descend: true when the player took the exit portal (deeper, tougher dungeon); false for a plain regenerate.
-export async function generateAndLoadNewLevel(textureManager, descend = false) {
+export async function generateAndLoadNewLevel(textureManager, descend = false, overrideOptions = {}) {
     if (levelLoadInFlight) return;
     levelLoadInFlight = true;
     try {
         if (descend) setDungeonDepth(dungeonDepth + 1);
 
         console.log("Generating new dungeon level...");
-        const newMapText = generateDungeon();
+        const genOpts = { ...dungeonGenerationOptions, ...overrideOptions };
+        const newMapText = generateDungeon(genOpts);
+        currentMapText = newMapText;
         try {
             localStorage.setItem('generatedLevel1Map', newMapText);
         } catch (e) {
@@ -2617,6 +2658,8 @@ export async function generateAndLoadNewLevel(textureManager, descend = false) {
             createPickupFloatingText(descend ? `DUNGEON LEVEL ${dungeonDepth}` : 'NEW DUNGEON GENERATED!', controls.getObject().position, '#38bdf8');
         }
         flashScreen(FLASH_GREEN, 0.4, 200);
+
+        if (onSaveCallback) onSaveCallback();
     } finally {
         levelLoadInFlight = false;
     }
