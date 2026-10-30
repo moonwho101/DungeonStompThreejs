@@ -7,13 +7,6 @@ Debug/
 Release/
 *.log
 packages/
-
-
-
-
-
-
-
-
-
-
+build/
+external/
+*.o
