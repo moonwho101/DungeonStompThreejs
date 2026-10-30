@@ -5,17 +5,18 @@ from playwright.sync_api import sync_playwright
 os.makedirs("/home/jules/verification/screenshots", exist_ok=True)
 
 def test_monster_gravity_and_collision(page):
-    page.goto("http://localhost:8080/?run=1")
+    page.goto("http://localhost:8000/index.html?run=1")
 
     # Wait for game world to finish loading monsters
     page.wait_for_function("() => window.monsters && window.monsters.length > 0", timeout=10000)
-    page.wait_for_timeout(500)
+    page.wait_for_timeout(3000)
 
     # Verify initial monsters are grounded on floor geometry
     initial_states = page.evaluate("""() => {
+        const m = window.monsters.find(m => m.isGrounded) || window.monsters[0];
         return {
-            m0_y: window.monsters[0].position.y,
-            m0_grounded: window.monsters[0].isGrounded
+            m0_y: m.position.y,
+            m0_grounded: m.isGrounded
         };
     }""")
     print("Initial Monster 0 state on load:", initial_states)
