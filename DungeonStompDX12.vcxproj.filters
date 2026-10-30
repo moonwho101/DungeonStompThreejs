@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>hlsl</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\D3D12Renderer.cpp" />
+    <ClCompile Include="src\Parsers.cpp" />
+    <ClCompile Include="src\DungeonGenerator.cpp" />
+    <ClCompile Include="src\Collision.cpp" />
+    <ClCompile Include="src\Monster.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Minimap.cpp" />
+    <ClCompile Include="src\Audio.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\D3D12Renderer.h" />
+    <ClInclude Include="src\Parsers.h" />
+    <ClInclude Include="src\DungeonGenerator.h" />
+    <ClInclude Include="src\Collision.h" />
+    <ClInclude Include="src\Monster.h" />
+    <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\Minimap.h" />
+    <ClInclude Include="src\Audio.h" />
+    <ClInclude Include="src\Game.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="src\Shaders\VertexShader.hlsl" />
+    <FxCompile Include="src\Shaders\PixelShader.hlsl" />
+    <FxCompile Include="src\Shaders\MeshShader.hlsl" />
+    <FxCompile Include="src\Shaders/Raytracing.hlsl" />
+  </ItemGroup>
+</Project>

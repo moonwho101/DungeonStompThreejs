@@ -1,20 +1,18 @@
 <div align="center">
 
-# ⚔️ Dungeon Stomp Three.js
+# ⚔️ Dungeon Stomp DirectX 12 Ultimate & Three.js
 
-### A classic first-person dungeon crawler, reborn in your browser.
+### A classic first-person dungeon crawler, powered by Microsoft C++ DirectX 12 Ultimate & Three.js.
 
-**Procedural dungeons · Real-time spells · Dozens of monsters · Zero installs · Pure JavaScript + WebGL**
+**Procedural dungeons · Real-time spells · DirectX 12 Ultimate (DXR 1.1 Raytracing, Mesh Shaders, VRS, Sampler Feedback) · C++20 & JavaScript**
 
+![DirectX 12 Ultimate](https://img.shields.io/badge/DirectX%2012-Ultimate%20(FL%2012__2)-0078D4?logo=windows)
+![C++20](https://img.shields.io/badge/C%2B%2B-20-blue?logo=cplusplus)
 ![Three.js](https://img.shields.io/badge/Three.js-r160-black?logo=three.js)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES%20Modules-F7DF1E?logo=javascript&logoColor=black)
-![WebGL](https://img.shields.io/badge/WebGL-3D-990000?logo=webgl)
-![No Build Step](https://img.shields.io/badge/build%20step-none-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-<img src="verification/screenshots/generated_level.png" alt="Dungeon Stomp Three.js gameplay: first-person view down a glowing teal dungeon corridor with a minimap and HUD" width="860">
-
-## 🎮 [**Play it live in your browser →**](https://moonwho101.github.io/DungeonStompThreejs/)
+<img src="verification/screenshots/generated_level.png" alt="Dungeon Stomp gameplay: first-person view down a glowing teal dungeon corridor with a minimap and HUD" width="860">
 
 </div>
 
@@ -22,120 +20,73 @@
 
 ## What is this?
 
-**Dungeon Stomp Three.js** is a browser-based, first-person 3D dungeon crawler built with [Three.js](https://threejs.org/). It is a ground-up JavaScript port of **Dungeon Stomp**, the original Direct3D dungeon crawler by [Mark Longo (moonwho101)](https://github.com/moonwho101), with the classic levels, models, textures and sounds brought to the web.
+**Dungeon Stomp** is a classic first-person 3D dungeon crawler available as a native **Microsoft C++ DirectX 12 Ultimate engine** and a browser-based **Three.js WebGL port**.
 
-Swing a flaming sword, hurl fireballs, cast lightning, and stomp through endless **procedurally generated dungeons** crawling with monsters, treasure and traps. Just open it in a browser and play.
+Swing a flaming sword, hurl fireballs, cast lightning, and stomp through endless **procedurally generated dungeons** crawling with monsters, treasure and traps.
 
-### 👉 [**Play it live: moonwho101.github.io/DungeonStompThreejs**](https://moonwho101.github.io/DungeonStompThreejs/)
+## 🚀 Microsoft C++ DirectX 12 Ultimate Engine
 
-> If you grew up on Doom, Quake, Hexen, Eye of the Beholder or Diablo, this one is for you.
+The project features a full native C++20 implementation targeting **Microsoft DirectX 12 Ultimate (Feature Level 12_2)**:
 
-## ✨ Features
+- 🎮 **DirectX 12 Ultimate Rendering Pipeline (`src/D3D12Renderer.cpp`)**:
+  - **DXR 1.1 Raytracing (`src/Shaders/Raytracing.hlsl`)**: Hardware raytraced ambient occlusion and reflection passes.
+  - **Mesh Shaders (`src/Shaders/MeshShader.hlsl`)**: Shader Model 6.5 geometry amplification and per-meshlet culling.
+  - **Variable Rate Shading (VRS)** & **Sampler Feedback**.
+  - **Normal Mapping & Dynamic Point Lighting (`src/Shaders/PixelShader.hlsl`)**.
+- 🛠️ **Visual Studio 2022 & CMake Support**:
+  - Open `DungeonStompDX12.sln` directly in Visual Studio 2022.
+  - Build with CMake: `cmake -B build && cmake --build build`.
+- 🏰 **Procedural Dungeon Generator & Binary Asset Parsers**:
+  - Ported C++ dungeon generator and parsers for original `.map`, `.mod`, `.cmp`, and `.3ds` models.
 
-- 🏰 **Infinite procedural dungeons.** Configure rooms and seed in the Dungeon Generator, or press `G` any time to regenerate a new level. Find the glowing exit portal to descend &mdash; every depth is tougher than the last.
-- 💾 **Persistent adventures.** The game saves periodically and after each portal. Resume restores your position, stats, weapons and depth, plus the world exactly as you left it: slain monsters stay dead, collected items stay collected, and opened doors and chests stay open.
-- 📜 **In-game menu system.** Simple and clean opening and pause menu with New Game, Resume, Dungeon Generator settings, and visual/audio Options.
-- 🧟 **30 monster families.** Ogres, hydras, dragons, necromancers, demonesses, faeries, mummies, wraiths, goblins, skeletons, wolves, tentacle horrors and more. Each has its own AI, aggro range, pain and death sounds, and attack style.
-- 🔮 **Spellcasters that fight back.** Many enemies cast **Magic Missile**, **Fireball** and **Lightning** at you with line-of-sight checks and cooldowns.
-- ⚔️ **A full arsenal.** Axe, Flamesword, Bastard Sword, Battle Axe, Ice Sword, Lightning Sword, Morning Star, Spiked Flail, Split Sword and Super Flamesword, plus the spells **Magic Missile**, **Fireball**, **Lightning** and **Healing**.
-- 📈 **RPG progression.** Gain XP, level up, collect potions, scrolls, spellbooks and coins, and track your kill count on a modern HUD.
-- 💡 **Dynamic lighting and normal mapping.** Hundreds of lights per level, with toggleable normal maps (`N`) for a gritty, tactile look.
-- 🧭 **Circular minimap.** See walls, monsters and loot around you at a glance.
-- 🚪 **Interactive world.** Open doors and crack open treasure chests.
-- 🔊 **Atmospheric audio.** More than 150 original sound effects, plus a rolling music soundtrack (`P` / `M` to toggle).
-- 🕹️ **Fly mode and god mode** for exploring, level design and debugging.
-- 🪶 **No bundler, no npm, no build.** It's plain ES modules plus an import map. Read it, hack it, mod it.
+### 🛠️ Building the C++ DirectX 12 Ultimate Engine
 
-## 🎮 Controls
+#### Visual Studio 2022
+1. Open `DungeonStompDX12.sln` in Visual Studio 2022.
+2. Select **x64** and **Release** (or **Debug**).
+3. Build and Run (`F5` or `Ctrl+F5`).
 
-| Key | Action |
-|-----|--------|
-| `W` `A` `S` `D` / Arrow keys | Move |
-| Mouse | Look around (click to capture the pointer) |
-| Left click | Attack / cast |
-| `Space` | Jump (fly up in fly mode) |
-| `Shift` | Sprint |
-| `Q` / `Z` | Next / previous weapon or spell |
-| `E` | Open nearby door |
-| `G` | Generate a new dungeon |
-| `F` / `V` | Toggle fly mode (`C` / `Ctrl` to descend) |
-| `N` | Toggle normal maps |
-| `P` / `M` | Toggle music |
-| `K` | Cheat: unlock all weapons and spells |
-| `I` | Cheat: toggle god mode |
-| `Esc` | Pause / release the mouse |
-
-## 🌐 Play it live
-
-**[▶ Play Dungeon Stomp Three.js now](https://moonwho101.github.io/DungeonStompThreejs/)**
-
-No install needed. Open the link in a modern desktop browser (Chrome, Edge, Firefox or Safari) and click to start.
-
-## 🚀 Play it locally
-
-The game loads levels, models and textures with `fetch`, so it has to be served over HTTP. Opening `index.html` directly from disk won't work.
-
+#### CMake (Windows & Linux / WSL)
 ```bash
-git clone https://github.com/moonwho101/DungeonStompThreejs.git
-cd DungeonStompThreejs
-
-# pick any static server:
-python -m http.server 8000
-# or
-npx serve .
+cmake -B build
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/DungeonStompDX12
 ```
 
-Then open **http://localhost:8000** in a modern browser (Chrome, Edge, Firefox or Safari) and click to start.
+---
 
-Three.js is loaded from a CDN (unpkg) through an import map, so you need an internet connection on first load.
+## 🎮 WebGL / Three.js Engine
 
-### Host it for free
-It's a fully static site, so you can publish it with **GitHub Pages**, Netlify, Vercel or Cloudflare Pages. Point them at the repo root, with no build command and no output directory.
+To run the browser version locally:
 
-## 🧱 Project layout
+```bash
+python -m http.server 8000
+```
+Then open **http://localhost:8000** in your browser.
+
+---
+
+## 🧱 Project Layout
 
 | Path | Purpose |
 |------|---------|
-| [`index.html`](index.html) | Entry point, HUD and styles |
-| [`app.js`](app.js) | Startup, input handling, pointer lock |
-| [`logic.js`](logic.js) | Monsters, AI, combat, items, spells, level loading |
-| [`generator.js`](generator.js) | Procedural dungeon generator |
-| [`render.js`](render.js) | Three.js renderer, lights, materials, effects |
-| [`update.js`](update.js) | Per-frame game loop |
-| [`collision.js`](collision.js) | Player and monster collision |
-| [`minimap.js`](minimap.js) | Circular minimap |
-| [`parsers.js`](parsers.js) | Parsers for the original Dungeon Stomp `.map`, `.mod` and `.cmp` data |
-| [`bin/`](bin) | Original level, model-list and collision data |
-| [`Models/`](Models) | 3DS and monster models |
-| [`Textures/`](Textures) | Textures and normal maps |
-| [`Sounds/`](Sounds), [`Midi/`](Midi) | Sound effects and music |
-| [`tools/`](tools), [`verification/`](verification) | Asset analysis scripts and automated Playwright checks |
+| `DungeonStompDX12.sln` / `.vcxproj` | Microsoft Visual Studio 2022 C++ Solution & Project |
+| `CMakeLists.txt` | CMake C++20 build configuration |
+| `src/Main.cpp` | Application entry point and game loop |
+| `src/D3D12Renderer.h/.cpp` | DirectX 12 Ultimate rendering engine |
+| `src/Shaders/` | HLSL Shaders (Vertex, Pixel, MeshShader Model 6.5, DXR Raytracing) |
+| `src/DungeonGenerator.h/.cpp` | Procedural dungeon generation engine |
+| `src/Parsers.h/.cpp` | Parsers for binary `.map`, `.mod`, `.cmp`, and `.3ds` assets |
+| `src/Player.h/.cpp`, `src/Monster.h/.cpp` | Player stats/weapons/spells and Monster AI state machine |
+| `src/Collision.h/.cpp`, `src/Minimap.h/.cpp` | Capsule collision resolution and circular minimap |
+| `src/Audio.h/.cpp` | Positional 3D audio engine |
+| `tests/` | C++ unit & integration tests (`test_dungeon`, `test_parsers`, `test_d3d12`) |
+| `app.js`, `logic.js`, `render.js` | WebGL / Three.js JavaScript codebase |
+| `Assets/`, `bin/`, `Sounds/` | Texture maps, binary dungeon levels, and sound assets |
 
-## 🛠️ Built with
-
-- [Three.js](https://threejs.org/) for rendering, `PointerLockControls` and the 3DS loader
-- Vanilla JavaScript (ES modules), with no framework and no bundler
-- Web Audio / HTML5 audio for sound and music
-
-## 🤝 Contributing
-
-Bug reports, new monsters, level ideas, performance tweaks and pull requests are all welcome. Fork it, break it, make it better.
-
-1. Fork the repo
-2. Create a branch: `git checkout -b feature/my-awesome-feature`
-3. Commit and push
-4. Open a pull request
-
-If you enjoy the project, **⭐ star the repo**. It helps other dungeon crawlers find it.
+---
 
 ## 📜 License
 
 Released under the [MIT License](LICENSE). © Mark Longo.
-
----
-
-<div align="center">
-
-**Dungeon Stomp Three.js**: descend, fight, loot, repeat. 🗡️🔥⚡
-
-</div>
