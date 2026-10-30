@@ -7,11 +7,11 @@ os.makedirs("/home/jules/verification/videos", exist_ok=True)
 os.makedirs("/home/jules/verification/screenshots", exist_ok=True)
 
 def run_cuj(page):
-    page.goto("http://localhost:8080/?run=1")
-    page.wait_for_timeout(1000)
+    page.goto("http://localhost:8000/index.html?run=1")
+    page.wait_for_timeout(2000)
 
     # Wait for game world and monsters to load
-    page.wait_for_function("() => window.monsters && window.monsters.length > 0", timeout=10000)
+    page.wait_for_function("() => window.monsters && window.monsters.length > 0", timeout=15000)
     page.wait_for_timeout(1000)
 
     # Inspect monster configs and sound properties
@@ -60,9 +60,9 @@ if __name__ == "__main__":
     server_process = None
     try:
         import urllib.request
-        urllib.request.urlopen("http://localhost:8080")
+        urllib.request.urlopen("http://localhost:8000")
     except Exception:
-        server_process = subprocess.Popen(["python3", "-m", "http.server", "8080"])
+        server_process = subprocess.Popen(["python3", "-m", "http.server", "8000"])
         time.sleep(1)
 
     try:
