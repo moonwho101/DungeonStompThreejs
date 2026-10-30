@@ -174,7 +174,7 @@ MIN_SPIRAL_START_DISTANCE = 500
 MAX_GENERATION_ATTEMPTS = 50
 
 
-def generate(start_x=5200, start_z=2600, seed=None, num_objects_to_place=350):
+def generate(start_x=5200, start_z=2600, seed=None, num_objects_to_place=225):
     """
     Regenerates until the dungeon is "good": at least half of num_objects_to_place
     tiles placed and the exit spiral not within 500 units of startpos.
@@ -965,7 +965,7 @@ if __name__ == '__main__':
     parser.add_argument("--seed", type=int, default=None, help="Seed for deterministic dungeon generation")
     parser.add_argument("--x", type=int, default=5200)
     parser.add_argument("--z", type=int, default=2600)
-    parser.add_argument("--count", type=int, default=350)
+    parser.add_argument("--count", type=int, default=225)
     args = parser.parse_args()
 
     generate(start_x=args.x, start_z=args.z, seed=args.seed, num_objects_to_place=args.count)
