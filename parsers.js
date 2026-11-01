@@ -27,13 +27,8 @@ export class TextureManager {
                 const parts = line.split(/\s+/);
                 if (parts[0] === 'AddTexture') {
                     currentTexPath = parts[1] || '';
-                    // Clean path Windows separators and leading ..\
-                    currentTexPath = currentTexPath.replace(/\\/g, '/');
-                    if (currentTexPath.toLowerCase().startsWith('../assets/')) {
-                        currentTexPath = currentTexPath.substring(10);
-                    } else if (currentTexPath.toLowerCase().startsWith('assets/')) {
-                        currentTexPath = currentTexPath.substring(7);
-                    }
+                    // Assets are flat; aliases only need the filename.
+                    currentTexPath = currentTexPath.replace(/\\/g, '/').split('/').pop();
                 } else if (parts[0] === 'Alias') {
                     // Alias <id> <alias_name> <blend> ...
                     const aliasName = parts[2];

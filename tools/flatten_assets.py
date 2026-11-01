@@ -12,18 +12,15 @@ The original Models/ and Textures/ folders are left untouched.
 Usage:  python tools/flatten_assets.py [--dry-run]
 """
 import argparse
-import re
 import shutil
 from pathlib import Path
+
+from update_asset_paths import update_dat
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE_DIRS = ("Models", "Textures")
 ASSETS = ROOT / "Assets"
 DAT_FILES = (ROOT / "bin" / "modellist.dat", ROOT / "bin" / "textures.dat")
-
-# ..\models\players\knight\knight.md2  ->  ..\Assets\knight.md2
-PATH_RE = re.compile(r"\.\.[\\/](?:models|textures)[\\/](?:[^\s\\/]+[\\/])*([^\s\\/]+)", re.IGNORECASE)
-
 
 def copy_files(dry_run):
     copied = overwritten = 0
@@ -44,27 +41,16 @@ def copy_files(dry_run):
     print(f"files copied: {copied} ({overwritten} overwrote an existing file)")
 
 
-def update_dat(path, dry_run):
-    if not path.is_file():
-        print(f"skip: {path} not found")
-        return
-    # newline='' and latin-1 preserve line endings and any non-UTF-8 bytes
-    with open(path, "r", encoding="latin-1", newline="") as f:
-        text = f.read()
-    new_text, count = PATH_RE.subn(lambda m: "..\\Assets\\" + m.group(1), text)
-    print(f"{path.name}: {count} paths updated")
-    if not dry_run and new_text != text:
-        with open(path, "w", encoding="latin-1", newline="") as f:
-            f.write(new_text)
-
-
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dry-run", action="store_true", help="report what would happen without changing anything")
     args = ap.parse_args()
     copy_files(args.dry_run)
     for dat in DAT_FILES:
-        update_dat(dat, args.dry_run)
+        if dat.is_file():
+            update_dat(dat, args.dry_run)
+        else:
+            print(f"skip: {dat} not found")
     if args.dry_run:
         print("dry run: nothing was changed")
 

@@ -106,10 +106,16 @@ It's a fully static site, so you can publish it with **GitHub Pages**, Netlify, 
 | [`minimap.js`](minimap.js) | Circular minimap |
 | [`parsers.js`](parsers.js) | Parsers for the original Dungeon Stomp `.map`, `.mod` and `.cmp` data |
 | [`bin/`](bin) | Original level, model-list and collision data |
-| [`Models/`](Models) | 3DS and monster models |
-| [`Textures/`](Textures) | Textures and normal maps |
+| [`Assets/`](Assets) | Flat directory of 3DS/MD2 models, textures and normal maps |
 | [`Sounds/`](Sounds), [`Midi/`](Midi) | Sound effects and music |
 | [`tools/`](tools), [`verification/`](verification) | Asset analysis scripts and automated Playwright checks |
+
+Texture and model paths in `bin/textures.dat` and `bin/modellist.dat` use
+`..\Assets\<filename>`. To remove legacy directories from these paths, run
+`python tools/update_asset_paths.py` (or add `--dry-run` to preview changes).
+This only rewrites the manifests; it does not copy or delete assets. After
+adding or renaming assets, run `python tools/generate_asset_index.py` to refresh
+the case-insensitive filename index used by the game.
 
 ## 🛠️ Built with
 

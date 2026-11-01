@@ -39,16 +39,14 @@ const MAT_MAP_UOFFSET = 0xA358;
 const MAT_MAP_VOFFSET = 0xA35A;
 
 class FallbackTDSLoader extends TDSLoader {
-    readMap(chunk, path) {
+    readMap(chunk) {
         let next = chunk.readChunk();
         let texture = new THREE.Texture();
         const imageLoader = new THREE.ImageLoader(this.manager);
         imageLoader.setCrossOrigin(this.crossOrigin);
-        const base = this.resourcePath || path;
-
         while (next) {
             if (next.id === MAT_MAPNAME) {
-                texture = this.loadTextureWithFallback(imageLoader, base, next.readString());
+                texture = this.loadTextureWithFallback(imageLoader, next.readString());
             } else if (next.id === MAT_MAP_UOFFSET) {
                 texture.offset.x = next.readFloat();
             } else if (next.id === MAT_MAP_VOFFSET) {
@@ -63,7 +61,7 @@ class FallbackTDSLoader extends TDSLoader {
         return texture;
     }
 
-    loadTextureWithFallback(imageLoader, base, name) {
+    loadTextureWithFallback(imageLoader, name) {
         const urls = getTextureCandidates(name);
 
         const texture = new THREE.Texture();
