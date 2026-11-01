@@ -12,7 +12,7 @@
 ![No Build Step](https://img.shields.io/badge/build%20step-none-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-<img src="verification/screenshots/generated_level.png" alt="Dungeon Stomp Three.js gameplay: first-person view down a glowing teal dungeon corridor with a minimap and HUD" width="860">
+<img src="verification/screenshots/s6.png" alt="Dungeon Stomp Three.js gameplay: first-person view down a glowing teal dungeon corridor with a minimap and HUD" width="860">
 
 ## 🎮 [**Play it live in your browser →**](https://moonwho101.github.io/DungeonStompThreejs/)
 
