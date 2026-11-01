@@ -324,6 +324,7 @@ export class Monster {
         this.stateTimer = 0.0;
         this.attackCooldown = 0.0;
         this.hasDealtDamageThisAttack = false;
+        this.particleTimer = 0;
 
         this.currentAnim = this.config.animations.STAND;
         this.animTimer = 0.0;
@@ -676,18 +677,22 @@ export class Monster {
 
                     if (this.config.canCastSpells && !this.isMeleeAttack) {
                         const spellColor = (this.pendingSpell === 'FIREBALL') ? 0xff5500 : ((this.pendingSpell === 'LIGHTNING') ? 0x00ffff : 0x38bdf8);
-                        for (let p = 0; p < 3; p++) {
-                            const offsetAngle = Math.random() * Math.PI * 2;
-                            const rad = 15 + Math.random() * 20;
-                            emitParticle(
-                                this.position.x + Math.cos(offsetAngle) * rad,
-                                this.position.y + 40 + (Math.random() - 0.5) * 20,
-                                this.position.z + Math.sin(offsetAngle) * rad,
-                                (Math.random() - 0.5) * 40,
-                                40 + Math.random() * 60,
-                                (Math.random() - 0.5) * 40,
-                                spellColor, 10, 0.4
-                            );
+                        this.particleTimer += dt * 60;
+                        while (this.particleTimer >= 1) {
+                            this.particleTimer--;
+                            for (let p = 0; p < 3; p++) {
+                                const offsetAngle = Math.random() * Math.PI * 2;
+                                const rad = 15 + Math.random() * 20;
+                                emitParticle(
+                                    this.position.x + Math.cos(offsetAngle) * rad,
+                                    this.position.y + 40 + (Math.random() - 0.5) * 20,
+                                    this.position.z + Math.sin(offsetAngle) * rad,
+                                    (Math.random() - 0.5) * 40,
+                                    40 + Math.random() * 60,
+                                    (Math.random() - 0.5) * 40,
+                                    spellColor, 10, 0.4
+                                );
+                            }
                         }
 
                         if (this.animTimer >= totalDuration * 0.5) {
@@ -777,6 +782,7 @@ export class Monster {
         this.stateTimer = 0.0;
         if (newState === MonsterState.ATTACK) {
             this.hasDealtDamageThisAttack = false;
+            this.particleTimer = 0;
             const playerPos = window.controls ? window.controls.getObject().position : null;
             const distToPlayer = playerPos ? this.position.distanceTo(playerPos) : 9999.0;
             const meleeCombatRange = 115.0;
@@ -1271,7 +1277,8 @@ export function createExitTeleporterEffect(position) {
         rings,
         lightSlot,
         position: position.clone(),
-        timer: 0
+        timer: 0,
+        particleTimer: 0
     };
 
     activeTeleporters.push(teleporterObj);
@@ -1550,6 +1557,7 @@ export function launchProjectile(type) {
         aoeRadius: def.aoeRadius,
         damage: WEAPON_DAMAGE[type],
         lifeTimer: 0,
+        particleTimer: 0,
         maxLife: def.maxLife,
         colorHex: def.colorHex
     });
@@ -1600,6 +1608,7 @@ export function launchMonsterProjectile(monster, type, targetPos) {
         aoeRadius: def.aoeRadius,
         damage,
         lifeTimer: 0,
+        particleTimer: 0,
         maxLife: def.maxLife,
         colorHex: def.colorHex
     });
@@ -2347,6 +2356,11 @@ export function clearCurrentWorld() {
         if (m.hpSprite) scene.remove(m.hpSprite);
     }
     monsters.length = 0;
+    for (const material of healthBarMaterials.values()) {
+        material.map.dispose();
+        material.dispose();
+    }
+    healthBarMaterials.clear();
 
     for (const proj of activeProjectiles) {
         scene.remove(proj.group);
