@@ -9,10 +9,10 @@ import { ObjectsDatParser, LevelMapParser, ModelListParser, OBJECT_VERT_STRIDE }
 import { generateDungeon } from './generator.js';
 import {
     scene, camera, controls, hudEl, flashScreen, FLASH_RED, FLASH_GREEN, FLASH_PICKUP_XP,
-    getSharedMaterial, applyNormalMap, registerLamp, clearLamps, disposeOwnedResources,
-    emitParticle, createPickupFloatingText, createPickupParticleBurst, createTreasureDropEffect,
-    createBloodSplatter, clearBlood, ASSETS_DIR, getTextureCandidates, resolveAssetPath,
-    acquireDynamicLight, releaseDynamicLight, EXPLOSION_FLASH_INTENSITY,
+    getSharedMaterial, applyNormalMap, applyMaterialProperties, registerLamp, clearLamps,
+    disposeOwnedResources, emitParticle, createPickupFloatingText, createPickupParticleBurst,
+    createTreasureDropEffect, createBloodSplatter, clearBlood, ASSETS_DIR, getTextureCandidates,
+    resolveAssetPath, acquireDynamicLight, releaseDynamicLight, EXPLOSION_FLASH_INTENSITY,
     explosionFlashes, haloTexture
 } from './render.js';
 import {
@@ -2207,27 +2207,51 @@ const tdsNormalMapChecked = new Set();
 export function applyNormalMapTo3DSMesh(child) {
     if (!child.isMesh) return;
     const materials = Array.isArray(child.material) ? child.material : [child.material];
-    for (const material of materials) {
-        const map = material && material.map;
-        if (!map || tdsNormalMapChecked.has(material)) continue;
-        tdsNormalMapChecked.add(material);
+    const newMaterials = [];
+    let converted = false;
 
-        const check = () => {
-            const src = map.image && map.image.src;
-            if (!src) return false;
-            const file = decodeURIComponent(src.split('?')[0].split('/').pop());
-            applyNormalMap(material, file.replace(/\.[^.]+$/, ''));
-            return true;
-        };
+    for (let material of materials) {
+        if (!material) continue;
 
-        if (!check()) {
-            const prevOnUpdate = map.onUpdate;
-            map.onUpdate = (...args) => {
-                map.onUpdate = prevOnUpdate;
-                if (prevOnUpdate) prevOnUpdate.apply(map, args);
-                check();
-            };
+        // Upgrade Phong/Basic 3DS materials to MeshStandardMaterial
+        if (!material.isMeshStandardMaterial) {
+            const standardMat = new THREE.MeshStandardMaterial({
+                color: material.color || new THREE.Color(0xffffff),
+                map: material.map || null,
+                side: THREE.DoubleSide
+            });
+            standardMat.userData = { ...material.userData };
+            material = standardMat;
+            converted = true;
         }
+
+        const map = material.map;
+        if (map && !tdsNormalMapChecked.has(material)) {
+            tdsNormalMapChecked.add(material);
+            const check = () => {
+                const src = map.image && map.image.src;
+                if (!src) return false;
+                const file = decodeURIComponent(src.split('?')[0].split('/').pop());
+                const alias = file.replace(/\.[^.]+$/, '');
+                applyMaterialProperties(material, alias);
+                applyNormalMap(material, alias);
+                return true;
+            };
+
+            if (!check()) {
+                const prevOnUpdate = map.onUpdate;
+                map.onUpdate = (...args) => {
+                    map.onUpdate = prevOnUpdate;
+                    if (prevOnUpdate) prevOnUpdate.apply(map, args);
+                    check();
+                };
+            }
+        }
+        newMaterials.push(material);
+    }
+
+    if (converted) {
+        child.material = Array.isArray(child.material) ? newMaterials : newMaterials[0];
     }
 }
 
