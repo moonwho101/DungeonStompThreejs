@@ -4,9 +4,88 @@
 
 // Parser for textures.dat, Objects.dat, and level1.map for Dungeon Stomp Three.js
 
+export const MaterialType = Object.freeze({
+    DEFAULT: 0,
+    BRICK: 1,
+    STONE: 2,
+    STONEMAIN: 3,
+    TILE: 4,
+    TILEBROWN: 5,
+    WOOD: 6,
+    METAL: 7,
+    GLASS: 8,
+    WATER: 9,
+    GRASS: 10,
+    DOORWOOD: 11,
+    DOORMETAL: 12,
+    CRATE: 13,
+    CHESTWOOD: 14,
+    CHESTMETAL: 15,
+    MONSTER: 16,
+    MONSTERFLAT: 17,
+    MONSTERWEAPON: 18,
+    PLAYERWEAPON: 19,
+    COIN: 20,
+    BUTTON: 21,
+    BONE: 22,
+    ICE: 23,
+    FLAT: 24,
+    TORCHHOLDER: 25,
+    CEILINGMAIN: 26,
+    PILLAR: 27
+});
+
+// Optimized PBR material parameters (metalness, roughness) tuned for a modern dungeon crawler FPS
+export const MATERIAL_PROPERTIES = Object.freeze([
+    /* 0  DEFAULT       */ Object.freeze({ metalness: 0.05, roughness: 0.70 }),
+    /* 1  BRICK         */ Object.freeze({ metalness: 0.02, roughness: 0.85 }),
+    /* 2  STONE         */ Object.freeze({ metalness: 0.05, roughness: 0.80 }),
+    /* 3  STONEMAIN     */ Object.freeze({ metalness: 0.08, roughness: 0.70 }),
+    /* 4  TILE          */ Object.freeze({ metalness: 0.05, roughness: 0.35 }),
+    /* 5  TILEBROWN     */ Object.freeze({ metalness: 0.05, roughness: 0.40 }),
+    /* 6  WOOD          */ Object.freeze({ metalness: 0.02, roughness: 0.75 }),
+    /* 7  METAL         */ Object.freeze({ metalness: 0.85, roughness: 0.35 }),
+    /* 8  GLASS         */ Object.freeze({ metalness: 0.10, roughness: 0.15 }),
+    /* 9  WATER         */ Object.freeze({ metalness: 0.10, roughness: 0.10 }),
+    /* 10 GRASS         */ Object.freeze({ metalness: 0.00, roughness: 0.90 }),
+    /* 11 DOORWOOD      */ Object.freeze({ metalness: 0.10, roughness: 0.70 }),
+    /* 12 DOORMETAL     */ Object.freeze({ metalness: 0.85, roughness: 0.40 }),
+    /* 13 CRATE         */ Object.freeze({ metalness: 0.02, roughness: 0.80 }),
+    /* 14 CHESTWOOD     */ Object.freeze({ metalness: 0.20, roughness: 0.65 }),
+    /* 15 CHESTMETAL    */ Object.freeze({ metalness: 0.80, roughness: 0.35 }),
+    /* 16 MONSTER       */ Object.freeze({ metalness: 0.05, roughness: 0.60 }),
+    /* 17 MONSTERFLAT   */ Object.freeze({ metalness: 0.00, roughness: 0.85 }),
+    /* 18 MONSTERWEAPON */ Object.freeze({ metalness: 0.70, roughness: 0.40 }),
+    /* 19 PLAYERWEAPON  */ Object.freeze({ metalness: 0.90, roughness: 0.25 }),
+    /* 20 COIN          */ Object.freeze({ metalness: 0.95, roughness: 0.20 }),
+    /* 21 BUTTON        */ Object.freeze({ metalness: 0.60, roughness: 0.35 }),
+    /* 22 BONE          */ Object.freeze({ metalness: 0.05, roughness: 0.50 }),
+    /* 23 ICE           */ Object.freeze({ metalness: 0.10, roughness: 0.18 }),
+    /* 24 FLAT          */ Object.freeze({ metalness: 0.00, roughness: 0.90 }),
+    /* 25 TORCHHOLDER   */ Object.freeze({ metalness: 0.85, roughness: 0.45 }),
+    /* 26 CEILINGMAIN   */ Object.freeze({ metalness: 0.04, roughness: 0.85 }),
+    /* 27 PILLAR        */ Object.freeze({ metalness: 0.06, roughness: 0.75 })
+]);
+
+const MATERIAL_NAME_TO_TYPE = new Map();
+for (const [name, id] of Object.entries(MaterialType)) {
+    MATERIAL_NAME_TO_TYPE.set(name.toLowerCase(), id);
+}
+
+export function getMaterialTypeByName(name) {
+    if (!name) return MaterialType.DEFAULT;
+    const type = MATERIAL_NAME_TO_TYPE.get(name.toLowerCase().trim());
+    return type !== undefined ? type : MaterialType.DEFAULT;
+}
+
+export function getMaterialPropertiesByType(typeId) {
+    return MATERIAL_PROPERTIES[typeId] || MATERIAL_PROPERTIES[MaterialType.DEFAULT];
+}
+
 export class TextureManager {
     constructor() {
         this.aliases = new Map(); // alias_name -> file name within Assets/
+        this.aliasMaterials = new Map(); // alias_name -> MaterialType id
     }
 
     async loadTexturesDat(url) {
@@ -35,10 +114,14 @@ export class TextureManager {
                         currentTexPath = currentTexPath.substring(7);
                     }
                 } else if (parts[0] === 'Alias') {
-                    // Alias <id> <alias_name> <blend> ...
+                    // Alias <id> <alias_name> <blend> <whole> <material_name>
                     const aliasName = parts[2];
                     if (aliasName) {
-                        this.aliases.set(aliasName.toLowerCase(), currentTexPath);
+                        const cleanAlias = aliasName.toLowerCase();
+                        this.aliases.set(cleanAlias, currentTexPath);
+                        const matName = parts.length >= 6 ? parts[parts.length - 1] : 'default';
+                        const matType = getMaterialTypeByName(matName);
+                        this.aliasMaterials.set(cleanAlias, matType);
                     }
                 }
             }
@@ -54,6 +137,18 @@ export class TextureManager {
             return this.aliases.get(cleanAlias);
         }
         return cleanAlias + '.bmp';
+    }
+
+    getTextureMaterial(alias) {
+        if (!alias) return MaterialType.DEFAULT;
+        const cleanAlias = alias.toLowerCase().trim();
+        const type = this.aliasMaterials.get(cleanAlias);
+        return type !== undefined ? type : MaterialType.DEFAULT;
+    }
+
+    getMaterialProperties(alias) {
+        const matType = this.getTextureMaterial(alias);
+        return getMaterialPropertiesByType(matType);
     }
 }
 

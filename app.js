@@ -7,7 +7,8 @@ import { PointerLockControls } from 'three/addons/controls/PointerLockControls.j
 import {
     initRenderer, scene, camera, renderer, controls, setControls,
     hudEl, updateLighting, updateDistanceCulling, onWindowResize,
-    normalMapsEnabled, setNormalMapsEnabled, textureManager,
+    normalMapsEnabled, setNormalMapsEnabled,
+    enhancedMaterialsEnabled, setEnhancedMaterialsEnabled, textureManager,
     createPickupFloatingText, updateAdaptiveResolution
 } from './render.js';
 import {
@@ -158,6 +159,7 @@ async function init() {
 
     const menuBtnOptionsBack = document.getElementById('menu-btn-options-back');
     const optNormalMaps = document.getElementById('opt-normal-maps');
+    const optEnhancedMat = document.getElementById('opt-enhanced-mat');
     const optMusic = document.getElementById('opt-music');
 
     // Check saved state immediately so Resume is never falsely greyed out on page boot
@@ -271,12 +273,21 @@ async function init() {
         if (typeof savedGameOpts.normalMaps === 'boolean') {
             setNormalMapsEnabled(savedGameOpts.normalMaps);
         }
+        if (typeof savedGameOpts.enhancedMaterials === 'boolean') {
+            setEnhancedMaterialsEnabled(savedGameOpts.enhancedMaterials);
+        }
         if (typeof savedGameOpts.music === 'boolean' && savedGameOpts.music !== isMusicOn()) {
             toggleMusic();
         }
     }
     if (optNormalMaps) optNormalMaps.checked = normalMapsEnabled;
+    if (optEnhancedMat) optEnhancedMat.checked = enhancedMaterialsEnabled;
     if (optMusic) optMusic.checked = isMusicOn();
+    const enhancedMatDisplay = hudEl('enhancedmat-display');
+    if (enhancedMatDisplay) {
+        enhancedMatDisplay.textContent = enhancedMaterialsEnabled ? 'ON' : 'OFF';
+        enhancedMatDisplay.style.color = enhancedMaterialsEnabled ? '#00ff88' : '#ef4444';
+    }
     const musicDisplay = hudEl('music-display');
     if (musicDisplay) {
         musicDisplay.textContent = isMusicOn() ? 'ON' : 'OFF';
@@ -422,7 +433,13 @@ async function init() {
     if (optNormalMaps) {
         optNormalMaps.addEventListener('change', () => {
             setNormalMapsEnabled(optNormalMaps.checked);
-            setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, music: isMusicOn() });
+            setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, enhancedMaterials: enhancedMaterialsEnabled, music: isMusicOn() });
+        });
+    }
+    if (optEnhancedMat) {
+        optEnhancedMat.addEventListener('change', () => {
+            setEnhancedMaterialsEnabled(optEnhancedMat.checked);
+            setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, enhancedMaterials: enhancedMaterialsEnabled, music: isMusicOn() });
         });
     }
 
@@ -499,8 +516,20 @@ async function init() {
             case 'KeyN':
                 setNormalMapsEnabled(!normalMapsEnabled);
                 if (optNormalMaps) optNormalMaps.checked = normalMapsEnabled;
-                setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, music: isMusicOn() });
+                setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, enhancedMaterials: enhancedMaterialsEnabled, music: isMusicOn() });
                 break;
+            case 'KeyB': {
+                setEnhancedMaterialsEnabled(!enhancedMaterialsEnabled);
+                if (optEnhancedMat) optEnhancedMat.checked = enhancedMaterialsEnabled;
+                setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, enhancedMaterials: enhancedMaterialsEnabled, music: isMusicOn() });
+                if (newControls && newControls.getObject()) {
+                    const text = enhancedMaterialsEnabled ? 'MATERIALS: ENHANCED' : 'MATERIALS: STANDARD';
+                    const color = enhancedMaterialsEnabled ? '#00ff88' : '#ef4444';
+                    createPickupFloatingText(text, newControls.getObject().position, color);
+                }
+                playSound('buttonselect111.wav', 0.5);
+                break;
+            }
             case 'KeyK':
                 PLAYER_GUNS.forEach(g => unlockedWeapons.add(g));
                 for (const spell in spellCounts) {
@@ -528,7 +557,7 @@ async function init() {
             case 'KeyM': {
                 const enabled = toggleMusic();
                 if (optMusic) optMusic.checked = enabled;
-                setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, music: enabled });
+                setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, enhancedMaterials: enhancedMaterialsEnabled, music: enabled });
                 const musicEl = hudEl('music-display');
                 if (musicEl) {
                     musicEl.textContent = enabled ? 'ON' : 'OFF';

@@ -151,7 +151,9 @@ export const textureCache = new Map();
 export const normalMapCache = new Map();
 export const normalMapMaterials = new Set();
 export const sharedMaterials = new Map();
+export const standardMaterials = new Set();
 export let normalMapsEnabled = true;
+export let enhancedMaterialsEnabled = true;
 export let maxAnisotropy = 1;
 
 const defaultCanvas = document.createElement('canvas');
@@ -292,14 +294,41 @@ export function disposeOwnedResources(root) {
     });
 }
 
+export function applyMaterialProperties(material, texAlias) {
+    const props = textureManager.getMaterialProperties(texAlias);
+    material.userData.pbrProperties = props;
+    material.metalness = enhancedMaterialsEnabled ? props.metalness : 0.0;
+    material.roughness = enhancedMaterialsEnabled ? props.roughness : 0.7;
+    standardMaterials.add(material);
+}
+
+export function setEnhancedMaterialsEnabled(enabled) {
+    enhancedMaterialsEnabled = enabled;
+    for (const material of standardMaterials) {
+        const props = material.userData.pbrProperties;
+        if (props) {
+            material.metalness = enabled ? props.metalness : 0.0;
+            material.roughness = enabled ? props.roughness : 0.7;
+            material.needsUpdate = true;
+        }
+    }
+    const elem = document.getElementById('enhancedmat-display');
+    if (elem) {
+        elem.textContent = enabled ? 'ON' : 'OFF';
+        elem.style.color = enabled ? '#00ff88' : '#ef4444';
+    }
+}
+
 export function getSharedMaterial(texAlias) {
     const key = texAlias ? texAlias.toLowerCase().trim() : '';
     let material = sharedMaterials.get(key);
     if (material) return material;
 
-    material = new THREE.MeshLambertMaterial({ side: THREE.DoubleSide });
+    material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide });
     material.userData.shared = true;
     sharedMaterials.set(key, material);
+
+    applyMaterialProperties(material, key);
 
     if (texAlias) {
         material.map = getTexture(texAlias, (loadedTex) => {
