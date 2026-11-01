@@ -110,12 +110,7 @@ It's a fully static site, so you can publish it with **GitHub Pages**, Netlify, 
 | [`Sounds/`](Sounds), [`Midi/`](Midi) | Sound effects and music |
 | [`tools/`](tools), [`verification/`](verification) | Asset analysis scripts and automated Playwright checks |
 
-Texture and model paths in `bin/textures.dat` and `bin/modellist.dat` use
-`..\Assets\<filename>`. To remove legacy directories from these paths, run
-`python tools/update_asset_paths.py` (or add `--dry-run` to preview changes).
-This only rewrites the manifests; it does not copy or delete assets. After
-adding or renaming assets, run `python tools/generate_asset_index.py` to refresh
-the case-insensitive filename index used by the game.
+After adding or renaming assets, run `python tools/generate_asset_index.py` to refresh the case-insensitive filename index used by the game.
 
 ## 🛠️ Built with
 
