@@ -732,6 +732,7 @@ async function init() {
 
     prevTime = performance.now();
     lastAutosaveTime = performance.now();
+    lastFpsUpdateTime = prevTime;
     animate();
 }
 
@@ -745,6 +746,7 @@ function animate() {
     if (!alwaysRun && (!gameStarted || !controls.isLocked || document.hidden)) {
         if (time - lastPausedRender >= PAUSED_RENDER_INTERVAL_MS) {
             lastPausedRender = time;
+            updateFpsDisplay(time);
             renderer.render(scene, camera);
         }
         return;
@@ -909,6 +911,7 @@ function animate() {
 
     updateMinimap(pos, camera);
 
+    updateFpsDisplay(time);
     renderer.render(scene, camera);
 }
 
