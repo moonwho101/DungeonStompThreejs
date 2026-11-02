@@ -575,10 +575,10 @@ function generateDungeonAttempt({ startX, startZ, numObjectsToPlace, rng, strict
                                         ent_type = choice(['POTION', 'cheese1', 'GOBLET', 'pot1', 'pot2', 'pot3', 'mushroom']);
                                         entities.push({ 'type': ent_type, 'name': '-1', 'x': wx_item, 'y': Oy + 40.0, 'z': wz_item, 'rot': d_rot, 'id': entity_id_idx, 'state': 0 });
                                     } else if (r < 0.25) {
-                                        ent_type = choice(['rock1', 'rock2', 'skull', 'QUARTZ', 'cdoorclosedchest', 'block01', 'block02']);
+                                        ent_type = choice(['rock1', 'rock2', 'skull', 'QUARTZ', 'cdoorclosedchest', 'block01', 'block02','cdoorclosedbarrel']);
                                         let st = 0;
                                         let item_rot = d_rot;
-                                        if (ent_type === 'cdoorclosedchest') {
+                                        if (ent_type === 'cdoorclosedchest' || ent_type === 'cdoorclosedbarrel') {
                                             st = level < 2 ? choice([0, 1]) : choice([0, 1, 2]);
                                             item_rot = choice([0, 90, 180, 270]);
                                         }

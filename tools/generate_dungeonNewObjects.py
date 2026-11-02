@@ -622,11 +622,11 @@ def _generate_attempt(start_x, start_z, num_objects_to_place, strict=True):
                                                         'rot': d_rot, 'id': entity_id_idx, 'state': 0})
 
                                     elif r < 0.25:
-                                        ent_type = random.choice(['rock1','rock2','skull','QUARTZ','cdoorclosedchest','block01','block02'])
+                                        ent_type = random.choice(['rock1','rock2','skull','QUARTZ','cdoorclosedchest','block01','block02','cdoorclosedbarrel'])
                                         st = 0
                                         item_rot = d_rot
 
-                                        if ent_type == 'cdoorclosedchest':
+                                        if ent_type == 'cdoorclosedchest' or  ent_type == 'cdoorclosedbarrel':
                                             st = random.choice([0, 1]) if level < 2 else random.choice([0, 1, 2])
                                             item_rot = random.choice([0, 90, 180, 270])
 

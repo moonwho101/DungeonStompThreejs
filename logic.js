@@ -1984,11 +1984,17 @@ export function addLevelObject(mesh, position, radius = 0) {
 
 export const chests = [];
 
+// Closed container model name -> model it swaps to when opened.
+export const OPENABLE_CONTAINERS = {
+    cdoorclosedchest: 'cdooropenchest',
+    cdoorclosedbarrel: 'cdooropenbarrel'
+};
+
 export async function openChest(chest, restoring = false) {
     if (!chest || chest.isOpen) return;
     chest.isOpen = true;
 
-    const openDef = modelListParser.getModelByName('cdooropenchest');
+    const openDef = modelListParser.getModelByName(chest.openModelName || 'cdooropenchest');
     if (openDef) {
         const template = await load3DSModel(openDef);
         if (template) {
@@ -2325,9 +2331,8 @@ export function prefetchLevelModels(instances) {
         const def = modelListParser.getModelByName(treasureName);
         request(def);
     }
-    const openChestDef = modelListParser.getModelByName('cdooropenchest');
-    if (openChestDef) {
-        request(openChestDef);
+    for (const openName of Object.values(OPENABLE_CONTAINERS)) {
+        request(modelListParser.getModelByName(openName));
     }
     return Promise.all(loads);
 }
@@ -2545,9 +2550,11 @@ async function buildGameWorld(textureManager, overrideMapText) {
                                 modelBoxes.push(box);
                             }
 
-                            if (cleanModelName === 'cdoorclosedchest' || cleanModelName === 'cdoorclosedchest.3ds') {
+                            const openModelName = OPENABLE_CONTAINERS[cleanModelName.replace(/\.3ds$/, '')];
+                            if (openModelName) {
                                 chests.push({
                                     model: model,
+                                    openModelName,
                                     position: model.position.clone(),
                                     rotationY: angleRad,
                                     scale: scaleFactor,
