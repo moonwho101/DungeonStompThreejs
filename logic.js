@@ -32,6 +32,9 @@ const md2GeometryCache = new Map();
 
 // TDSLoader requests exactly the texture file name stored in the .3ds (often .bmp or .dds).
 // This subclass instead tries .jpg, then .png in Assets/.
+// TDSLoader also multiplies texture maps by the material's diffuse colour (often 3ds Max's default
+// dark red #893232, e.g. skull.3ds), hiding the texture. Like the original D3D renderer, textured
+// materials use the texture unmodulated, so their colour is reset to white.
 const MAT_MAPNAME = 0xA300;
 const MAT_MAP_USCALE = 0xA354;
 const MAT_MAP_VSCALE = 0xA356;
@@ -39,6 +42,13 @@ const MAT_MAP_UOFFSET = 0xA358;
 const MAT_MAP_VOFFSET = 0xA35A;
 
 class FallbackTDSLoader extends TDSLoader {
+    readMaterialEntry(chunk, path) {
+        super.readMaterialEntry(chunk, path);
+        for (const material of Object.values(this.materials)) {
+            if (material.map) material.color.setRGB(1, 1, 1);
+        }
+    }
+
     readMap(chunk) {
         let next = chunk.readChunk();
         let texture = new THREE.Texture();
