@@ -63,6 +63,8 @@ let prevTime = performance.now();
 const forwardVector = new THREE.Vector3();
 const rightVector = new THREE.Vector3();
 let lastPosDisplayTime = 0;
+let fpsFrameCount = 0;
+let lastFpsUpdateTime = 0;
 
 // The simulation only runs while the pointer is locked, so opening the menu (Esc),
 // switching tabs, or sitting on the title screen can't get the player killed.
@@ -90,6 +92,16 @@ function setStoredJson(key, obj) {
     try {
         localStorage.setItem(key, JSON.stringify(obj));
     } catch (e) {}
+}
+
+function updateFpsDisplay(time) {
+    fpsFrameCount++;
+    const elapsed = time - lastFpsUpdateTime;
+    if (elapsed >= 500) {
+        hudEl('fps-display').textContent = Math.round(fpsFrameCount * 1000 / elapsed);
+        fpsFrameCount = 0;
+        lastFpsUpdateTime = time;
+    }
 }
 
 let worldReady = false;
