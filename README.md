@@ -89,6 +89,12 @@ Then open **http://localhost:8000** in a modern browser (Chrome, Edge, Firefox o
 
 Three.js is loaded from a CDN (unpkg) through an import map, so you need an internet connection on first load.
 
+### Performance
+
+The renderer adapts resolution to GPU load, batches static geometry, and pools lights and particles. Continuous portal, projectile, and casting effects use elapsed time rather than display refresh rate, preserving their 60 FPS density on high-refresh monitors. Hidden tabs suspend simulation and rendering; level changes release cached monster health-bar textures and materials while retaining shared model assets.
+
+With the local server running, `python verification/verify_performance.py` runs the Playwright regression checks for 30–240 FPS effect emission, hidden-tab suspension, resource cleanup, regeneration, and save-state restoration. It requires the Python Playwright package and its Chromium browser.
+
 ### Host it for free
 It's a fully static site, so you can publish it with **GitHub Pages**, Netlify, Vercel or Cloudflare Pages. Point them at the repo root, with no build command and no output directory.
 

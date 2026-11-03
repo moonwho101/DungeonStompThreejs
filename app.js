@@ -231,14 +231,8 @@ async function init() {
     });
     document.addEventListener('visibilitychange', () => {
         if (document.hidden && gameStarted) saveCurrentRun();
+        prevTime = performance.now();
     });
-
-    // Periodic autosave interval every 5 seconds
-    setInterval(() => {
-        if (gameStarted && !playerDead) {
-            saveCurrentRun();
-        }
-    }, 5000);
 
     setRunSaveHandler(saveCurrentRun);
 
@@ -730,7 +724,9 @@ function animate() {
     const rawDelta = (time - prevTime) / 1000;
     prevTime = time;
 
-    if (!alwaysRun && (!gameStarted || !controls.isLocked || document.hidden)) {
+    if (document.hidden) return;
+
+    if (!alwaysRun && (!gameStarted || !controls.isLocked)) {
         if (time - lastPausedRender >= PAUSED_RENDER_INTERVAL_MS) {
             lastPausedRender = time;
             renderer.render(scene, camera);

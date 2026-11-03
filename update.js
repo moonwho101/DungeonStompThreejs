@@ -112,7 +112,11 @@ export function updateTeleporters(delta, playerPos) {
         }
 
         // 2. Ascending Spiral Particles
-        if (Math.random() < 0.8) {
+        // Preserve the 60 FPS emission rate on both slow and high-refresh displays.
+        tp.particleTimer += delta * 60;
+        while (tp.particleTimer >= 1) {
+            tp.particleTimer--;
+            if (Math.random() >= 0.8) continue;
             for (let k = 0; k < 3; k++) {
                 const angle = tp.timer * 8.0 + (k * Math.PI * 2 / 3);
                 const radius = 30 + Math.sin(tp.timer * 5.0 + k) * 10;
@@ -423,7 +427,10 @@ export function updateProjectiles(delta) {
         proj.group.position.copy(proj.position);
         if (proj.lightSlot) proj.lightSlot.light.position.copy(proj.position);
 
-        if (Math.random() < 0.7) {
+        proj.particleTimer += delta * 60;
+        while (proj.particleTimer >= 1) {
+            proj.particleTimer--;
+            if (Math.random() >= 0.7) continue;
             for (let k = 0; k < 4; k++) {
                 emitParticle(
                     proj.position.x + (Math.random() - 0.5) * 10,
