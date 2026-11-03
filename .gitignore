@@ -1,3 +1,4 @@
+build/
 src/.vs/
 *.pdb
 DungeonStomp.pdb
