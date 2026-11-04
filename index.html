@@ -337,6 +337,41 @@
             accent-color: #f59e0b;
             cursor: pointer;
         }
+        .gamepad-focused {
+            outline: 2px solid #f59e0b !important;
+            outline-offset: 2px !important;
+            box-shadow: 0 0 14px rgba(245, 158, 11, 0.8), inset 0 0 8px rgba(245, 158, 11, 0.3) !important;
+            background: rgba(245, 158, 11, 0.25) !important;
+            color: #fbbf24 !important;
+        }
+        .menu-checkbox-label.gamepad-focused {
+            background: rgba(245, 158, 11, 0.15) !important;
+            border-radius: 6px;
+            padding: 2px 6px;
+        }
+        #controller-toast {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-60px);
+            background: linear-gradient(180deg, rgba(20, 26, 38, 0.95) 0%, rgba(10, 14, 22, 0.98) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.6);
+            color: #f59e0b;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.3s ease-out;
+        }
+        #controller-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
         .menu-status {
             font-size: 13px;
             color: #38bdf8;
@@ -415,7 +450,8 @@
         Position: <span id="pos-display">0, 0, 0</span><br>
         Depth: <span id="depth-display" style="color: #38bdf8;">1</span> | Objects: <span id="obj-display">0</span> | Lights: <span id="light-display">0</span><br>
         Normal Maps: <span id="normalmap-display" style="color: #00ff88;">ON</span> (N) | Music: <span id="music-display" style="color: #00ff88;">ON</span> (P)<br>
-        Controls: WASD (Move) | Space (Jump) | E (Open Door) | G (New Dungeon) | Q/Z (Weapon)
+        Gamepad: <span id="gamepad-display" style="color: #64748b;">None</span><br>
+        Controls: WASD / L-Stick (Move) | Space / A (Jump) | E / X (Open Door) | RT (Attack) | LB/RB (Weapon)
     </div>
 
     <!-- Modern Crawler HUD -->
@@ -506,6 +542,7 @@
             </script>
             <div id="menu-status" class="menu-status"></div>
             <p class="menu-help menu-controls"><small><span>WASD = Move</span><span>Space = Jump</span><span>E = Open Door</span><span>G = Regen Dungeon</span><span>Q/Z = Weapon</span><span>Esc = Menu</span></small></p>
+            <p class="menu-help menu-controls" style="margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(245, 158, 11, 0.2);"><small><span>🎮 L-Stick = Move (L3 Sprint)</span><span>R-Stick = Look (R3 Level)</span><span>RT = Attack / Cast</span><span>X = Open Door/Chest</span><span>A = Jump / Confirm</span><span>LB/RB = Weapon</span><span>LT = Sprint</span><span>Start = Menu</span></small></p>
             <p class="menu-help"><small>Find the glowing exit portal to descend &mdash; every level is tougher.</small></p>
         </div>
 
@@ -538,12 +575,26 @@
                     <input type="checkbox" id="opt-music" checked>
                     <span>Music (P / M)</span>
                 </label>
+                <label class="menu-checkbox-label">
+                    <input type="checkbox" id="opt-vibration" checked>
+                    <span>Controller Vibration (Rumble)</span>
+                </label>
+                <label class="menu-checkbox-label">
+                    <input type="checkbox" id="opt-invert-y">
+                    <span>Invert Look Y</span>
+                </label>
+                <div class="menu-field" style="margin-top: 6px;">
+                    <label for="opt-controller-sens">Controller Sensitivity: <span id="opt-controller-sens-val">2.8</span></label>
+                    <input type="range" id="opt-controller-sens" min="1.0" max="5.0" step="0.2" value="2.8">
+                </div>
             </div>
             <div class="menu-buttons" style="margin-top: 14px;">
                 <button id="menu-btn-options-back" class="menu-btn">Back</button>
             </div>
         </div>
     </div>
+
+    <div id="controller-toast"></div>
 
     <script type="module" src="app.js"></script>
 </body>

@@ -43,6 +43,7 @@ Swing a flaming sword, hurl fireballs, cast lightning, and stomp through endless
 - 🧭 **Circular minimap.** See walls, monsters and loot around you at a glance.
 - 🚪 **Interactive world.** Open doors and crack open treasure chests.
 - 🔊 **Atmospheric audio.** More than 150 original sound effects, plus a rolling music soundtrack (`P` / `M` to toggle).
+- 🕹️ **Full controller & Xbox gamepad support.** Plug and play with any standard gamepad (Xbox, PlayStation DualSense/DualShock, Switch Pro, etc.) with modern dual-analog crawler controls, haptic vibration rumble feedback, and in-game menu navigation.
 - 🕹️ **Fly mode and god mode** for exploring, level design and debugging.
 - 🪶 **No bundler, no npm, no build.** It's plain ES modules plus an import map. Read it, hack it, mod it.
 
@@ -64,6 +65,29 @@ Swing a flaming sword, hurl fireballs, cast lightning, and stomp through endless
 | `K` | Cheat: unlock all weapons and spells |
 | `I` | Cheat: toggle god mode |
 | `Esc` | Pause / release the mouse |
+
+### 🎮 Controller Controls (Xbox / Modern Gamepad)
+
+| Control | Action |
+|---------|--------|
+| **Left Stick** | 360° Analog Move (analog speed scaling: sneak / walk / run) |
+| **Right Stick** | 360° Camera Look / Aim (curved response for fine aiming + quick turns) |
+| **Right Trigger (`RT`)** | Attack / Swing Weapon / Cast Spell |
+| **Left Trigger (`LT`)** | Hold to Sprint |
+| **Left Stick Press (`L3`)** | Toggle Sprint |
+| **Right Stick Press (`R3`)** | Re-center Camera Pitch (instant level horizon) |
+| **Button `X`** (Xbox `X` / PS `Square`) | Interact / Open nearby Door & Chest |
+| **Button `A`** (Xbox `A` / PS `Cross`) | Jump (fly up in fly mode) / Select in menus |
+| **Button `B`** (Xbox `B` / PS `Circle`) | Crouch / Descend (in fly mode) / Back in menus |
+| **Button `Y`** (Xbox `Y` / PS `Triangle`) | Next Weapon |
+| **Right Bumper (`RB`)** / **D-Pad Right** | Next Weapon or Spell |
+| **Left Bumper (`LB`)** / **D-Pad Left** | Previous Weapon or Spell |
+| **D-Pad Up** | Toggle Music |
+| **D-Pad Down** | Toggle Normal Maps |
+| **Start / Menu** | Pause / Resume Game |
+| **Back / View** | Cheat: Toggle God Mode (invincible) |
+| **D-Pad / Left Stick in Menus** | Full menu navigation (navigate buttons, adjust sliders, toggle options) |
+| **Dual Rumble Haptics** | Dynamic vibration on attack, monster hits, player damage, pickups & doors |
 
 ## 🌐 Play it live
 

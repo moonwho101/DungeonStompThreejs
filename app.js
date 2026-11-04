@@ -40,6 +40,12 @@ import {
     isLevelLoading, captureWorldState, restoreWorldState, isWorldStateValid
 } from './logic.js';
 import { updateMinimap } from './minimap.js';
+import {
+    initGamepadSystem, pollGamepad, applyGamepadLook, recenterCameraPitch,
+    triggerGamepadVibration, setGamepadSensitivity, getGamepadSensitivity,
+    setGamepadInvertY, getGamepadInvertY, setGamepadVibrationEnabled,
+    isGamepadVibrationEnabled, clearMenuFocus
+} from './gamepad.js';
 
 // Re-export public interfaces for backwards compatibility and external modules
 export {
@@ -48,7 +54,10 @@ export {
     getPickupDefinition, playerStats, damagePlayer, healPlayer,
     addPlayerXp, awardPlayerXp, updatePlayerHud, PLAYER_GUNS,
     unlockedWeapons, spellCounts, SWISH_SOUNDS, IMPACT_SOUNDS,
-    PLAYER_IMPACT_SOUNDS, playSound, getRandomSound
+    PLAYER_IMPACT_SOUNDS, playSound, getRandomSound,
+    triggerGamepadVibration, setGamepadSensitivity, getGamepadSensitivity,
+    setGamepadInvertY, getGamepadInvertY, setGamepadVibrationEnabled,
+    isGamepadVibrationEnabled
 };
 
 let moveForward = false;
@@ -70,6 +79,9 @@ let lastPosDisplayTime = 0;
 const alwaysRun = new URLSearchParams(window.location.search).has('run');
 const PAUSED_RENDER_INTERVAL_MS = 250;
 let gameStarted = false;
+let gamepadPlaying = false;
+let pauseGameSession = () => {};
+let startGameSession = () => {};
 let lastPausedRender = 0;
 let lastAutosaveTime = 0;
 
@@ -159,6 +171,20 @@ async function init() {
     const menuBtnOptionsBack = document.getElementById('menu-btn-options-back');
     const optNormalMaps = document.getElementById('opt-normal-maps');
     const optMusic = document.getElementById('opt-music');
+    const optVibration = document.getElementById('opt-vibration');
+    const optInvertY = document.getElementById('opt-invert-y');
+    const optControllerSens = document.getElementById('opt-controller-sens');
+    const optControllerSensVal = document.getElementById('opt-controller-sens-val');
+
+    function getSavedGameOptions() {
+        return {
+            normalMaps: normalMapsEnabled,
+            music: isMusicOn(),
+            controllerVibration: isGamepadVibrationEnabled(),
+            controllerInvertY: getGamepadInvertY(),
+            controllerSens: getGamepadSensitivity()
+        };
+    }
 
     // Check saved state immediately so Resume is never falsely greyed out on page boot
     const initialSavedRun = getStoredJson(SAVE_KEY);
@@ -185,20 +211,47 @@ async function init() {
 
     // Pointer lock must be requested straight from the click handler, so it comes before anything
     // else (audio, sounds) that could throw or delay it.
-    const startGameSession = () => {
+    startGameSession = () => {
+        gamepadPlaying = true;
+        window.gamepadPlaying = true;
         try {
             newControls.lock();
         } catch (e) {
             console.warn('Pointer lock request failed:', e);
         }
+        clearMenuFocus();
+        instructions.style.display = 'none';
+        if (loadingOverlay) loadingOverlay.style.display = worldReady ? 'none' : 'flex';
         resumeAudio();
         if (!gameStarted && isMusicOn()) {
             startNextMusicTrack();
         }
+        gameStarted = true;
+    };
+
+    pauseGameSession = () => {
+        gamepadPlaying = false;
+        window.gamepadPlaying = false;
+        if (newControls && newControls.isLocked) {
+            newControls.unlock();
+        } else {
+            instructions.style.display = 'block';
+            if (loadingOverlay) loadingOverlay.style.display = 'none';
+            showMenuView('main');
+            if (menuPrompt) menuPrompt.textContent = 'Paused - Resume or choose an option:';
+            if (menuBtnResume) menuBtnResume.disabled = false;
+            saveCurrentRun();
+            releaseInputs();
+            const audio = getAudioContext();
+            if (audio && audio.state === 'running') audio.suspend().catch(() => {});
+        }
     };
 
     newControls.addEventListener('lock', () => {
+        gamepadPlaying = true;
+        window.gamepadPlaying = true;
         gameStarted = true;
+        clearMenuFocus();
         instructions.style.display = 'none';
         if (loadingOverlay) loadingOverlay.style.display = worldReady ? 'none' : 'flex';
         resumeAudio();
@@ -210,6 +263,8 @@ async function init() {
     };
 
     newControls.addEventListener('unlock', () => {
+        gamepadPlaying = false;
+        window.gamepadPlaying = false;
         instructions.style.display = 'block';
         if (loadingOverlay) loadingOverlay.style.display = 'none';
         showMenuView('main');
@@ -274,9 +329,24 @@ async function init() {
         if (typeof savedGameOpts.music === 'boolean' && savedGameOpts.music !== isMusicOn()) {
             toggleMusic();
         }
+        if (typeof savedGameOpts.controllerVibration === 'boolean') {
+            setGamepadVibrationEnabled(savedGameOpts.controllerVibration);
+        }
+        if (typeof savedGameOpts.controllerInvertY === 'boolean') {
+            setGamepadInvertY(savedGameOpts.controllerInvertY);
+        }
+        if (typeof savedGameOpts.controllerSens === 'number') {
+            setGamepadSensitivity(savedGameOpts.controllerSens);
+        }
     }
     if (optNormalMaps) optNormalMaps.checked = normalMapsEnabled;
     if (optMusic) optMusic.checked = isMusicOn();
+    if (optVibration) optVibration.checked = isGamepadVibrationEnabled();
+    if (optInvertY) optInvertY.checked = getGamepadInvertY();
+    if (optControllerSens) {
+        optControllerSens.value = String(getGamepadSensitivity());
+        if (optControllerSensVal) optControllerSensVal.textContent = Number(getGamepadSensitivity()).toFixed(1);
+    }
     const musicDisplay = hudEl('music-display');
     if (musicDisplay) {
         musicDisplay.textContent = isMusicOn() ? 'ON' : 'OFF';
@@ -408,6 +478,12 @@ async function init() {
             showMenuView('options');
             if (optNormalMaps) optNormalMaps.checked = normalMapsEnabled;
             if (optMusic) optMusic.checked = isMusicOn();
+            if (optVibration) optVibration.checked = isGamepadVibrationEnabled();
+            if (optInvertY) optInvertY.checked = getGamepadInvertY();
+            if (optControllerSens) {
+                optControllerSens.value = String(getGamepadSensitivity());
+                if (optControllerSensVal) optControllerSensVal.textContent = Number(getGamepadSensitivity()).toFixed(1);
+            }
         });
     }
 
@@ -422,7 +498,7 @@ async function init() {
     if (optNormalMaps) {
         optNormalMaps.addEventListener('change', () => {
             setNormalMapsEnabled(optNormalMaps.checked);
-            setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, music: isMusicOn() });
+            setStoredJson(GAME_OPTS_KEY, getSavedGameOptions());
         });
     }
 
@@ -440,7 +516,30 @@ async function init() {
                     startNextMusicTrack();
                 }
             }
-            setStoredJson(GAME_OPTS_KEY, { normalMaps: normalMapsEnabled, music: isMusicOn() });
+            setStoredJson(GAME_OPTS_KEY, getSavedGameOptions());
+        });
+    }
+
+    if (optVibration) {
+        optVibration.addEventListener('change', () => {
+            setGamepadVibrationEnabled(optVibration.checked);
+            setStoredJson(GAME_OPTS_KEY, getSavedGameOptions());
+        });
+    }
+
+    if (optInvertY) {
+        optInvertY.addEventListener('change', () => {
+            setGamepadInvertY(optInvertY.checked);
+            setStoredJson(GAME_OPTS_KEY, getSavedGameOptions());
+        });
+    }
+
+    if (optControllerSens) {
+        optControllerSens.addEventListener('input', () => {
+            const val = parseFloat(optControllerSens.value) || 2.8;
+            setGamepadSensitivity(val);
+            if (optControllerSensVal) optControllerSensVal.textContent = val.toFixed(1);
+            setStoredJson(GAME_OPTS_KEY, getSavedGameOptions());
         });
     }
 
@@ -706,6 +805,17 @@ async function init() {
     window.textureManager = textureManager;
     window.saveCurrentRun = saveCurrentRun;
     window.generateAndLoadNewLevel = (descend, options) => generateAndLoadNewLevel(textureManager, descend, options);
+    window.triggerGamepadVibration = triggerGamepadVibration;
+    window.getGamepadSensitivity = getGamepadSensitivity;
+    window.setGamepadSensitivity = setGamepadSensitivity;
+    window.getGamepadInvertY = getGamepadInvertY;
+    window.setGamepadInvertY = setGamepadInvertY;
+    window.isGamepadVibrationEnabled = isGamepadVibrationEnabled;
+    window.setGamepadVibrationEnabled = setGamepadVibrationEnabled;
+    window.pollGamepad = pollGamepad;
+
+    initGamepadSystem();
+
     Object.defineProperty(window, 'dungeonDepth', {
         get: () => dungeonDepth,
         set: (v) => setDungeonDepth(v)
@@ -730,7 +840,11 @@ function animate() {
     const rawDelta = (time - prevTime) / 1000;
     prevTime = time;
 
-    if (!alwaysRun && (!gameStarted || !controls.isLocked || document.hidden)) {
+    const instructionsEl = document.getElementById('instructions');
+    const isPaused = !gameStarted || (!controls.isLocked && !gamepadPlaying) || document.hidden || (instructionsEl && instructionsEl.style.display !== 'none');
+    const gpState = pollGamepad(rawDelta, isPaused, isFlyMode, playSound);
+
+    if (!alwaysRun && isPaused) {
         if (time - lastPausedRender >= PAUSED_RENDER_INTERVAL_MS) {
             lastPausedRender = time;
             renderer.render(scene, camera);
@@ -738,22 +852,107 @@ function animate() {
         return;
     }
 
+    if (gpState.pauseToggle) {
+        pauseGameSession();
+        return;
+    }
+
+    if (gpState.hasLook) {
+        applyGamepadLook(camera, rawDelta, gpState.lookX, gpState.lookY);
+    }
+    if (gpState.recenterPitch) {
+        recenterCameraPitch(camera);
+        triggerGamepadVibration(40, 0.2, 0.05);
+    }
+
+    if (gpState.jumpJustPressed) {
+        if (!isFlyMode) {
+            setJumpRequested(true);
+        }
+    }
+
+    if (gpState.attack) {
+        triggerWeaponAttack();
+    }
+
+    if (gpState.interact) {
+        openNearbyDoor();
+    }
+
+    if (gpState.cycleWeapon !== 0) {
+        cycleWeapon(gpState.cycleWeapon);
+    }
+
+    if (gpState.toggleGodMode) {
+        setIsInvincible(!isInvincible);
+        if (controls && controls.getObject()) {
+            const statusText = isInvincible ? 'GOD MODE: ON (INVINCIBLE)' : 'GOD MODE: OFF';
+            const statusColor = isInvincible ? '#22c55e' : '#ef4444';
+            createPickupFloatingText(statusText, controls.getObject().position, statusColor);
+        }
+        playSound('treasure.wav', 0.8);
+        triggerGamepadVibration(100, 0.4, 0.3);
+    }
+
+    if (gpState.toggleMusic) {
+        const enabled = toggleMusic();
+        const optMusicEl = document.getElementById('opt-music');
+        if (optMusicEl) optMusicEl.checked = enabled;
+        setStoredJson(GAME_OPTS_KEY, getSavedGameOptions());
+        const musicEl = hudEl('music-display');
+        if (musicEl) {
+            musicEl.textContent = enabled ? 'ON' : 'OFF';
+            musicEl.style.color = enabled ? '#00ff88' : '#ef4444';
+        }
+        if (controls && controls.getObject()) {
+            const text = enabled ? 'MUSIC: ON' : 'MUSIC: OFF';
+            const color = enabled ? '#22c55e' : '#ef4444';
+            createPickupFloatingText(text, controls.getObject().position, color);
+        }
+        if (enabled) {
+            startNextMusicTrack();
+        }
+        playSound('buttonselect111.wav', 0.5);
+    }
+
+    if (gpState.toggleNormalMaps) {
+        setNormalMapsEnabled(!normalMapsEnabled);
+        const optNmEl = document.getElementById('opt-normal-maps');
+        if (optNmEl) optNmEl.checked = normalMapsEnabled;
+        setStoredJson(GAME_OPTS_KEY, getSavedGameOptions());
+        const nmEl = hudEl('normalmap-display');
+        if (nmEl) {
+            nmEl.textContent = normalMapsEnabled ? 'ON' : 'OFF';
+            nmEl.style.color = normalMapsEnabled ? '#00ff88' : '#ef4444';
+        }
+        if (controls && controls.getObject()) {
+            const text = normalMapsEnabled ? 'NORMAL MAPS: ON' : 'NORMAL MAPS: OFF';
+            const color = normalMapsEnabled ? '#22c55e' : '#ef4444';
+            createPickupFloatingText(text, controls.getObject().position, color);
+        }
+        playSound('buttonselect111.wav', 0.5);
+    }
+
     updateAdaptiveResolution(rawDelta * 1000);
 
     let delta = rawDelta;
     if (delta > 0.1) delta = 0.1;
 
-    const moveSpeed = isSprinting ? 400.0 : 200.0;
+    const effectiveSprinting = isSprinting || Boolean(gpState.sprint);
+    const moveSpeed = effectiveSprinting ? 400.0 : 200.0;
 
     if (isFlyMode) {
         velocity.x *= Math.pow(0.01, delta);
         velocity.y *= Math.pow(0.01, delta);
         velocity.z *= Math.pow(0.01, delta);
 
+        const gpForward = -gpState.moveY;
+        const gpRight = gpState.moveX;
+
         direction.set(
-            Number(moveRight) - Number(moveLeft),
+            Number(moveRight) - Number(moveLeft) + gpRight,
             0,
-            Number(moveBackward) - Number(moveForward)
+            Number(moveBackward) - Number(moveForward) - gpForward
         );
 
         if (direction.lengthSq() > 0) {
@@ -765,10 +964,10 @@ function animate() {
             velocity.z += worldDir.z * moveSpeed * 8.0 * delta;
         }
 
-        if (moveUp) {
+        if (moveUp || gpState.flyUp) {
             velocity.y += moveSpeed * 8.0 * delta;
         }
-        if (moveDown) {
+        if (moveDown || gpState.flyDown) {
             velocity.y -= moveSpeed * 8.0 * delta;
         }
 
@@ -806,8 +1005,8 @@ function animate() {
             rightVector.set(1, 0, 0);
         }
 
-        const inputForward = Number(moveForward) - Number(moveBackward);
-        const inputRight = Number(moveRight) - Number(moveLeft);
+        const inputForward = (Number(moveForward) - Number(moveBackward)) + (-gpState.moveY);
+        const inputRight = (Number(moveRight) - Number(moveLeft)) + gpState.moveX;
 
         worldDir.set(0, 0, 0);
         if (inputForward !== 0) {
@@ -817,10 +1016,12 @@ function animate() {
             worldDir.addScaledVector(rightVector, inputRight);
         }
 
-        if (worldDir.lengthSq() > 0) {
+        const dirLen = worldDir.length();
+        if (dirLen > 0.001) {
+            const scale = Math.min(1.0, dirLen);
             worldDir.normalize();
-            velocity.x += worldDir.x * moveSpeed * 10.0 * delta;
-            velocity.z += worldDir.z * moveSpeed * 10.0 * delta;
+            velocity.x += worldDir.x * (moveSpeed * scale) * 10.0 * delta;
+            velocity.z += worldDir.z * (moveSpeed * scale) * 10.0 * delta;
         }
 
         const camPos = controls.getObject().position;
@@ -839,10 +1040,10 @@ function animate() {
         }
         setIsGrounded(grounded);
 
-        if (isGrounded && (moveForward || moveBackward || moveLeft || moveRight)) {
+        if (isGrounded && (moveForward || moveBackward || moveLeft || moveRight || dirLen > 0.1)) {
             const speedSq = velocity.x * velocity.x + velocity.z * velocity.z;
             if (speedSq > 400.0) {
-                let curFootstepTimer = footstepTimer + delta * (isSprinting ? 1.5 : 1.0);
+                let curFootstepTimer = footstepTimer + delta * (effectiveSprinting ? 1.5 : 1.0);
                 if (curFootstepTimer >= 0.38) {
                     curFootstepTimer = 0.0;
                     playSound('walk.wav', 0.18);
@@ -879,7 +1080,12 @@ function animate() {
         monsters[i].update(delta, playerPos, monsters);
     }
 
-    updatePlayerWeaponAnimation(delta, { moveForward, moveBackward, moveLeft, moveRight });
+    updatePlayerWeaponAnimation(delta, {
+        moveForward: moveForward || gpState.moveY < -0.1,
+        moveBackward: moveBackward || gpState.moveY > 0.1,
+        moveLeft: moveLeft || gpState.moveX < -0.1,
+        moveRight: moveRight || gpState.moveX > 0.1
+    });
 
     updateProjectiles(delta);
 
