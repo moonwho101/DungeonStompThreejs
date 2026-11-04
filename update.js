@@ -248,6 +248,9 @@ export function updatePickups(delta, playerPos) {
                 }
 
                 playPickupSound(isHealth);
+                if (window.triggerGamepadVibration) {
+                    window.triggerGamepadVibration(60, 0.35, 0.1);
+                }
                 createPickupFloatingText(popupLabel, pickup.position, colorCss);
                 createPickupParticleBurst(pickup.position, colorHex);
 

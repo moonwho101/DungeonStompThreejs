@@ -858,6 +858,9 @@ export class Monster {
 
             const xpGained = (this.config.maxHealth || 20) * 2;
             awardPlayerXp(xpGained);
+            if (window.triggerGamepadVibration && dist <= 600.0) {
+                window.triggerGamepadVibration(150, 0.7, 0.5);
+            }
         } else {
             this.setState(MonsterState.HURT);
             const pains = [this.config.animations.PAIN1, this.config.animations.PAIN2, this.config.animations.PAIN3];
@@ -867,6 +870,9 @@ export class Monster {
             const painSound = this.config.painSound || 'impact.wav';
             if (dist <= 1200.0) {
                 playSound(painSound, volume);
+            }
+            if (window.triggerGamepadVibration && dist <= 600.0) {
+                window.triggerGamepadVibration(110, 0.6, 0.35);
             }
         }
     }
@@ -901,6 +907,10 @@ export function damagePlayer(amount) {
     flashScreen(FLASH_RED, 0.6, 150);
     updatePlayerHud();
 
+    if (window.triggerGamepadVibration) {
+        window.triggerGamepadVibration(220, 0.5, 0.85);
+    }
+
     if (playerStats.health <= 0) {
         killPlayer();
     }
@@ -912,6 +922,9 @@ export function killPlayer() {
     playSound('die.wav', 0.8);
     const deathEl = hudEl('death-screen');
     if (deathEl) deathEl.style.display = 'flex';
+    if (window.triggerGamepadVibration) {
+        window.triggerGamepadVibration(500, 0.8, 1.0);
+    }
 }
 
 export function respawnPlayer() {
@@ -1382,6 +1395,10 @@ export function triggerWeaponAttack() {
     playerWeaponAnimTimer = 0.0;
     playerWeaponCurrentAnim = MD2_ANIMATIONS.ATTACK;
 
+    if (window.triggerGamepadVibration) {
+        window.triggerGamepadVibration(90, 0.35, 0.2);
+    }
+
     if (gunName === 'MAGIC MISSILE') {
         hasWeaponHitThisSwing = true;
         playSound('spell1.wav', 0.7);
@@ -1618,6 +1635,15 @@ export function launchMonsterProjectile(monster, type, targetPos) {
 export function triggerSpellExplosion(pos, type, damage, aoeRadius, colorHex) {
     const explosionSound = (type === 'FIREBALL') ? 'explod1.wav' : 'explod2.wav';
     playSound(explosionSound, 0.85);
+
+    if (window.triggerGamepadVibration && window.controls && window.controls.getObject()) {
+        const playerPos = window.controls.getObject().position;
+        const dist = pos.distanceTo(playerPos);
+        if (dist <= 600.0) {
+            const intensity = Math.max(0.2, 1.0 - (dist / 600.0));
+            window.triggerGamepadVibration(180, 0.4 * intensity, 0.7 * intensity);
+        }
+    }
 
     const particleCount = (type === 'FIREBALL') ? 60 : 40;
     for (let i = 0; i < particleCount; i++) {
@@ -2037,7 +2063,8 @@ export async function openChest(chest, restoring = false) {
 }
 
 export function openNearbyDoor() {
-    if (controls && !controls.isLocked) return;
+    const isPlaying = (controls && controls.isLocked) || window.gamepadPlaying || new URLSearchParams(window.location.search).has('run');
+    if (!isPlaying) return;
     const playerPos = controls.getObject().position;
     const INTERACTION_DISTANCE = 250.0;
     const INTERACTION_DIST_SQ = INTERACTION_DISTANCE * INTERACTION_DISTANCE;
@@ -2056,6 +2083,9 @@ export function openNearbyDoor() {
 
     if (nearestDoor) {
         nearestDoor.isOpening = true;
+        if (window.triggerGamepadVibration) {
+            window.triggerGamepadVibration(90, 0.2, 0.35);
+        }
     }
 
     let nearestChest = null;
@@ -2072,6 +2102,9 @@ export function openNearbyDoor() {
 
     if (nearestChest) {
         openChest(nearestChest);
+        if (window.triggerGamepadVibration) {
+            window.triggerGamepadVibration(100, 0.25, 0.4);
+        }
     }
 }
 
