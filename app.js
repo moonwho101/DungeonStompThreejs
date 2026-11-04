@@ -169,6 +169,7 @@ async function init() {
     const genSeedInput = document.getElementById('gen-seed');
 
     const menuBtnOptionsBack = document.getElementById('menu-btn-options-back');
+    const menuBtnFullscreen = document.getElementById('menu-btn-fullscreen');
     const optNormalMaps = document.getElementById('opt-normal-maps');
     const optMusic = document.getElementById('opt-music');
     const optVibration = document.getElementById('opt-vibration');
@@ -207,6 +208,7 @@ async function init() {
         if (menuViewGenerator) menuViewGenerator.style.display = (view === 'generator') ? 'block' : 'none';
         if (menuViewOptions) menuViewOptions.style.display = (view === 'options') ? 'block' : 'none';
         if (menuStatus) menuStatus.textContent = '';
+        if (view === 'options') updateFullscreenButton();
     }
 
     // Pointer lock must be requested straight from the click handler, so it comes before anything
@@ -471,6 +473,50 @@ async function init() {
         });
     }
 
+    function isFullscreenActive() {
+        return Boolean(
+            document.fullscreenElement ||
+            document.webkitFullscreenElement ||
+            document.mozFullScreenElement ||
+            document.msFullscreenElement
+        );
+    }
+
+    function updateFullscreenButton() {
+        if (!menuBtnFullscreen) return;
+        menuBtnFullscreen.textContent = isFullscreenActive() ? 'Exit Fullscreen' : 'Toggle Fullscreen';
+    }
+
+    async function toggleFullscreen() {
+        try {
+            if (isFullscreenActive()) {
+                if (document.exitFullscreen) {
+                    await document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    await document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    await document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    await document.msExitFullscreen();
+                }
+            } else {
+                const root = document.documentElement;
+                if (root.requestFullscreen) {
+                    await root.requestFullscreen();
+                } else if (root.webkitRequestFullscreen) {
+                    await root.webkitRequestFullscreen();
+                } else if (root.mozRequestFullScreen) {
+                    await root.mozRequestFullScreen();
+                } else if (root.msRequestFullscreen) {
+                    await root.msRequestFullscreen();
+                }
+            }
+        } catch (err) {
+            console.warn('Fullscreen toggle failed:', err);
+        }
+        updateFullscreenButton();
+    }
+
     if (menuBtnOptions) {
         menuBtnOptions.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -484,8 +530,22 @@ async function init() {
                 optControllerSens.value = String(getGamepadSensitivity());
                 if (optControllerSensVal) optControllerSensVal.textContent = Number(getGamepadSensitivity()).toFixed(1);
             }
+            updateFullscreenButton();
         });
     }
+
+    if (menuBtnFullscreen) {
+        menuBtnFullscreen.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            playSound('buttonselect111.wav', 0.5);
+            await toggleFullscreen();
+        });
+        updateFullscreenButton();
+    }
+
+    ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach((evt) => {
+        document.addEventListener(evt, updateFullscreenButton);
+    });
 
     if (menuBtnOptionsBack) {
         menuBtnOptionsBack.addEventListener('click', (e) => {
