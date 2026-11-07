@@ -17,3 +17,7 @@ packages/
 
 
 
+.godot/
+*.import
+*.uid
+build/
