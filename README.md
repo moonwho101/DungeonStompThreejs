@@ -29,16 +29,13 @@ Swing a flaming sword, hurl fireballs, cast lightning, and stomp through endless
 
 ## 🚀 Godot 4.7.2 Windows Engine
 
-The project features a full native Godot 4.7.2 conversion targeting **Windows Desktop (x86_64)**:
+The project features a full native Godot 4.7.2 port of the Three.js game targeting **Windows Desktop (x86_64)**. It loads the same data files at runtime and plays the same way:
 
-- **Godot 4.7.2 Project Architecture:** Standard Godot 4 configuration with Forward+ rendering pipeline.
-- **Dynamic Procedural Generation:** Generates multi-room dungeons with interconnected corridors, exit portals, lights, and monster encounters (`scripts/generator.gd`).
-- **Binary & Text Asset Parsers:** Complete GDScript parsers for `textures.dat`, `ObjectsAll.dat` (3D geometry and UV coordinates), and `.map` level definitions (`scripts/parsers.gd`).
-- **3D Capsule Physics & Collision:** Fast spatial hashing grid, capsule-triangle collision resolution, and line-of-sight checks (`scripts/collision.gd`).
-- **First-Person Player Controller:** Dual-axis mouse look, sprint, jumping, weapon switching, and spellcasting (`scripts/player.gd`).
-- **Monster State Machine:** Autonomous enemy AI with IDLE, ALERT, CHASE, ATTACK, HURT, and DEATH states (`scripts/monster.gd`).
-- **Circular Minimap & HUD:** Real-time minimap with player orientation, nearby geometry, and monsters, plus health and level progression HUD (`scripts/minimap.gd`, `scenes/hud.tscn`).
-- **Standalone Windows Build:** Configured with `export_presets.cfg` for Windows Desktop export into `build/windows/DungeonStomp.exe`.
+- **Same levels and data:** `bin/level1.map`, `Objects.dat`, `modellist.dat` and `textures.dat` are parsed at runtime (`scripts/parsers.gd`); MD2 monsters/weapons (`scripts/md2.gd`, GPU vertex-animation blending) and 3DS models (`scripts/tds.gd`) are loaded directly from `Assets/`.
+- **Identical dungeon generator:** `scripts/generator.gd` is a port of `generator.js` using the same seeded RNG, so a seed produces the same dungeon in both versions.
+- **Same physics and combat:** capsule collision, monster AI/spells, weapons, projectiles, pickups, doors, chests, exit portals and depth scaling (`scripts/collision.gd`, `scripts/monster.gd`, `scripts/game.gd`).
+- **Same look:** Lambert/Phong materials matching three.js lighting, normal maps, flickering lamp glare, particles, blood, fog (`scripts/materials.gd`, `scripts/effects.gd`).
+- **Same UI:** HUD, minimap, menus (New Game / Resume / Generator / Options), gamepad support and saved runs in `user://` (`scripts/ui.gd`, `scripts/minimap.gd`, `scripts/gamepad.gd`).
 
 ### Running in Godot 4.7.2
 
@@ -55,7 +52,7 @@ mkdir -p build/windows
 godot --headless --path . --export-debug "Windows Desktop" build/windows/DungeonStomp.exe
 ```
 
-The resulting standalone executable `build/windows/DungeonStomp.exe` includes all necessary scripts, scenes, and asset resources embedded in the binary PCK.
+The game data folders (`Assets/`, `bin/`, `Sounds/`, `Midi/`) are excluded from Godot's importer (`.gdignore`) and read at runtime, so copy them next to the exported `DungeonStomp.exe`.
 
 ### Running Automated Godot Tests
 

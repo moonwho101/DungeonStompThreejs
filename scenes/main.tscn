@@ -1,18 +1,6 @@
 [gd_scene format=3 uid="uid://c4n7b3ebpyw76"]
 
-[ext_resource type="Script" uid="uid://drn0q64cmimk8" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_game"]
 
-[sub_resource type="Environment" id="Environment_1"]
-background_mode = 1
-background_color = Color(0.02, 0.02, 0.03, 1)
-ambient_light_source = 2
-ambient_light_color = Color(0.2, 0.22, 0.28, 1)
-ambient_light_energy = 0.6
-
-[node name="Main" type="Node3D" unique_id=686448292]
-script = ExtResource("1_main")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1090700620]
-environment = SubResource("Environment_1")
-
-[node name="DungeonRoot" type="Node3D" parent="." unique_id=1774750542]
+[node name="Main" type="Node3D"]
+script = ExtResource("1_game")

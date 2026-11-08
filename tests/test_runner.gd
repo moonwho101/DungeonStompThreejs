@@ -1,68 +1,75 @@
+# Headless test suite: godot --headless --path . -s res://tests/test_runner.gd
 extends SceneTree
 
-const Parsers = preload("res://scripts/parsers.gd")
-const DungeonGenerator = preload("res://scripts/generator.gd")
-const CollisionSystem = preload("res://scripts/collision.gd")
-const PlayerClass = preload("res://scripts/player.gd")
-const MonsterClass = preload("res://scripts/monster.gd")
+var _failures := 0
 
-func _init():
-    print("========================================")
-    print("RUNNING DUNGEON STOMP GODOT 4.7.2 TEST SUITE")
-    print("========================================")
 
-    # 1. Parsers Test
-    print("[1/4] Testing Parsers...")
-    var tex_mgr = Parsers.TextureManager.new()
-    tex_mgr.load_textures_dat("bin/textures.dat")
-    assert(tex_mgr.aliases.size() > 0, "Textures dat aliases empty!")
-    print("  -> Textures aliases loaded:", tex_mgr.aliases.size())
+func check(cond: bool, msg: String) -> void:
+	if cond:
+		print("  ok   ", msg)
+	else:
+		_failures += 1
+		printerr("  FAIL ", msg)
 
-    var obj_parser = Parsers.ObjectsDatParser.new()
-    var objs = obj_parser.parse("bin/ObjectsAll.dat")
-    assert(objs.size() > 0, "Objects dat parsed 0 definitions!")
-    print("  -> Objects definitions parsed:", objs.size())
 
-    # 2. Generator Test
-    print("[2/4] Testing Dungeon Generator...")
-    var level_text = DungeonGenerator.generate_dungeon(20, 20, 6, 12345)
-    var map_parser = Parsers.LevelMapParser.new()
-    var parsed = map_parser.parse_text(level_text)
-    assert(parsed and map_parser.instances.size() > 0, "Level map parsing failed!")
-    print("  -> Dungeon instances generated:", map_parser.instances.size())
+func _init() -> void:
+	print("Dungeon Stomp Godot tests")
 
-    # 3. Collision Test
-    print("[3/4] Testing Collision System...")
-    var col = CollisionSystem.new()
-    col.add_triangle(Vector3(0, 0, 0), Vector3(400, 0, 0), Vector3(400, 0, 400))
-    col.add_triangle(Vector3(0, 0, 0), Vector3(400, 0, 400), Vector3(0, 0, 400))
-    col.build_grid()
+	var tm := Parsers.TextureManager.new()
+	tm.load_textures_dat("bin/textures.dat")
+	check(tm.aliases.size() > 100, "textures.dat aliases loaded (%d)" % tm.aliases.size())
 
-    var falling_pos = Vector3(200, 80, 200)
-    var vel = Vector3(0, -200, 0)
-    var res = col.resolve_capsule(falling_pos, CollisionSystem.CAPSULE_RADIUS, CollisionSystem.CAPSULE_HEIGHT, vel, CollisionSystem.EYE_HEIGHT)
-    assert(res.grounded, "Capsule collision should ground on floor!")
-    print("  -> Grounded collision resolved at pos:", res.position)
+	var objs := Parsers.ObjectsDatParser.new()
+	objs.parse("bin/Objects.dat")
+	check(objs.objects.size() > 100, "Objects.dat definitions parsed (%d)" % objs.objects.size())
+	var corridor: Parsers.ObjectDef = null
+	for id in objs.objects:
+		if objs.objects[id].name.to_lower() == "corridor01":
+			corridor = objs.objects[id]
+			break
+	var tri_count := 0
+	if corridor != null:
+		for p: Parsers.ObjectPoly in corridor.polys:
+			tri_count += p.verts.size() / 15
+	check(tri_count == 96, "CORRIDOR01 has 96 triangles (%d)" % tri_count)
 
-    # 4. Entities & Combat Test
-    print("[4/4] Testing Entities & Combat...")
-    var player = PlayerClass.new()
-    player.position = Vector3(0, 100, 0)
-    assert(player.get_current_weapon_name() == "Axe", "Default weapon mismatch")
-    player.cycle_weapon(1)
-    assert(player.get_current_weapon_name() == "Flamesword", "Cycled weapon mismatch")
-    player.take_damage(25)
-    assert(player.hp == 75, "Player HP calculation mismatch")
+	var models := Parsers.ModelListParser.new()
+	models.parse("bin/modellist.dat")
+	var goblin := models.get_model_by_name("GOBLIN")
+	check(goblin != null and goblin.is_md2() and goblin.monster_weapon == "GOBLINAXE", "modellist GOBLIN entry")
 
-    var monster = MonsterClass.new()
-    monster.position = Vector3(0, 50, 80)
-    monster.update_ai(0.1, player.position)
-    assert(monster.state != MonsterClass.State.IDLE, "Monster should alert or chase player")
-    monster.take_damage(100)
-    assert(monster.state == MonsterClass.State.DEATH, "Monster should be dead")
-    print("  -> Player & Monster combat cycle verified successfully.")
+	var level := Parsers.LevelMapParser.new()
+	level.parse_file("bin/level1.map")
+	check(level.instances.size() == 1991, "level1.map instances (%d)" % level.instances.size())
+	check(level.start_pos == Vector3(5200, 128, 2600), "level1.map start position")
 
-    print("========================================")
-    print("ALL TESTS PASSED SUCCESSFULLY! (4/4)")
-    print("========================================")
-    quit(0)
+	var a := DungeonGenerator.generate({"numObjectsToPlace": 150, "seed": "test-seed"})
+	var b := DungeonGenerator.generate({"numObjectsToPlace": 150, "seed": "test-seed"})
+	check(a != "" and a == b, "seeded generator is deterministic")
+	check(a.contains("spiral") and a.begins_with("OBJECT startpos"), "generated map has start and exit portal")
+	check(DungeonGenerator.imul(0xFFFFFFFF, 5) == 0xFFFFFFFB, "imul matches Math.imul")
+
+	var cw := CollisionWorld.new()
+	cw.add_triangle(Vector3(0, 0, 0), Vector3(0, 0, 500), Vector3(500, 0, 500))
+	cw.add_triangle(Vector3(0, 0, 0), Vector3(500, 0, 500), Vector3(500, 0, 0))
+	cw.build_grid()
+	var grounded := cw.resolve_capsule_world(Vector3(250, 80, 250), CollisionWorld.EYE_HEIGHT, CollisionWorld.CAPSULE_RADIUS,
+		CollisionWorld.CAPSULE_HEIGHT, Vector3(0, -100, 0), true, null, [], false, Vector3.ZERO)
+	check(grounded and absf(cw.out_pos.y - 100.0) < 1.0, "capsule lands on floor (y=%.2f)" % cw.out_pos.y)
+	check(cw.out_vel.y >= 0.0, "downward velocity removed on landing")
+	check(cw.has_line_of_sight(Vector3(100, 100, 100), Vector3(400, 100, 400)), "line of sight in open air")
+	check(not cw.has_line_of_sight(Vector3(250, 50, 250), Vector3(250, -50, 250)), "floor blocks line of sight")
+
+	var md2 := MD2Model.load_for_def(goblin)
+	check(md2 != null and md2.frame_count >= 198, "goblin.md2 loads with all frames")
+	var chest := TDSModel.load_for_def(models.get_model_by_name("cdoorclosedchest"))
+	check(chest != null and chest.has_geometry, "chest .3ds loads")
+
+	var wav := AudioManager.load_wav(FileAccess.get_file_as_bytes(DataPaths.path("Sounds/swish8.wav")))
+	check(wav != null and wav.data.size() > 0, "IMA-ADPCM wav decodes")
+	TDSModel.clear_cache()
+	MD2Model.clear_cache()
+	Materials.clear_caches()
+
+	print("FAILED: %d" % _failures if _failures > 0 else "ALL TESTS PASSED")
+	quit(1 if _failures > 0 else 0)
