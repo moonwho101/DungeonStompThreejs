@@ -30,7 +30,7 @@ func _ready():
 	tex_manager.load_textures_dat("bin/textures.dat")
 
 	obj_parser = Parsers.ObjectsDatParser.new()
-	obj_parser.parse("bin/ObjectsAll.dat")
+	obj_parser.parse("bin/Objects.dat")
 
 	collision_system = CollisionSystem.new()
 
