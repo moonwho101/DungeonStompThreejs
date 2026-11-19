@@ -17,8 +17,11 @@ import {
 } from './render.js';
 import {
     hasLineOfSight, levelTriangles, modelBoxes, makeCollisionTriangle,
-    computeTriangleBounds, buildCollisionGrid, resolveMonsterCapsuleCollisions, velocity
+    computeTriangleBounds, buildCollisionGrid, resolveMonsterCapsuleCollisions, velocity,
+    GRAVITY, MONSTER_CAPSULE_RADIUS
 } from './collision.js';
+
+const MONSTER_MAX_MOVE_STEP = MONSTER_CAPSULE_RADIUS * 0.5;
 import { MonsterState, monsters, doors } from './gameState.js';
 
 // Parsers & Loaders
@@ -402,10 +405,25 @@ export class Monster {
         }
 
         const speed = this.config.moveSpeed * 0.65;
-        this.position.x += moveX * speed * dt;
-        this.position.z += moveZ * speed * dt;
+        this.moveWithCollision(moveX * speed * dt, moveZ * speed * dt, otherMonsters, playerPos);
+    }
 
-        resolveMonsterCapsuleCollisions(this, otherMonsters, playerPos);
+    // Sub-steps horizontal motion like the player does, so low frame rates can't tunnel
+    // the capsule through walls or push it out the far side of a box.
+    moveWithCollision(moveX, moveZ, otherMonsters, playerPos) {
+        const dist = Math.sqrt(moveX * moveX + moveZ * moveZ);
+        if (dist < 1e-6) return;
+        const steps = Math.min(16, Math.max(1, Math.ceil(dist / MONSTER_MAX_MOVE_STEP)));
+        const stepX = moveX / steps;
+        const stepZ = moveZ / steps;
+        let grounded = this.isGrounded;
+        for (let s = 0; s < steps; s++) {
+            this.position.x += stepX;
+            this.position.z += stepZ;
+            resolveMonsterCapsuleCollisions(this, otherMonsters, playerPos);
+            grounded = grounded || this.isGrounded;
+        }
+        this.isGrounded = grounded;
     }
 
     playMonsterNoise(distToPlayer) {
@@ -579,12 +597,14 @@ export class Monster {
         }
 
         const maxSubStep = 12.0;
-        const estDy = Math.abs(this.velocity.y * dt);
-        const subSteps = Math.max(1, Math.ceil(estDy / maxSubStep));
+        // Include this frame's gravity in the estimate, otherwise a grounded monster always takes
+        // a single step and sinks deep into the floor when the frame rate drops.
+        const estDy = (Math.abs(this.velocity.y) + GRAVITY * dt) * dt;
+        const subSteps = Math.min(16, Math.max(1, Math.ceil(estDy / maxSubStep)));
         const subDt = dt / subSteps;
 
         for (let s = 0; s < subSteps; s++) {
-            this.velocity.y -= 1600.0 * subDt;
+            this.velocity.y -= GRAVITY * subDt;
             this.position.y += this.velocity.y * subDt;
             resolveMonsterCapsuleCollisions(this);
             if (this.isGrounded) break;
@@ -826,10 +846,7 @@ export class Monster {
 
     moveForward(dt, otherMonsters, playerPos) {
         const moveDist = this.config.moveSpeed * dt;
-        this.position.x += Math.sin(this.rotationY) * moveDist;
-        this.position.z += Math.cos(this.rotationY) * moveDist;
-
-        resolveMonsterCapsuleCollisions(this, otherMonsters, playerPos);
+        this.moveWithCollision(Math.sin(this.rotationY) * moveDist, Math.cos(this.rotationY) * moveDist, otherMonsters, playerPos);
     }
 
     takeDamage(damage) {
